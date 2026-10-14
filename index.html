@@ -126,7 +126,7 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 const FIREBASE_URL="https://wedding-tracker-f7ddc-default-rtdb.firebaseio.com";
 window.storage=(function(){const B=()=>FIREBASE_URL.replace(/\/$/,'')+'/wedding-ledger';
 const u=k=>B()+'/'+encodeURIComponent(k)+'.json';
-const chk=r=>{if(!r.ok)throw new Error('DB '+r.status);return r};
+const chk=async r=>{if(!r.ok)throw new Error('DB '+r.status);return r};
 return{
 get:async k=>{const v=await chk(await fetch(u(k))).then(r=>r.json());return v==null?null:{key:k,value:v}},
 set:async(k,v)=>{await chk(await fetch(u(k),{method:'PUT',body:JSON.stringify(String(v))}));return{key:k,value:v}},
