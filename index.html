@@ -91,6 +91,7 @@ label{display:block;margin-top:14px;font-size:11px;font-weight:800;letter-spacin
 body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,textarea{transition:background-color .35s,color .35s,border-color .35s}
 .lg{width:60px;height:60px;border-radius:20px;background:radial-gradient(circle at 30% 20%,#2e2e33,#0b0b0d);border:1px solid rgba(245,208,122,.5);box-shadow:0 8px 20px rgba(0,0,0,.28)}.lg::after{display:none}.lg svg{width:46px;height:32px;stroke-linecap:butt}.lg text{stroke:none;fill:#FFE9B0;font:700 14px 'Playfair Display',Georgia,serif}
 .tbs{display:flex;gap:8px;align-items:center}
+.lgn{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}.lgc{width:100%;max-width:360px;background:var(--card);border-radius:28px;padding:26px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}.lgc input{text-align:left}
 </style></head><body><div class="w">
 <header class="tp hd2"><i class="r1"></i><i class="r2"></i><div class="row"><span class="m" id="sy">…</span><div class="tbs"><button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button><button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button></div></div><div class="ey">THE WEDDING OF</div><h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1><div class="orn"><u></u><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:none;fill:#FFE2A8"><g><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/></g><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div><div class="wd" id="wd">Set your wedding date in settings</div><div class="cdp" id="cd">Wedding ledger</div></header>
 <section id="v-home"><div class="c1"><div class="hero"><div class="l">Remaining</div><div class="big" id="hR">₹0</div><div class="bar"><b id="hBar" style="width:0"></b></div><div class="hs"><div><small>Budget</small><b id="hB">—</b></div><div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div></div></div>
@@ -117,21 +118,30 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 <div class="ov" id="mD" onclick="if(event.target==this)cl('mD')"><div class="sh"><div class="shh"><span class="l">Payment</span><button class="ib" onclick="cl('mD')" data-i="x"></button></div><div id="dB"></div></div></div>
 <div class="ov" id="mS" onclick="if(event.target==this)cl('mS')"><div class="sh"><div class="shh"><b>Settings</b><button class="ib" onclick="cl('mS')" data-i="x"></button></div>
 <label>Total wedding budget (₹)</label><input id="sT" type="number" inputmode="numeric"><label>Wedding date</label><input id="sD" type="date">
-<button class="bt a" style="width:100%;margin-top:14px" onclick="setB()">Save</button><label style="margin-top:24px">Appearance</label><div class="sg" id="tg"><button data-v="light" onclick="setTheme('light')">☀️ Light</button><button data-v="dark" onclick="setTheme('dark')">🌙 Dark</button></div><label style="margin-top:24px">Data</label>
+<button class="bt a" style="width:100%;margin-top:14px" onclick="setB()">Save</button><button class="bt s" style="width:100%;margin-top:8px" onclick="AUTH&&AUTH.signOut()">Sign out</button><label style="margin-top:24px">Appearance</label><div class="sg" id="tg"><button data-v="light" onclick="setTheme('light')">☀️ Light</button><button data-v="dark" onclick="setTheme('dark')">🌙 Dark</button></div><label style="margin-top:24px">Data</label>
 <div class="g2"><button class="bt s" onclick="xl()">Excel</button><button class="bt s" onclick="bk()">Backup</button><button class="bt s" onclick="$('rf').click()">Restore</button><button class="bt d" id="rsB" onclick="rsc()">Reset all data</button></div><input type="file" id="rf" accept=".json" hidden onchange="rs(event)"></div></div>
 <div class="ov" id="mH" onclick="if(event.target==this)cl('mH')"><div class="sh"><div class="shh"><b>Share summary</b><button class="ib" onclick="cl('mH')" data-i="x"></button></div><textarea id="shT" readonly rows="6"></textarea><div class="g2"><a class="bt a" id="shW" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="bt s" onclick="cpy()">Copy text</button></div></div></div>
 <div class="ov" id="mC" onclick="if(event.target==this)cl('mC')"><div class="sh"><div class="shh"><b>Filter by category</b><button class="ib" onclick="cl('mC')" data-i="x"></button></div><div class="cl" id="cl"></div></div></div>
 <div class="ov" id="mR" onclick="cl('mR')"><div class="sh"><div class="shh"><b>Receipt</b><button class="ib" data-i="x"></button></div><img id="rim" style="max-width:100%;border-radius:14px;margin-top:10px"></div></div>
+<div id="lg" class="lgn"><div class="lgc"><div class="ey">THE WEDDING OF</div><h1 class="nm" style="font-size:30px">Swetha <em>&amp;</em> Kalyan</h1><p class="m" style="margin:8px 0 18px">Sign in to view and edit the wedding ledger</p>
+<button class="bt s" style="width:100%" onclick="doGoogle()">Continue with Google</button><div class="m" style="margin:14px 0 4px">or use email</div>
+<input id="lE" type="email" autocomplete="email" placeholder="Email"><input id="lP" type="password" autocomplete="current-password" placeholder="Password">
+<button class="bt a" style="width:100%;margin-top:12px" onclick="doEmail(0)">Sign in</button><button class="bt s" style="width:100%;margin-top:8px" onclick="doEmail(1)">Create account</button><button class="dn" style="margin-top:10px" onclick="doReset2()">Forgot password?</button><div id="lM" class="m" style="margin-top:12px;color:var(--bad)"></div></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
 const FIREBASE_URL="https://wedding-tracker-f7ddc-default-rtdb.firebaseio.com";
+const firebaseConfig={apiKey:"AIzaSyB8V4TqZPGUhpdOYfri6LzYt6CfVJeBV9g",authDomain:"wedding-tracker-f7ddc.firebaseapp.com",projectId:"wedding-tracker-f7ddc",appId:"1:796838282672:web:cc3f521406f086db718275"};
+let AUTH=null;try{firebase.initializeApp(firebaseConfig);AUTH=firebase.auth()}catch(e){}
+const tok=async()=>{const u=AUTH&&AUTH.currentUser;if(!u)throw new Error('Not signed in');return u.getIdToken()};
 window.storage=(function(){const B=()=>FIREBASE_URL.replace(/\/$/,'')+'/wedding-ledger';
-const u=k=>B()+'/'+encodeURIComponent(k)+'.json';
 const chk=async r=>{if(!r.ok)throw new Error('DB '+r.status);return r};
+const u=async k=>B()+'/'+encodeURIComponent(k)+'.json?auth='+(await tok());
 return{
-get:async k=>{const v=await chk(await fetch(u(k))).then(r=>r.json());return v==null?null:{key:k,value:v}},
-set:async(k,v)=>{await chk(await fetch(u(k),{method:'PUT',body:JSON.stringify(String(v))}));return{key:k,value:v}},
-delete:async k=>{await chk(await fetch(u(k),{method:'DELETE'}));return{key:k,deleted:true}},
-list:async pre=>{const o=await chk(await fetch(B()+'.json?shallow=true')).then(r=>r.json())||{};return{keys:Object.keys(o).filter(k=>k.startsWith(pre||''))}}}})();
+get:async k=>{const v=await (await chk(await fetch(await u(k)))).json();return v==null?null:{key:k,value:v}},
+set:async(k,v)=>{await chk(await fetch(await u(k),{method:'PUT',body:JSON.stringify(String(v))}));return{key:k,value:v}},
+delete:async k=>{await chk(await fetch(await u(k),{method:'DELETE'}));return{key:k,deleted:true}},
+list:async pre=>{const o=await (await chk(await fetch(B()+'.json?shallow=true&auth='+(await tok())))).json()||{};return{keys:Object.keys(o).filter(k=>k.startsWith(pre||''))}}}})();
 </script>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -267,11 +277,21 @@ document.addEventListener('click',e=>{const a=document.activeElement;if(a&&/^(IN
 $('cg').innerHTML=CK.map((c,i)=>`<button onclick="cs(${i})"><span>${CATS[c]}</span>${SH[i]}</button>`).join('');$('fF').innerHTML=FN.map(x=>`<option>${x}</option>`).join('');$('fM').innerHTML=MO.map(x=>`<option>${x}</option>`).join('');
 {let t='light';try{t=localStorage.getItem('wl-theme')||'light'}catch(e){}setTheme(t)}
 icons();reset();go('home');
-(async()=>{try{db=await claude.use('db')}catch(e){}
+window.startApp=async()=>{try{db=await claude.use('db')}catch(e){}
  if(!db){try{if(window.storage&&window.storage.get)db=storageDb()}catch(e){}}
  if(!db){ss('Not connected');return}
  try{const u=await claude.use('user');if(u&&u.can&&(await u.can('data.write'))===false){canW=false;ss('View only')}}catch(e){}
  if(db._s)await migrateOld();
  db.doc('meta/budget').onSnapshot(s=>{const d=s.exists?s.data():{};S.total=d.total||0;S.cat=d.cat||{};S.date=d.date||'';render()},err);
- db.collection('exp').onSnapshot(s=>{S.exp=s.docs.map(d=>({id:d.id,...d.data()}));ss('Live');render()},err)})();
-</script></body></html>
+ db.collection('exp').onSnapshot(s=>{S.exp=s.docs.map(d=>({id:d.id,...d.data()}));ss('Live');render()},err)};
+</script><script>
+let started=false;const lm=t=>{$('lM').textContent=t||''};
+const em={'auth/invalid-credential':'Wrong email or password.','auth/invalid-email':'Enter a valid email.','auth/email-already-in-use':'That email already has an account — tap Sign in.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'','auth/network-request-failed':'No internet connection.'};
+const fail=e=>lm(em[e.code]!==undefined?em[e.code]:(e.message||'Something went wrong.'));
+async function doGoogle(){lm('');try{await AUTH.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){fail(e)}}
+async function doEmail(n){lm('');const a=$('lE').value.trim(),p=$('lP').value;if(!a||!p)return lm('Enter email and password.');try{n?await AUTH.createUserWithEmailAndPassword(a,p):await AUTH.signInWithEmailAndPassword(a,p)}catch(e){fail(e)}}
+async function doReset2(){const a=$('lE').value.trim();if(!a)return lm('Type your email first.');try{await AUTH.sendPasswordResetEmail(a);lm('Password reset email sent.')}catch(e){fail(e)}}
+if(!AUTH||firebaseConfig.apiKey.startsWith('PASTE')){lm('Setup needed: add your Firebase apiKey and appId in the file.')}
+else AUTH.onAuthStateChanged(u=>{if(u){$('lg').style.display='none';if(!started){started=true;startApp()}}else{if(started)return location.reload();$('lg').style.display='flex'}});
+</script>
+</body></html>
