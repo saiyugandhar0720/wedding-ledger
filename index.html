@@ -93,6 +93,9 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 .tbs{display:flex;gap:8px;align-items:center}
 .lgn{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}.lgc{width:100%;max-width:360px;background:var(--card);border-radius:28px;padding:26px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}.lgc input{text-align:left}
 .bt.ap{background:#000!important;color:#fff!important}
+.vc .acts{margin-top:12px}.vc .acts>*{flex:1 1 calc(50% - 8px);padding:11px 8px;font-size:13px}.vc{cursor:pointer}.vb{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.04em;border-radius:99px;padding:3px 8px}
+@media(min-width:960px){#v-ven .vl{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}#v-ven .vl .ir{margin-top:0}#v-gift,#v-ven{max-width:none}}
+svg.qrs{width:240px;height:240px;stroke:none;fill:#111}svg.qrs path{fill:#111;stroke:none}
 </style></head><body><div class="w">
 <header class="tp hd2"><i class="r1"></i><i class="r2"></i><div class="row"><span class="m" id="sy">…</span><div class="tbs"><button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button><button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button></div></div><div class="ey">THE WEDDING OF</div><h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1><div class="orn"><u></u><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:none;fill:#FFE2A8"><g><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/></g><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div><div class="wd" id="wd">Set your wedding date in settings</div><div class="cdp" id="cd">Wedding ledger</div></header>
 <section id="v-home"><div class="c1"><div class="hero"><div class="l">Remaining</div><div class="big" id="hR">₹0</div><div class="bar"><b id="hBar" style="width:0"></b></div><div class="hs"><div><small>Budget</small><b id="hB">—</b></div><div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div></div></div>
@@ -101,10 +104,12 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 <div class="sh2"><b>Where the money went</b></div><div id="hc"></div>
 </div><div class="c2"><div class="sh2"><b>At a glance</b></div><div id="hi"></div><div class="sh2"><b>Recent</b><a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc)">See all</a></div><div id="rec"></div></div></section>
 <section id="v-pay" hidden><div class="pc1"><div class="sh2"><b style="font-size:24px">Payments</b></div><div class="sr"><span data-i="search"></span><input id="qi" placeholder="Search vendor, item, phone" oninput="qs=this.value.toLowerCase();pay()"></div><div class="chs" id="stc"></div><div class="chs" id="cc"></div><div id="payL"></div></div><aside class="pc2" id="pSide"></aside></section>
+<section id="v-ven" hidden><div class="sh2" style="align-items:center"><b style="font-size:24px">Vendors</b><button class="bt a" style="padding:11px 16px" onclick="openV()">+ Add vendor</button></div><div id="vSum"></div><div class="chs" id="vCh"></div><div class="vl" id="vL" style="margin-top:12px"></div></section>
+<section id="v-gift" hidden><div class="sh2" style="align-items:center"><b style="font-size:24px">Gifts</b><button class="bt a" style="padding:11px 16px" onclick="openG()">+ Add gift</button></div><div id="gSum"></div><div class="chs" id="gCh"></div><div id="gL" style="margin-top:12px"></div></section>
 <section id="v-acc" hidden style="max-width:520px"><div class="sh2"><b style="font-size:24px">Account</b></div><div id="accB"></div></section>
 <section id="v-ins" hidden><div class="sh2"><b style="font-size:24px">Insights</b></div><div class="ic1"><div class="mon" id="mon"></div><div id="insX"></div></div><div class="ic2"><div class="sg" id="insS" style="margin-top:12px"></div><div id="insL"></div></div></section>
 </div>
-<div class="dock"><div class="logo"><div class="lg"><svg viewBox="0 0 60 40"><defs><linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE9B0"/><stop offset="1" stop-color="#C98A2B"/></linearGradient></defs><circle cx="21" cy="23" r="13" fill="none" stroke="url(#gd)" stroke-width="2.4"/><circle cx="39" cy="23" r="13" fill="none" stroke="url(#gd)" stroke-width="2.4"/><path d="M30 2.5l3.2 3.6L30 11l-3.2-4.9z" fill="#FFE9B0" stroke="none"/><text x="18" y="28" text-anchor="middle">S</text><text x="42" y="28" text-anchor="middle">K</text></svg></div><div class="lt"><b>Wedding</b><span>LEDGER</span></div></div><div class="pill"><button id="n-home" onclick="go('home')" data-i="home" data-t="Home"></button><button id="n-pay" onclick="go('pay')" data-i="list" data-t="Payments"></button><button id="n-ins" onclick="go('ins')" data-i="chart" data-t="Insights"></button><button id="n-acc" onclick="go('acc')" data-i="user" data-t="Account"></button></div><button class="plus" onclick="openAdd()" aria-label="Add payment" data-i="plus"></button></div>
+<div class="dock"><div class="logo"><div class="lg"><svg viewBox="0 0 60 40"><defs><linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE9B0"/><stop offset="1" stop-color="#C98A2B"/></linearGradient></defs><circle cx="21" cy="23" r="13" fill="none" stroke="url(#gd)" stroke-width="2.4"/><circle cx="39" cy="23" r="13" fill="none" stroke="url(#gd)" stroke-width="2.4"/><path d="M30 2.5l3.2 3.6L30 11l-3.2-4.9z" fill="#FFE9B0" stroke="none"/><text x="18" y="28" text-anchor="middle">S</text><text x="42" y="28" text-anchor="middle">K</text></svg></div><div class="lt"><b>Wedding</b><span>LEDGER</span></div></div><div class="pill"><button id="n-home" onclick="go('home')" data-i="home" data-t="Home"></button><button id="n-pay" onclick="go('pay')" data-i="list" data-t="Payments"></button><button id="n-ven" onclick="go('ven')" data-i="store" data-t="Vendors"></button><button id="n-gift" onclick="go('gift')" data-i="gift" data-t="Gifts"></button><button id="n-ins" onclick="go('ins')" data-i="chart" data-t="Insights"></button><button id="n-acc" onclick="go('acc')" data-i="user" data-t="Account"></button></div><button class="plus" onclick="openAdd()" aria-label="Add payment" data-i="plus"></button></div>
 <div class="ts" id="ts"></div><datalist id="dlV"></datalist><datalist id="dlP"></datalist>
 <div class="ov" id="mA" onclick="if(event.target==this)cl('mA')"><div class="sh"><div class="shh"><b id="aT">New payment</b><button class="ib" onclick="cl('mA')" data-i="x"></button></div>
 <div class="amr"><span>₹</span><input id="fA" type="number" inputmode="numeric" placeholder="0"><button class="dn" type="button" onclick="document.activeElement.blur()">Done</button></div>
@@ -124,6 +129,29 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 <div class="g2"><button class="bt s" onclick="xl()">Excel</button><button class="bt s" onclick="bk()">Backup</button><button class="bt s" onclick="$('rf').click()">Restore</button><button class="bt d" id="rsB" onclick="rsc()">Reset all data</button></div><input type="file" id="rf" accept=".json" hidden onchange="rs(event)"></div></div>
 <div class="ov" id="mH" onclick="if(event.target==this)cl('mH')"><div class="sh"><div class="shh"><b>Share summary</b><button class="ib" onclick="cl('mH')" data-i="x"></button></div><textarea id="shT" readonly rows="6"></textarea><div class="g2"><a class="bt a" id="shW" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="bt s" onclick="cpy()">Copy text</button></div></div></div>
 <div class="ov" id="mC" onclick="if(event.target==this)cl('mC')"><div class="sh"><div class="shh"><b>Filter by category</b><button class="ib" onclick="cl('mC')" data-i="x"></button></div><div class="cl" id="cl"></div></div></div>
+<div class="ov" id="mV" onclick="if(event.target==this)cl('mV')"><div class="sh"><div class="shh"><b id="vT">New vendor</b><button class="ib" onclick="cl('mV')" data-i="x"></button></div>
+<label>Vendor name</label><input id="vN" placeholder="e.g. Royal Gardens"><div class="m" style="margin-top:6px">Payments you record with this exact name count towards this vendor.</div>
+<label>Category</label><select id="vC"></select>
+<div class="g2"><div><label>Phone</label><input id="vP" type="tel" inputmode="tel"></div><div><label>UPI ID (optional)</label><input id="vU" placeholder="name@upi" autocapitalize="off"></div></div>
+<label>Agreed amount (₹)</label><input id="vA" type="number" inputmode="numeric" placeholder="0">
+<label>Payment plan</label><div class="sg" id="vMs"><button data-v="single" onclick="vM('single')">One payment</button><button data-v="inst" onclick="vM('inst')">Installments</button></div>
+<label>Due date</label><input type="date" id="vD">
+<button class="bt a" style="width:100%;margin-top:18px" onclick="saveV()">Save vendor</button><button class="bt d" id="vDel" style="width:100%;margin-top:8px" hidden onclick="delV()">Delete vendor</button></div></div>
+<div class="ov" id="mG" onclick="if(event.target==this)cl('mG')"><div class="sh"><div class="shh"><b id="gT">New gift</b><button class="ib" onclick="cl('mG')" data-i="x"></button></div>
+<label>Given by</label><input id="gN" placeholder="Name"><label>Relation / side (optional)</label><input id="gR" placeholder="e.g. Groom's uncle">
+<label>Type of gift</label><div class="sg" id="gTs"><button data-v="money" onclick="gTy('money')">💵 Money</button><button data-v="gold" onclick="gTy('gold')">🪙 Gold</button></div>
+<div id="gMoney"><label>Amount (₹)</label><input id="gA" type="number" inputmode="numeric" placeholder="0"></div>
+<div id="gGold" hidden><label>What is it? (ring, chain, coin…)</label><input id="gI"><div class="g2"><div><label>Weight (grams)</label><input id="gW" type="number" inputmode="decimal" step="0.01"></div><div><label>Purity</label><select id="gP"><option>22K</option><option>24K</option><option>18K</option></select></div></div></div>
+<div class="g2"><div><label>Date</label><input type="date" id="gDt"></div><div><label>Note (optional)</label><input id="gNo"></div></div>
+<button class="bt a" style="width:100%;margin-top:18px" onclick="saveG()">Save gift</button><button class="bt d" id="gDel" style="width:100%;margin-top:8px" hidden onclick="delG()">Delete gift</button></div></div>
+<div class="ov" id="mQ" onclick="if(event.target==this)cl('mQ')"><div class="sh"><div class="shh"><b>Pay by UPI</b><button class="ib" onclick="cl('mQ')" data-i="x"></button></div>
+<div class="m" style="margin-top:6px">To <b id="qN"></b> · <span id="qU"></span></div>
+<label>Amount (₹)</label><input id="qA" type="number" inputmode="decimal" oninput="qr()">
+<div id="qI" style="margin:16px 0 8px;text-align:center"></div>
+<div class="m" id="qW" hidden style="color:#B8860B;text-align:center;margin-bottom:6px">Above ₹1 lakh — your bank may block this. Pay in parts or use a bank transfer.</div>
+<div class="m" style="text-align:center">Scan with GPay, PhonePe, Paytm or any UPI app.</div>
+<div class="g2"><button class="bt a" onclick="qOpen()">Open UPI app</button><button class="bt s" onclick="qCopy()">Copy UPI ID</button></div>
+<button class="bt s" style="width:100%;margin-top:8px" onclick="qDone()">I've paid — record it</button></div></div>
 <div class="ov" id="mR" onclick="cl('mR')"><div class="sh"><div class="shh"><b>Receipt</b><button class="ib" data-i="x"></button></div><img id="rim" style="max-width:100%;border-radius:14px;margin-top:10px"></div></div>
 <div id="lg" class="lgn"><div class="lgc" id="lc"><div class="ey">THE WEDDING OF</div><h1 class="nm" style="font-size:30px">Swetha <em>&amp;</em> Kalyan</h1><p class="m" style="margin:8px 0 22px">Sign in to view and edit the wedding ledger</p>
 <button class="bt s" style="width:100%;padding:15px" onclick="doProv('google')"><b style="color:#4285F4;font-size:18px">G</b>Continue with Google</button>
@@ -153,9 +181,9 @@ const FN=['General','Haldi','Mehendi','Sangeet','Wedding','Reception'],MO=['UPI'
 const inr=n=>'₹'+Math.round(n||0).toLocaleString('en-IN'),fd=i=>i?new Date(i+'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'';
 const today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
 const slug=s=>(String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'v').slice(0,60);
-let db=null,S={total:0,cat:{},date:'',exp:[],vend:{}},tab='home',editId=null,inv=null,cur=null,insK='cat',stF='',catF='',qs='',stat='Paid',canW=true,tt,rt,dt;
+let db=null,S={total:0,cat:{},date:'',exp:[],vend:{},vnd:[],gft:[]},tab='home',editId=null,inv=null,cur=null,insK='cat',stF='',catF='',qs='',stat='Paid',canW=true,tt,rt,dt;
 const CK=Object.keys(CATS),SH=['Jewelry','Clothing','Venue','Catering','Photo','Invites','Travel','Other'];let cat=CK[0];
-const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',list:'<path d="M4 6h16M4 12h16M4 18h10"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',plus:'<path d="M12 5v14M5 12h14"/>',sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.8 7L3 21l2-5.5A8 8 0 1 1 21 12z"/>',clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>'};
+const IC={store:'<path d="M4 9l1-5h14l1 5M4 9v11h16V9M4 9h16M9 20v-6h6v6"/>',gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v8h14v-8M12 8c-2 0-4-1-4-3s3-2 4 3zM12 8c2 0 4-1 4-3s-3-2-4 3z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',list:'<path d="M4 6h16M4 12h16M4 18h10"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',plus:'<path d="M12 5v14M5 12h14"/>',sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.8 7L3 21l2-5.5A8 8 0 1 1 21 12z"/>',clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>'};
 const svg=n=>`<svg viewBox="0 0 24 24">${IC[n]}</svg>`;
 const icons=()=>document.querySelectorAll('[data-i]').forEach(e=>e.innerHTML=svg(e.dataset.i)+(e.dataset.t?`<span>${e.dataset.t}</span>`:''));
 const paid=x=>x.status!=='Pending',sum=a=>a.reduce((s,x)=>s+x.amount,0),byD=(a,b)=>(b.iso||'').localeCompare(a.iso||'')||(b.ts||0)-(a.ts||0);
@@ -164,12 +192,12 @@ function toast(m){const e=$('ts');e.textContent=m;e.classList.add('on');clearTim
 window.alert=toast;const err=e=>ss('Sync issue');
 async function w(p){try{await p;ss('Live');return true}catch(e){toast(e&&e.code==='quota_exceeded'?'Storage is full — remove some receipts.':'Could not save: '+((e&&(e.message||e.code))||'error'));return false}}
 const can=()=>db&&canW?true:(toast('Saving needs the shared Claude link.'),false);
-function go(t){tab=t;['home','pay','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});render();scrollTo(0,0)}
+function go(t){tab=t;['home','pay','ven','gift','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});render();scrollTo(0,0)}
 function render(){const p=sum(S.exp.filter(paid)),r=S.total-p,pc=S.total?Math.min(100,Math.round(p/S.total*100)):0;
  cnt($('hR'),r);$('hR').style.color=r<0?'#FF8A8A':'#fff';$('hB').textContent=S.total?inr(S.total):'Set in ⚙';cnt($('hP'),p);$('hBar').style.width=pc+'%';$('hPc').textContent=pc+'%';
  const d=S.date?Math.ceil((new Date(S.date+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5):null;$('wd').textContent=S.date?new Date(S.date+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'Set your wedding date in settings';$('cd').textContent=d===null?'Wedding ledger':d>0?d+' days to go':d==0?'Today is the day! 🎉':'Happily married 💍';
  const u=f=>[...new Set(S.exp.map(f).filter(Boolean))].map(v=>`<option value="${esc(v)}">`).join('');$('dlV').innerHTML=u(x=>x.givenTo);$('dlP').innerHTML=u(x=>x.paidBy);
- if(tab=='home'){home();homeX()}if(tab=='pay'){pay();sideP()}if(tab=='ins'){ins();sideI()}if(tab=='acc')acc()}
+ if(tab=='home'){home();homeX()}if(tab=='pay'){pay();sideP()}if(tab=='ins'){ins();sideI()}if(tab=='acc')acc();if(tab=='ven')vendors();if(tab=='gift')gifts()}
 const st=x=>x.status=='Pending'?'<div class="pd">Pending</div>':x.status=='Advance Paid'?'<div class="ad">Advance</div>':'';
 const rw=x=>`<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${fd(x.iso)}</div></div><div style="text-align:right"><b>${paid(x)?'−':''}${inr(x.amount)}</b>${st(x)}</div></div>`;
 function home(){const t=today(),du=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
@@ -216,15 +244,18 @@ function pick(e){const f=e.target.files[0];if(!f)return;const im=new Image(),u=U
  im.onerror=()=>{$('iS').textContent='Please choose a photo or screenshot (PDFs not supported).';e.target.value=''};im.src=u}
 function xl(){if(!S.exp.length)return alert('Nothing to export yet.');const r=[...S.exp].sort(byD).map((x,i)=>({'Sl':i+1,'Date':fd(x.iso),'Paid To':x.givenTo,'Phone':x.phone||'','Description':x.desc,'Category':x.cat,'Function':x.fn||'','Mode':x.mode||'','Paid By':x.paidBy||'','Status':x.status,'Due':fd(x.due),'Amount (INR)':x.amount}));
  const p=sum(S.exp.filter(paid));r.push({},{'Category':'TOTAL BUDGET','Amount (INR)':S.total},{'Category':'TOTAL PAID','Amount (INR)':p},{'Category':'BALANCE','Amount (INR)':S.total-p});
- const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(r),'Wedding Ledger');dl('Swetha_Wedding_Expenses.xlsx',XLSX.write(wb,{bookType:'xlsx',type:'array'}))}
-function bk(){dl('wedding-backup-'+today()+'.json',JSON.stringify({total:S.total,cat:S.cat,vend:S.vend,exp:S.exp}))}
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(r),'Wedding Ledger');
+ if(S.vnd.length)XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(S.vnd.map(v=>({'Vendor':v.name,'Category':v.cat,'Phone':v.phone||'','UPI':v.upi||'','Plan':v.mode=='inst'?'Installments':'One payment','Due':fd(v.due),'Agreed (INR)':+v.agreed||0,'Paid (INR)':vpaid(v),'Balance (INR)':Math.max(0,(+v.agreed||0)-vpaid(v))}))),'Vendors');
+ if(S.gft.length)XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([...S.gft].sort(byD).map(g=>({'Date':fd(g.iso),'Given by':g.name,'Relation':g.rel||'','Type':g.type=='gold'?'Gold':'Money','Amount (INR)':g.type=='gold'?'':(+g.amount||0),'Gold item':g.item||'','Grams':g.grams||'','Purity':g.type=='gold'?g.purity:'','Note':g.note||''}))),'Gifts');dl('Swetha_Wedding_Expenses.xlsx',XLSX.write(wb,{bookType:'xlsx',type:'array'}))}
+function bk(){dl('wedding-backup-'+today()+'.json',JSON.stringify({total:S.total,cat:S.cat,vend:S.vend,exp:S.exp,vnd:S.vnd,gft:S.gft}))}
 async function rs(e){const f=e.target.files[0];e.target.value='';if(!f||!can())return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.exp))throw 0;
  if(!await w(db.doc('meta/budget').set({total:d.total||0,cat:d.cat||{}})))return;for(const k in d.vend||{})await w(db.doc('vendors/'+k).set(d.vend[k]));
- for(const x of d.exp){const{id,...r}=x;if(!await w(db.collection('exp').doc(id||'e'+Date.now()+Math.random().toString(36).slice(2,5)).set(r)))return}alert('Restore complete.')}catch(_){alert('That file isn\'t a valid backup.')}}
-async function doReset(){hide('mR');if(!can())return;for(const x of S.exp){await w(db.collection('exp').doc(x.id).delete());if(x.rc)await w(db.doc('rcpt/'+x.id).delete())}for(const k in S.vend)await w(db.doc('vendors/'+k).delete());await w(db.doc('meta/budget').delete());go('home')}
+ for(const x of d.exp){const{id,...r}=x;if(!await w(db.collection('exp').doc(id||'e'+Date.now()+Math.random().toString(36).slice(2,5)).set(r)))return}
+ for(const x of d.vnd||[]){const{id,...o}=x;await w(db.collection('vnd').doc(id||'v'+Date.now()+Math.random().toString(36).slice(2,5)).set(o))}for(const x of d.gft||[]){const{id,...o}=x;await w(db.collection('gft').doc(id||'g'+Date.now()+Math.random().toString(36).slice(2,5)).set(o))}alert('Restore complete.')}catch(_){alert('That file isn\'t a valid backup.')}}
+async function doReset(){hide('mR');if(!can())return;for(const x of S.exp){await w(db.collection('exp').doc(x.id).delete());if(x.rc)await w(db.doc('rcpt/'+x.id).delete())}for(const k in S.vend)await w(db.doc('vendors/'+k).delete());for(const x of S.vnd)await w(db.collection('vnd').doc(x.id).delete());for(const x of S.gft)await w(db.collection('gft').doc(x.id).delete());await w(db.doc('meta/budget').delete());go('home')}
 function shr(){const p=sum(S.exp.filter(paid)),c=sum(S.exp.filter(x=>!paid(x))),t='💍 Swetha & Kalyan — wedding budget\nBudget: '+inr(S.total)+'\nSpent: '+inr(p)+'\nRemaining: '+inr(S.total-p)+'\nPending: '+inr(c);$('shT').value=t;$('shW').href='https://wa.me/?text='+encodeURIComponent(t);ov('mH')}
 function cnt(el,to){const from=el._v||0;el._v=to;cancelAnimationFrame(el._r);if(from===to){el.textContent=inr(to);return}const t0=performance.now(),f=n=>{const k=Math.min(1,(n-t0)/600),e=1-Math.pow(1-k,3);el.textContent=inr(from+(to-from)*e);if(k<1)el._r=requestAnimationFrame(f)};el._r=requestAnimationFrame(f)}
-function go(t){tab=t;['home','pay','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});render();scrollTo(0,0);const s=$('v-'+t);s.classList.remove('an');void s.offsetWidth;s.classList.add('an');setTimeout(()=>s.classList.remove('an'),900)}
+function go(t){tab=t;['home','pay','ven','gift','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});render();scrollTo(0,0);const s=$('v-'+t);s.classList.remove('an');void s.offsetWidth;s.classList.add('an');setTimeout(()=>s.classList.remove('an'),900)}
 const cp=n=>'₹'+(n>=1e7?(n/1e7).toFixed(1).replace('.0','')+'Cr':n>=1e5?(n/1e5).toFixed(1).replace('.0','')+'L':n>=1e3?Math.round(n/1e3)+'k':Math.round(n));
 function stats(){const P=S.exp.filter(paid),pe=S.exp.filter(x=>!paid(x)),tp=sum(P);return{P,tp,tc:sum(pe),avg:P.length?tp/P.length:0,mx:P.reduce((a,x)=>!a||x.amount>a.amount?x:a,null)}}
 function topn(f,n){const m={};S.exp.filter(paid).forEach(x=>{const g=f(x);m[g]=(m[g]||0)+x.amount});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,n)}
@@ -259,6 +290,96 @@ function acc(){const u=AUTH&&AUTH.currentUser;if(!u){$('accB').innerHTML='';retu
  <button class="bt d" style="width:100%;margin-top:18px" onclick="AUTH.signOut()">Sign out</button>`}
 async function saveName(){try{await AUTH.currentUser.updateProfile({displayName:$('aN').value.trim()});toast('Saved');acc()}catch(e){toast('Could not save name')}}
 async function pwReset(){try{await AUTH.sendPasswordResetEmail(AUTH.currentUser.email);toast('Reset email sent')}catch(e){toast('Could not send email')}}
+const vpaid=v=>sum(S.exp.filter(x=>paid(x)&&(x.givenTo||'').trim().toLowerCase()==(v.name||'').trim().toLowerCase())),fg=n=>String(Math.round(n*100)/100);
+let vEd=null,vMd='single',gEd=null,gTy_='money',vF='',gF='';
+function vM(m){vMd=m;document.querySelectorAll('#vMs button').forEach(b=>b.classList.toggle('on',b.dataset.v==m))}
+function openV(){vEd=null;['vN','vP','vU','vA','vD'].forEach(i=>$(i).value='');$('vC').selectedIndex=0;vM('single');$('vT').textContent='New vendor';$('vDel').hidden=true;ov('mV')}
+function editV(id){const v=S.vnd.find(x=>x.id==id);if(!v)return;vEd=id;$('vN').value=v.name||'';$('vC').value=v.cat||CK[0];$('vP').value=v.phone||'';$('vU').value=v.upi||'';$('vA').value=v.agreed||'';$('vD').value=v.due||'';vM(v.mode||'single');$('vT').textContent='Edit vendor';$('vDel').hidden=false;ov('mV')}
+async function saveV(){const n=$('vN').value.trim(),a=Math.round(+$('vA').value);if(!n||!(a>0))return toast('Enter the vendor name and agreed amount.');const uu=$('vU').value.trim();if(uu&&!/^[\w.\-]{2,}@[\w.\-]{2,}$/.test(uu))return toast('UPI ID should look like name@bank.');if(!can())return;const id=vEd||'v'+Date.now(),o={name:n,cat:$('vC').value,phone:$('vP').value.trim(),upi:$('vU').value.trim(),agreed:a,mode:vMd,due:$('vD').value,ts:Date.now()};if(await w(db.collection('vnd').doc(id).set(o))){cl('mV');toast('Saved')}}
+async function delV(){const b=$('vDel');if(!b.dataset.a){b.dataset.a=1;b.textContent='Tap again to delete';setTimeout(()=>{b.dataset.a='';b.textContent='Delete vendor'},4000);return}if(!can())return;if(await w(db.collection('vnd').doc(vEd).delete())){cl('mV');toast('Deleted')}}
+function vwa(v,bal){const ph=(v.phone||'').replace(/\D/g,''),n=ph.length==10?'91'+ph:ph;if(!n)return'';return 'https://wa.me/'+n+'?text='+encodeURIComponent('Hello '+v.name+', a gentle reminder about the pending payment of '+inr(bal)+' for Swetha & Kalyan\'s wedding. Thank you!')}
+function vpay(id,amt){const v=S.vnd.find(x=>x.id==id);if(!v)return;const bal=Math.max(0,(+v.agreed||0)-vpaid(v));reset();$('fN').value=v.name;$('fP').value=v.phone||'';cs(Math.max(0,CK.indexOf(v.cat)));$('fA').value=amt||bal||'';$('fD').value='Payment to '+v.name;ov('mA')}
+const isMob=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent),upiLink=(v,a)=>'upi://pay?pa='+encodeURIComponent(v.upi)+'&pn='+encodeURIComponent(v.name)+'&am='+Number(a).toFixed(2)+'&cu=INR&tn='+encodeURIComponent('Wedding payment');
+function vupi(id){const v=S.vnd.find(x=>x.id==id);if(!v)return;if(!v.upi){toast('Add this vendor\'s UPI ID first.');return editV(id)}const bal=Math.max(0,(+v.agreed||0)-vpaid(v));if(!(bal>0))return toast('Nothing left to pay.');if(!isMob())return vqr(id);
+ if(bal>1e5)toast('Large amount — your bank\'s UPI limit may block it.');else toast('After paying, tap Mark paid.');location.href=upiLink(v,bal)}
+let qId=null;const qAmt=()=>Math.round(+$('qA').value*100)/100;
+function qrSvg(m){const n=m.length,q=4,z=n+q*2;let d='';for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(m[r][c])d+='M'+(c+q)+' '+(r+q)+'h1v1h-1z';return `<svg class="qrs" viewBox="0 0 ${z} ${z}" shape-rendering="crispEdges" style="background:#fff;border-radius:14px;display:block;margin:auto"><path d="${d}"/></svg>`}
+function vqr(id){const v=S.vnd.find(x=>x.id==id);if(!v)return;if(!v.upi){toast('Add this vendor\'s UPI ID first.');return editV(id)}qId=id;const bal=Math.max(0,(+v.agreed||0)-vpaid(v));$('qA').value=bal||'';$('qN').textContent=v.name;$('qU').textContent=v.upi;ov('mQ');qr()}
+function qr(){const v=S.vnd.find(x=>x.id==qId);if(!v)return;const a=qAmt();if(!(a>0)){$('qI').innerHTML='<div class="m" style="padding:60px 0">Enter an amount to show the QR code.</div>';$('qW').hidden=true;return}
+ $('qW').hidden=a<=1e5;const m=QR.make(upiLink(v,a));$('qI').innerHTML=m?qrSvg(m):'<div class="m" style="padding:60px 0">Could not make the QR. Use Open UPI app.</div>'}
+function qOpen(){const v=S.vnd.find(x=>x.id==qId),a=qAmt();if(!v||!(a>0))return toast('Enter an amount.');if(!isMob())return toast('Scan the QR with your phone, or open this page on your phone.');location.href=upiLink(v,a)}
+async function qCopy(){const v=S.vnd.find(x=>x.id==qId);if(!v)return;try{await navigator.clipboard.writeText(v.upi);toast('UPI ID copied')}catch(e){toast(v.upi)}}
+function qDone(){const a=qAmt();if(!(a>0))return toast('Enter the amount you paid.');cl('mQ');vpay(qId,a)}
+function vendors(){const t=today(),V=S.vnd.map(v=>{const ag=+v.agreed||0,p=vpaid(v);return{v,ag,p,bal:Math.max(0,ag-p)}}),A=V.reduce((s,x)=>s+x.ag,0),P=V.reduce((s,x)=>s+Math.min(x.p,x.ag),0);
+ $('vSum').innerHTML=`<div class="sx"><div><small>Agreed</small><b>${inr(A)}</b></div><div><small>Paid</small><b style="color:var(--ok)">${inr(P)}</b></div><div><small>Balance due</small><b style="color:var(--acc)">${inr(Math.max(0,A-P))}</b></div><div><small>Vendors</small><b>${V.length}</b></div></div>`;
+ $('vCh').innerHTML=[['','All'],['p','Pending'],['s','Settled']].map(([k,l])=>`<button class="ch${vF==k?' on':''}" onclick="vF='${k}';vendors()">${l}</button>`).join('');
+ const L=V.filter(x=>!vF||(vF=='p'?x.bal>0:x.bal==0)).sort((a,b)=>(a.bal>0?0:1)-(b.bal>0?0:1)||(a.v.due||'9').localeCompare(b.v.due||'9'));
+ $('vL').innerHTML=L.length?L.map(x=>{const v=x.v,wa=vwa(v,x.bal),ph=(v.phone||'').replace(/\D/g,''),od=x.bal>0&&v.due&&v.due<t,inst=v.mode=='inst',pc=x.ag?Math.min(100,Math.round(x.p/x.ag*100)):0;
+  return `<div class="ir vc" onclick="editV('${v.id}')"><div class="row"><div class="ei">${CATS[v.cat]||'📦'}</div><div class="mn"><b class="t">${esc(v.name)}</b><div class="m t">${esc(v.cat||'')} · ${inst?'Installments':'One payment'}</div></div><div style="text-align:right"><b>${x.bal>0?inr(x.bal):inr(x.ag)}</b><div class="vb" style="${x.bal>0?(od?'background:#FDE8E8;color:var(--bad)':'background:var(--soft);color:var(--acc)'):'background:#E3F5EC;color:var(--ok)'}">${x.bal>0?(od?'OVERDUE':'PENDING'):'PAID'}</div></div></div>
+  ${inst?`<div class="bar"><b style="width:${pc}%"></b></div><div class="m">Paid ${inr(Math.min(x.p,x.ag))} of ${inr(x.ag)}</div>`:`<div class="m" style="margin-top:8px">${x.bal>0?'Amount due '+inr(x.bal):'Agreed '+inr(x.ag)}${v.due&&x.bal>0?' · by '+fd(v.due):''}</div>`}
+  <div class="acts" onclick="event.stopPropagation()">${ph?`<a class="bt s" href="tel:${ph}">${svg('phone')}Call</a>`:''}${wa?`<a class="bt s" href="${wa}" target="_blank" rel="noopener">${svg('chat')}Remind</a>`:''}${x.bal>0?`<button class="bt a" onclick="vupi('${v.id}')">Pay via UPI</button><button class="bt s" onclick="vqr('${v.id}')">Show QR</button><button class="bt s" onclick="vpay('${v.id}')">Mark paid</button>`:''}</div></div>`}).join(''):'<div class="m" style="padding:30px;text-align:center">No vendors yet. Tap + Add vendor.</div>'}
+function gTy(t){gTy_=t;document.querySelectorAll('#gTs button').forEach(b=>b.classList.toggle('on',b.dataset.v==t));$('gMoney').hidden=t!='money';$('gGold').hidden=t!='gold'}
+function openG(){gEd=null;['gN','gR','gA','gI','gW','gNo'].forEach(i=>$(i).value='');$('gP').selectedIndex=0;$('gDt').value=today();gTy('money');$('gT').textContent='New gift';$('gDel').hidden=true;ov('mG')}
+function editG(id){const g=S.gft.find(x=>x.id==id);if(!g)return;gEd=id;$('gN').value=g.name||'';$('gR').value=g.rel||'';$('gA').value=g.amount||'';$('gI').value=g.item||'';$('gW').value=g.grams||'';$('gP').value=g.purity||'22K';$('gDt').value=g.iso||today();$('gNo').value=g.note||'';gTy(g.type||'money');$('gT').textContent='Edit gift';$('gDel').hidden=false;ov('mG')}
+async function saveG(){const n=$('gN').value.trim();if(!n)return toast('Enter who gave the gift.');const o={name:n,rel:$('gR').value.trim(),type:gTy_,iso:$('gDt').value||today(),note:$('gNo').value.trim(),ts:Date.now()};
+ if(gTy_=='money'){const a=Math.round(+$('gA').value);if(!(a>0))return toast('Enter the amount.');o.amount=a}else{const g=+$('gW').value;if(!(g>0))return toast('Enter the weight in grams.');o.item=$('gI').value.trim()||'Gold';o.grams=g;o.purity=$('gP').value}
+ if(!can())return;if(await w(db.collection('gft').doc(gEd||'g'+Date.now()).set(o))){cl('mG');toast('Saved')}}
+async function delG(){const b=$('gDel');if(!b.dataset.a){b.dataset.a=1;b.textContent='Tap again to delete';setTimeout(()=>{b.dataset.a='';b.textContent='Delete gift'},4000);return}if(!can())return;if(await w(db.collection('gft').doc(gEd).delete())){cl('mG');toast('Deleted')}}
+function gifts(){const G=S.gft,M=G.filter(g=>g.type!='gold'),Gd=G.filter(g=>g.type=='gold'),tm=M.reduce((s,g)=>s+(+g.amount||0),0),tg=Gd.reduce((s,g)=>s+(+g.grams||0),0);
+ $('gSum').innerHTML=`<div class="sx"><div><small>Money received</small><b style="color:var(--ok)">${inr(tm)}</b></div><div><small>Gold received</small><b>${fg(tg)} g</b></div><div><small>Money gifts</small><b>${M.length}</b></div><div><small>Gold gifts</small><b>${Gd.length}</b></div></div>`;
+ $('gCh').innerHTML=[['','All'],['money','Money'],['gold','Gold']].map(([k,l])=>`<button class="ch${gF==k?' on':''}" onclick="gF='${k}';gifts()">${l}</button>`).join('');
+ const L=[...G].filter(g=>!gF||(gF=='gold'?g.type=='gold':g.type!='gold')).sort(byD);
+ $('gL').innerHTML=L.length?`<div class="grp">${L.map(g=>`<div class="rw" onclick="editG('${g.id}')"><div class="ei">${g.type=='gold'?'🪙':'💵'}</div><div class="mn"><b class="t">${esc(g.name)}</b><div class="m t">${g.rel?esc(g.rel)+' · ':''}${fd(g.iso)}</div></div><div style="text-align:right">${g.type=='gold'?`<b>${fg(+g.grams||0)} g</b><div class="m t">${esc(g.purity||'')} · ${esc(g.item||'Gold')}</div>`:`<b style="color:var(--ok)">+${inr(g.amount)}</b>`}</div></div>`).join('')}</div>`:'<div class="m" style="padding:30px;text-align:center">No gifts yet. Tap + Add gift.</div>'}
+const QR=(function(){
+const EC=[0,[10,1,16,0,0],[16,1,28,0,0],[26,1,44,0,0],[18,2,32,0,0],[24,2,43,0,0],[16,4,27,0,0],[18,4,31,0,0],[22,2,38,2,39],[22,3,36,2,37],[26,4,43,1,44]];
+const AL=[0,[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50]];
+const EXP=new Array(512),LOG=new Array(256);{let x=1;for(let i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=0x11D}for(let i=255;i<512;i++)EXP[i]=EXP[i-255]}
+const mul=(a,b)=>a&&b?EXP[LOG[a]+LOG[b]]:0;
+const gen=n=>{let g=[1];for(let i=0;i<n;i++){const t=new Array(g.length+1).fill(0);for(let j=0;j<g.length;j++){t[j]^=g[j];t[j+1]^=mul(g[j],EXP[i])}g=t}return g};
+const rs=(d,n)=>{const g=gen(n),r=new Array(n).fill(0);for(const b of d){const f=b^r.shift();r.push(0);for(let i=0;i<n;i++)r[i]^=mul(g[i+1],f)}return r};
+const cap=v=>EC[v][1]*EC[v][2]+EC[v][3]*EC[v][4];
+const MASK=[(r,c)=>(r+c)%2==0,(r,c)=>r%2==0,(r,c)=>c%3==0,(r,c)=>(r+c)%3==0,(r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2==0,(r,c)=>r*c%2+r*c%3==0,(r,c)=>(r*c%2+r*c%3)%2==0,(r,c)=>((r+c)%2+r*c%3)%2==0];
+function penalty(M,n){let p=0,dark=0;
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++)dark+=M[r][c];
+ const lines=[];for(let i=0;i<n;i++){lines.push(M[i].slice());lines.push(M.map(row=>row[i]))}
+ for(const L of lines){let run=1;for(let i=1;i<n;i++){if(L[i]==L[i-1]){run++;if(run==5)p+=3;else if(run>5)p++}else run=1}
+  for(let i=0;i+11<=n;i++){const w=L.slice(i,i+11).join('');if(w=='10111010000'||w=='00001011101')p+=40}}
+ for(let r=0;r<n-1;r++)for(let c=0;c<n-1;c++){const x=M[r][c];if(x==M[r][c+1]&&x==M[r+1][c]&&x==M[r+1][c+1])p+=3}
+ const k=Math.ceil(Math.abs(dark*20-n*n*10)/(n*n))-1;return p+Math.max(0,k)*10}
+function make(text){
+ const bytes=[...unescape(encodeURIComponent(text))].map(c=>c.charCodeAt(0));
+ let v=1;for(;v<=10;v++){if(4+(v<10?8:16)+bytes.length*8<=cap(v)*8)break}if(v>10)return null;
+ const bits=[],put=(x,l)=>{for(let i=l-1;i>=0;i--)bits.push((x>>>i)&1)};
+ put(4,4);put(bytes.length,v<10?8:16);bytes.forEach(b=>put(b,8));put(0,Math.min(4,cap(v)*8-bits.length));while(bits.length%8)bits.push(0);
+ const data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=b<<1|bits[i+j];data.push(b)}
+ for(let pad=0xEC;data.length<cap(v);pad^=0xEC^0x11)data.push(pad);
+ const e=EC[v],nb=e[1]+e[3],blocks=[],ecs=[];let k=0;
+ for(let i=0;i<nb;i++){const len=i<e[1]?e[2]:e[4],b=data.slice(k,k+len);k+=len;blocks.push(b);ecs.push(rs(b,e[0]))}
+ const cw=[];for(let i=0;i<Math.max(e[2],e[4]);i++)blocks.forEach(b=>{if(i<b.length)cw.push(b[i])});for(let i=0;i<e[0];i++)ecs.forEach(b=>cw.push(b[i]));
+ const n=17+4*v,M=Array.from({length:n},()=>new Array(n).fill(0)),F=Array.from({length:n},()=>new Array(n).fill(false));
+ const sf=(c,r,d)=>{if(r<0||c<0||r>=n||c>=n)return;M[r][c]=d?1:0;F[r][c]=true};
+ const finder=(r0,c0)=>{for(let dr=-1;dr<=7;dr++)for(let dc=-1;dc<=7;dc++){const d=dr>=0&&dr<=6&&dc>=0&&dc<=6&&(dr==0||dr==6||dc==0||dc==6||(dr>=2&&dr<=4&&dc>=2&&dc<=4));sf(c0+dc,r0+dr,d)}};
+ finder(0,0);finder(0,n-7);finder(n-7,0);
+ for(let i=8;i<n-8;i++){sf(i,6,i%2==0);sf(6,i,i%2==0)}
+ const al=AL[v],la=al[al.length-1];for(const r of al)for(const c of al){if((r==6&&c==6)||(r==6&&c==la)||(c==6&&r==la))continue;for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++)sf(c+dc,r+dr,Math.max(Math.abs(dr),Math.abs(dc))!=1)}
+ const fmt=mask=>{let d=mask,r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)==1;
+  for(let i=0;i<=5;i++)sf(8,i,g(i));sf(8,7,g(6));sf(8,8,g(7));sf(7,8,g(8));for(let i=9;i<15;i++)sf(14-i,8,g(i));
+  for(let i=0;i<8;i++)sf(n-1-i,8,g(i));for(let i=8;i<15;i++)sf(8,n-15+i,g(i));sf(8,n-8,true)};
+ fmt(0);
+ if(v>=7){let r=v;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=(v<<12)|r;for(let i=0;i<18;i++){const bit=((b>>>i)&1)==1,a=n-11+i%3,c=Math.floor(i/3);sf(a,c,bit);sf(c,a,bit)}}
+ let bi=0;const nbits=cw.length*8;
+ for(let right=n-1;right>=1;right-=2){if(right==6)right=5;for(let vert=0;vert<n;vert++)for(let j=0;j<2;j++){const c=right-j,up=((right+1)&2)==0,r=up?n-1-vert:vert;if(!F[r][c]&&bi<nbits){M[r][c]=(cw[bi>>3]>>(7-(bi&7)))&1;bi++}}}
+ let best=null,bp=1e9,bm=0;
+ for(let m=0;m<8;m++){const T=M.map(row=>row.slice());for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(!F[r][c]&&MASK[m](r,c))T[r][c]^=1;
+  const save=M;/* temporarily draw format on T */ 
+  const Mx=T;const sfT=(c,r,d)=>{Mx[r][c]=d?1:0};
+  let dd=m,rr=dd;for(let i=0;i<10;i++)rr=(rr<<1)^((rr>>>9)*0x537);const b=((dd<<10)|rr)^0x5412,g=i=>((b>>>i)&1)==1;
+  for(let i=0;i<=5;i++)sfT(8,i,g(i));sfT(8,7,g(6));sfT(8,8,g(7));sfT(7,8,g(8));for(let i=9;i<15;i++)sfT(14-i,8,g(i));
+  for(let i=0;i<8;i++)sfT(n-1-i,8,g(i));for(let i=8;i<15;i++)sfT(8,n-15+i,g(i));sfT(8,n-8,true);
+  const p=penalty(T,n);if(p<bp){bp=p;best=T;bm=m}}
+ return best}
+return{make}})();
+
 function quick(i){openAdd();cs(i)}
 function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('wl-theme',t)}catch(e){}const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t=='dark'?'#0F0F11':'#F6F5F2';document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.v==t));const b=$('thB');if(b)b.innerHTML=svg(t=='dark'?'sun':'moon')}
 const toggleTheme=()=>setTheme(document.documentElement.dataset.theme=='dark'?'light':'dark');
@@ -270,16 +391,16 @@ async function migrateOld(){const st=window.storage,g=async k=>{try{const r=awai
   if(x.invoiceDataUri){await st.set('rcpt:'+id,JSON.stringify({d:x.invoiceDataUri}),true);r.rc=1}
   await st.set('exp:'+id,JSON.stringify(r),true)}
  await st.set('migrated','1',true);await st.set('rev',String(Date.now()),true)}catch(e){}}
-function storageDb(){const st=window.storage,subs={m:[],e:[]},K=p=>p.replace('/',':');let rev='',busy=0,again=0;
+function storageDb(){const st=window.storage,subs={m:[],c:{}},K=p=>p.replace('/',':');let rev='',busy=0,again=0;
  const rd=async k=>{try{const r=await st.get(k,true);return r&&r.value!=null?JSON.parse(r.value):null}catch(e){return null}};
  async function load(){if(busy){again=1;return}busy=1;try{const meta=await rd('meta:budget');subs.m.forEach(f=>f({exists:!!meta,data:()=>meta||{}}));
-  let keys=[];try{const l=await st.list('exp:',true);keys=(l&&l.keys)||[]}catch(e){}
-  const rows=(await Promise.all(keys.map(async k=>({id:k.slice(4),d:await rd(k)})))).filter(r=>r.d);
-  subs.e.forEach(f=>f({docs:rows.map(r=>({id:r.id,data:()=>r.d}))}))}finally{busy=0;if(again){again=0;load()}}}
+  for(const n of Object.keys(subs.c)){let keys=[];try{const l=await st.list(n+':',true);keys=(l&&l.keys)||[]}catch(e){}
+   const rows=(await Promise.all(keys.map(async k=>({id:k.slice(n.length+1),d:await rd(k)})))).filter(r=>r.d);
+   subs.c[n].forEach(f=>f({docs:rows.map(r=>({id:r.id,data:()=>r.d}))}))}}finally{busy=0;if(again){again=0;load()}}}
  const after=async()=>{rev=String(Date.now()+Math.random());try{await st.set('rev',rev,true)}catch(e){}await load()};
  setInterval(async()=>{try{const r=await st.get('rev',true),v=r&&r.value;if(v&&v!==rev){rev=v;load()}}catch(e){}},5000);
  const doc=p=>{const r=p.startsWith('rcpt');return{set:async o=>{await st.set(K(p),JSON.stringify(o),true);if(!r)await after()},delete:async()=>{try{await st.delete(K(p),true)}catch(e){}if(!r)await after()},get:async()=>{const d=await rd(K(p));return{exists:d!==null,data:()=>d}},onSnapshot:cb=>{subs.m.push(cb);load()}}};
- return{_s:1,doc,collection:n=>({onSnapshot:cb=>{subs.e.push(cb);load()},doc:id=>doc(n+'/'+id)})}}
+ return{_s:1,doc,collection:n=>({onSnapshot:cb=>{(subs.c[n]=subs.c[n]||[]).push(cb);load()},doc:id=>doc(n+'/'+id)})}}
 async function dl(name,data){let d=null;try{d=await claude.use('downloads')}catch(e){}
  if(d){try{await d.save({filename:name,data})}catch(e){if(e.code!='declined')alert('Download failed: '+(e.message||e.code))}return}
  try{const b=(data instanceof Uint8Array||data instanceof ArrayBuffer)?new Blob([data]):new Blob([data],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}catch(e){alert('Download is not available here.')}}
@@ -288,6 +409,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='
 document.addEventListener('click',e=>{const a=document.activeElement;if(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&!e.target.closest('input,select,textarea,label,.dn'))a.blur()});
 $('cg').innerHTML=CK.map((c,i)=>`<button onclick="cs(${i})"><span>${CATS[c]}</span>${SH[i]}</button>`).join('');$('fF').innerHTML=FN.map(x=>`<option>${x}</option>`).join('');$('fM').innerHTML=MO.map(x=>`<option>${x}</option>`).join('');
 {let t='light';try{t=localStorage.getItem('wl-theme')||'light'}catch(e){}setTheme(t)}
+$('vC').innerHTML=CK.map(c=>`<option value="${esc(c)}">${CATS[c]} ${esc(c)}</option>`).join('');
 icons();reset();go('home');
 window.startApp=async()=>{try{db=await claude.use('db')}catch(e){}
  if(!db){try{if(window.storage&&window.storage.get)db=storageDb()}catch(e){}}
@@ -295,7 +417,9 @@ window.startApp=async()=>{try{db=await claude.use('db')}catch(e){}
  try{const u=await claude.use('user');if(u&&u.can&&(await u.can('data.write'))===false){canW=false;ss('View only')}}catch(e){}
  if(db._s)await migrateOld();
  db.doc('meta/budget').onSnapshot(s=>{const d=s.exists?s.data():{};S.total=d.total||0;S.cat=d.cat||{};S.date=d.date||'';render()},err);
- db.collection('exp').onSnapshot(s=>{S.exp=s.docs.map(d=>({id:d.id,...d.data()}));ss('Live');render()},err)};
+ db.collection('exp').onSnapshot(s=>{S.exp=s.docs.map(d=>({id:d.id,...d.data()}));ss('Live');render()},err);
+ db.collection('vnd').onSnapshot(s=>{S.vnd=s.docs.map(d=>({id:d.id,...d.data()}));render()},err);
+ db.collection('gft').onSnapshot(s=>{S.gft=s.docs.map(d=>({id:d.id,...d.data()}));render()},err)};
 </script><script>
 let started=false;const lm=t=>{$('lM').textContent=t||''};
 const em={'auth/invalid-credential':'Wrong email or password.','auth/invalid-email':'Enter a valid email.','auth/email-already-in-use':'That email already has an account — tap Sign in.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'','auth/network-request-failed':'No internet connection.'};
