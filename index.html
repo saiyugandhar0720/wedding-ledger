@@ -93,6 +93,7 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 .tbs{display:flex;gap:8px;align-items:center}
 .lgn{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}.lgc{width:100%;max-width:360px;background:var(--card);border-radius:28px;padding:26px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}.lgc input{text-align:left}
 .bt.ap{background:#000!important;color:#fff!important}
+svg.qrs{width:240px;height:240px;stroke:none;fill:#111}svg.qrs path{fill:#111;stroke:none}
 </style></head><body><div class="w">
 <header class="tp hd2"><i class="r1"></i><i class="r2"></i><div class="row"><span class="m" id="sy">…</span><div class="tbs"><button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button><button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button></div></div><div class="ey">THE WEDDING OF</div><h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1><div class="orn"><u></u><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:none;fill:#FFE2A8"><g><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/></g><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div><div class="wd" id="wd">Set your wedding date in settings</div><div class="cdp" id="cd">Wedding ledger</div></header>
 <section id="v-home"><div class="c1"><div class="hero"><div class="l">Remaining</div><div class="big" id="hR">₹0</div><div class="bar"><b id="hBar" style="width:0"></b></div><div class="hs"><div><small>Budget</small><b id="hB">—</b></div><div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div></div></div>
@@ -108,13 +109,15 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 <div class="ts" id="ts"></div><datalist id="dlV"></datalist><datalist id="dlP"></datalist>
 <div class="ov" id="mA" onclick="if(event.target==this)cl('mA')"><div class="sh"><div class="shh"><b id="aT">New payment</b><button class="ib" onclick="cl('mA')" data-i="x"></button></div>
 <div class="amr"><span>₹</span><input id="fA" type="number" inputmode="numeric" placeholder="0"><button class="dn" type="button" onclick="document.activeElement.blur()">Done</button></div>
-<div class="sg" id="sg"><button data-v="Paid" onclick="stS('Paid')">Paid</button><button data-v="Advance Paid" onclick="stS('Advance Paid')">Advance</button><button data-v="Pending" onclick="stS('Pending')">Pending</button></div>
+<div class="sg" id="sg"><button data-v="Paid" onclick="stS('Paid')">Paid in full</button><button data-v="Advance Paid" onclick="stS('Advance Paid')">Part paid</button><button data-v="Pending" onclick="stS('Pending')">Not paid yet</button></div>
+<div id="partW" hidden><label>Paid so far (₹)</label><input id="fPd" type="number" inputmode="numeric" placeholder="e.g. 20000"></div>
 <label>Paid to</label><input id="fN" list="dlV" placeholder="Vendor or person" oninput="af()">
 <label>What for (optional)</label><input id="fD" placeholder="e.g. Venue advance">
 <label>Category</label><div class="cg" id="cg"></div>
-<div class="g2"><div><label>Date</label><input type="date" id="fDt"></div><div id="dueW"><label>Due date</label><input type="date" id="fDue"></div></div>
+<div class="g2"><div><label>Date</label><input type="date" id="fDt"></div><div id="dueW"><label>Balance due date</label><input type="date" id="fDue"></div></div>
 <div class="g2"><div><label>Function</label><select id="fF"></select></div><div><label>Mode</label><select id="fM"></select></div></div>
 <div class="g2"><div><label>Paid by</label><input id="fB" list="dlP" placeholder="Family member"></div><div><label>Phone</label><input id="fP" type="tel" inputmode="tel"></div></div>
+<label>Vendor UPI ID (optional)</label><input id="fU" placeholder="name@bank" autocapitalize="off">
 <label>Receipt photo</label><input id="fI" type="file" accept="image/*" onchange="pick(event)"><div class="m" id="iS"></div>
 <button class="bt a" style="width:100%;margin-top:18px" onclick="save()">Save payment</button></div></div>
 <div class="ov" id="mD" onclick="if(event.target==this)cl('mD')"><div class="sh"><div class="shh"><span class="l">Payment</span><button class="ib" onclick="cl('mD')" data-i="x"></button></div><div id="dB"></div></div></div>
@@ -124,6 +127,20 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 <div class="g2"><button class="bt s" onclick="xl()">Excel</button><button class="bt s" onclick="bk()">Backup</button><button class="bt s" onclick="$('rf').click()">Restore</button><button class="bt d" id="rsB" onclick="rsc()">Reset all data</button></div><input type="file" id="rf" accept=".json" hidden onchange="rs(event)"></div></div>
 <div class="ov" id="mH" onclick="if(event.target==this)cl('mH')"><div class="sh"><div class="shh"><b>Share summary</b><button class="ib" onclick="cl('mH')" data-i="x"></button></div><textarea id="shT" readonly rows="6"></textarea><div class="g2"><a class="bt a" id="shW" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="bt s" onclick="cpy()">Copy text</button></div></div></div>
 <div class="ov" id="mC" onclick="if(event.target==this)cl('mC')"><div class="sh"><div class="shh"><b>Filter by category</b><button class="ib" onclick="cl('mC')" data-i="x"></button></div><div class="cl" id="cl"></div></div></div>
+<div class="ov" id="mP" onclick="if(event.target==this)cl('mP')"><div class="sh"><div class="shh"><b>Record a payment</b><button class="ib" onclick="cl('mP')" data-i="x"></button></div>
+<div class="m" id="rpI" style="margin-top:6px"></div>
+<label>Amount paid (₹)</label><input id="rpA" type="number" inputmode="numeric" placeholder="0">
+<div class="g2"><div><label>Date</label><input type="date" id="rpD"></div><div><label>Mode</label><select id="rpM"></select></div></div>
+<button class="bt a" style="width:100%;margin-top:18px" onclick="rpSave()">Save payment</button></div></div>
+<div class="ov" id="mQ" onclick="if(event.target==this)cl('mQ')"><div class="sh"><div class="shh"><b>Pay by UPI</b><button class="ib" onclick="cl('mQ')" data-i="x"></button></div>
+<div class="m" style="margin-top:6px">To <b id="qN"></b></div>
+<label>Vendor UPI ID</label><input id="qUi" placeholder="name@bank" autocapitalize="off" oninput="qr()">
+<label>Amount (₹)</label><input id="qA" type="number" inputmode="decimal" oninput="qr()">
+<div id="qI" style="margin:16px 0 8px;text-align:center"></div>
+<div class="m" id="qW" hidden style="color:#B8860B;text-align:center;margin-bottom:6px">Above ₹1 lakh — your bank may block this. Pay in parts or use a bank transfer.</div>
+<div class="m" style="text-align:center">Scan with GPay, PhonePe, Paytm or any UPI app.</div>
+<div class="g2"><button class="bt a" onclick="qOpen()">Open UPI app</button><button class="bt s" onclick="qCopy()">Copy UPI ID</button></div>
+<button class="bt s" style="width:100%;margin-top:8px" onclick="qDone()">I've paid — record it</button></div></div>
 <div class="ov" id="mR" onclick="cl('mR')"><div class="sh"><div class="shh"><b>Receipt</b><button class="ib" data-i="x"></button></div><img id="rim" style="max-width:100%;border-radius:14px;margin-top:10px"></div></div>
 <div id="lg" class="lgn"><div class="lgc" id="lc"><div class="ey">THE WEDDING OF</div><h1 class="nm" style="font-size:30px">Swetha <em>&amp;</em> Kalyan</h1><p class="m" style="margin:8px 0 22px">Sign in to view and edit the wedding ledger</p>
 <button class="bt s" style="width:100%;padding:15px" onclick="doProv('google')"><b style="color:#4285F4;font-size:18px">G</b>Continue with Google</button>
@@ -158,87 +175,93 @@ const CK=Object.keys(CATS),SH=['Jewelry','Clothing','Venue','Catering','Photo','
 const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',list:'<path d="M4 6h16M4 12h16M4 18h10"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',plus:'<path d="M12 5v14M5 12h14"/>',sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.8 7L3 21l2-5.5A8 8 0 1 1 21 12z"/>',clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>'};
 const svg=n=>`<svg viewBox="0 0 24 24">${IC[n]}</svg>`;
 const icons=()=>document.querySelectorAll('[data-i]').forEach(e=>e.innerHTML=svg(e.dataset.i)+(e.dataset.t?`<span>${e.dataset.t}</span>`:''));
-const paid=x=>x.status!=='Pending',sum=a=>a.reduce((s,x)=>s+x.amount,0),byD=(a,b)=>(b.iso||'').localeCompare(a.iso||'')||(b.ts||0)-(a.ts||0);
+const got=x=>Array.isArray(x.pays)?x.pays.reduce((s,p)=>s+(+p.a||0),0):(x.status==='Pending'?0:x.amount),rem=x=>Math.max(0,x.amount-got(x)),paid=x=>rem(x)<=0,stt=x=>paid(x)?'Paid':got(x)>0?'Part':'Pending',spent=()=>S.exp.reduce((s,x)=>s+got(x),0),owed=()=>S.exp.reduce((s,x)=>s+rem(x),0),pays0=x=>Array.isArray(x.pays)?x.pays:(got(x)>0?[{a:got(x),iso:x.iso,mode:x.mode}]:[]),sum=a=>a.reduce((s,x)=>s+x.amount,0),byD=(a,b)=>(b.iso||'').localeCompare(a.iso||'')||(b.ts||0)-(a.ts||0);
 const ov=i=>$(i).classList.add('on'),cl=i=>$(i).classList.remove('on'),hide=i=>{const e=$(i);e&&e.classList.remove('on')},ss=t=>$('sy').textContent=t;
 function toast(m){const e=$('ts');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2400)}
 window.alert=toast;const err=e=>ss('Sync issue');
 async function w(p){try{await p;ss('Live');return true}catch(e){toast(e&&e.code==='quota_exceeded'?'Storage is full — remove some receipts.':'Could not save: '+((e&&(e.message||e.code))||'error'));return false}}
 const can=()=>db&&canW?true:(toast('Saving needs the shared Claude link.'),false);
 function go(t){tab=t;['home','pay','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});render();scrollTo(0,0)}
-function render(){const p=sum(S.exp.filter(paid)),r=S.total-p,pc=S.total?Math.min(100,Math.round(p/S.total*100)):0;
+function render(){const p=spent(),r=S.total-p,pc=S.total?Math.min(100,Math.round(p/S.total*100)):0;
  cnt($('hR'),r);$('hR').style.color=r<0?'#FF8A8A':'#fff';$('hB').textContent=S.total?inr(S.total):'Set in ⚙';cnt($('hP'),p);$('hBar').style.width=pc+'%';$('hPc').textContent=pc+'%';
  const d=S.date?Math.ceil((new Date(S.date+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5):null;$('wd').textContent=S.date?new Date(S.date+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'Set your wedding date in settings';$('cd').textContent=d===null?'Wedding ledger':d>0?d+' days to go':d==0?'Today is the day! 🎉':'Happily married 💍';
  const u=f=>[...new Set(S.exp.map(f).filter(Boolean))].map(v=>`<option value="${esc(v)}">`).join('');$('dlV').innerHTML=u(x=>x.givenTo);$('dlP').innerHTML=u(x=>x.paidBy);
  if(tab=='home'){home();homeX()}if(tab=='pay'){pay();sideP()}if(tab=='ins'){ins();sideI()}if(tab=='acc')acc()}
-const st=x=>x.status=='Pending'?'<div class="pd">Pending</div>':x.status=='Advance Paid'?'<div class="ad">Advance</div>':'';
-const rw=x=>`<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${fd(x.iso)}</div></div><div style="text-align:right"><b>${paid(x)?'−':''}${inr(x.amount)}</b>${st(x)}</div></div>`;
+const st=x=>{const t=stt(x);return t=='Pending'?'<div class="pd">Pending</div>':t=='Part'?'<div class="ad" style="color:#B8860B">Part paid</div>':''};
+const hist=x=>{const P=pays0(x);return P.length?`<div class="ir" style="margin-top:0"><div class="l">Payments made</div>${P.map(p=>`<div class="kl"><span>${fd(p.iso)} · ${esc(p.mode||'—')}</span><b>${inr(p.a)}</b></div>`).join('')}</div>`:''};
+const rw=x=>{const g=got(x),pt=stt(x)=='Part';return `<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${fd(x.iso)}</div>${pt?`<div class="bar" style="margin:6px 0 0"><b style="width:${Math.min(100,Math.round(g/x.amount*100))}%"></b></div>`:''}</div><div style="text-align:right"><b>${inr(x.amount)}</b>${st(x)}${pt?`<div class="m">${inr(rem(x))} left</div>`:''}</div></div>`};
 function home(){const t=today(),du=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
- $('due').innerHTML=du.length?du.map(x=>`<div class="dc" onclick="det('${x.id}')"><div class="m">${x.due?(x.due<t?'<b style="color:var(--bad)">Overdue</b> · ':'Due ')+fd(x.due):'No due date'}</div><b>${inr(x.amount)}</b><div class="m t">${esc(x.givenTo)}</div></div>`).join(''):'<div class="m">Nothing pending 🎉</div>';
+ $('due').innerHTML=du.length?du.map(x=>`<div class="dc" onclick="det('${x.id}')"><div class="m">${x.due?(x.due<t?'<b style="color:var(--bad)">Overdue</b> · ':'Due ')+fd(x.due):'No due date'}</div><b>${inr(rem(x))}</b><div class="m t">${esc(x.givenTo)}</div></div>`).join(''):'<div class="m">Nothing pending 🎉</div>';
  const e=[...S.exp].sort(byD).slice(0,6);$('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>'}
 function catSheet(){const m={},c={};S.exp.forEach(x=>{m[x.cat]=(m[x.cat]||0)+x.amount;c[x.cat]=(c[x.cat]||0)+1});
  $('cl').innerHTML=`<button class="ct${catF?'':' on'}" onclick="setCat('')"><span>🗂️</span>All categories<small>${S.exp.length} payments</small></button>`+CK.map((k,i)=>`<button class="ct${catF==k?' on':''}" onclick="setCat(${i})"><span>${CATS[k]}</span>${esc(k)}<small>${c[k]||0} · ${inr(m[k]||0)}</small></button>`).join('');ov('mC')}
 function setCat(i){catF=i===''?'':CK[i];cl('mC');pay()}
-function pay(){const a=S.exp.filter(x=>(!stF||x.status==stF)&&(!catF||x.cat==catF)&&(!qs||[x.givenTo,x.desc,x.phone,x.paidBy,x.fn].join(' ').toLowerCase().includes(qs))).sort(byD),m={};a.forEach(x=>{const k=(x.iso||'').slice(0,7);(m[k]=m[k]||[]).push(x)});
- $('stc').innerHTML=[['','All'],['Paid','Paid'],['Advance Paid','Advance'],['Pending','Pending']].map(([v,l])=>`<button class="ch${stF==v?' on':''}" onclick="stF='${v}';pay()">${l}</button>`).join('');
+function pay(){const a=S.exp.filter(x=>(!stF||stt(x)==stF)&&(!catF||x.cat==catF)&&(!qs||[x.givenTo,x.desc,x.phone,x.paidBy,x.fn].join(' ').toLowerCase().includes(qs))).sort(byD),m={};a.forEach(x=>{const k=(x.iso||'').slice(0,7);(m[k]=m[k]||[]).push(x)});
+ $('stc').innerHTML=[['','All'],['Paid','Paid'],['Part','Part paid'],['Pending','Pending']].map(([v,l])=>`<button class="ch${stF==v?' on':''}" onclick="stF='${v}';pay()">${l}</button>`).join('');
  $('cc').innerHTML=`<button class="cf${catF?' on':''}" onclick="catSheet()"><span>${catF?CATS[catF]+' '+esc(catF):'🗂️ All categories'}</span><i style="font-style:normal">▾</i></button>`;
  $('payL').innerHTML=a.length?Object.keys(m).sort().reverse().map(k=>`<div class="mh"><span>${k?new Date(k+'-01T00:00:00').toLocaleDateString('en-IN',{month:'long',year:'numeric'}):'No date'}</span><span class="m">${inr(sum(m[k]))}</span></div><div class="grp">${m[k].map(rw).join('')}</div>`).join(''):'<div class="m" style="padding:30px;text-align:center">Nothing found.</div>'}
-function ins(){const k=insK,f={cat:x=>x.cat,fn:x=>x.fn||'General',by:x=>x.paidBy||'Not set',ven:x=>x.givenTo.trim()},m={},mo={},P=S.exp.filter(paid);
- P.forEach(x=>{const g=f[k](x);m[g]=(m[g]||0)+x.amount;const z=(x.iso||'').slice(0,7);mo[z]=(mo[z]||0)+x.amount});
- const tot=sum(P),ks=Object.keys(m).sort((a,b)=>m[b]-m[a]),ms=Object.keys(mo).filter(Boolean).sort().slice(-6),mx=Math.max(...ms.map(z=>mo[z]),1);
+function ins(){const k=insK,f={cat:x=>x.cat,fn:x=>x.fn||'General',by:x=>x.paidBy||'Not set',ven:x=>x.givenTo.trim()},m={},mo={},P=S.exp.filter(x=>got(x)>0);
+ P.forEach(x=>{const g=f[k](x);m[g]=(m[g]||0)+got(x);const z=(x.iso||'').slice(0,7);mo[z]=(mo[z]||0)+got(x)});
+ const tot=P.reduce((q,x)=>q+got(x),0),ks=Object.keys(m).sort((a,b)=>m[b]-m[a]),ms=Object.keys(mo).filter(Boolean).sort().slice(-6),mx=Math.max(...ms.map(z=>mo[z]),1);
  $('mon').hidden=!ms.length;$('mon').innerHTML=ms.map(z=>`<div class="col"><small>${cp(mo[z])}</small><div class="cb" style="height:${Math.max(6,mo[z]/mx*70)}px"></div><small>${new Date(z+'-01T00:00:00').toLocaleDateString('en-IN',{month:'short'})}</small></div>`).join('');
  $('insS').innerHTML=[['cat','Category'],['fn','Function'],['by','Paid by'],['ven','Vendors']].map(([a,b])=>`<button class="${k==a?'on':''}" onclick="insK='${a}';ins()">${b}</button>`).join('');
  $('insL').innerHTML=ks.length?ks.map(g=>{const pc=Math.round(m[g]/tot*100);return `<div class="ir"><div class="row"><b>${k=='cat'?(CATS[g]||'')+' ':''}${esc(g)}</b><b>${inr(m[g])}</b></div><div class="bar"><b style="width:${pc}%"></b></div><div class="m">${pc}% of spend</div></div>`}).join(''):'<div class="m" style="padding:30px;text-align:center">Add payments to see insights.</div>'}
 function det(id){const x=S.exp.find(e=>e.id==id);if(!x)return;cur=id;const ph=(x.phone||'').replace(/\D/g,''),wa=ph.length==10?'91'+ph:ph;
- $('dB').innerHTML=`<div class="bg2">${inr(x.amount)}</div><div class="row" style="justify-content:flex-start"><b style="font-size:16px">${esc(x.desc)}</b>${st(x)}</div><div class="m">${CATS[x.cat]||''} ${esc(x.cat)} · ${esc(x.fn||'General')}</div>
- <div class="kv"><span>Paid to</span><b>${esc(x.givenTo)}</b><span>Date</span><b>${fd(x.iso)}</b>${x.due&&!paid(x)?`<span>Due</span><b>${fd(x.due)}</b>`:''}<span>Mode</span><b>${esc(x.mode||'—')}</b><span>Paid by</span><b>${esc(x.paidBy||'—')}</b></div>
- <div class="acts">${ph?`<a class="bt s" href="tel:${ph}">${svg('phone')}Call</a><a class="bt s" href="https://wa.me/${wa}" target="_blank" rel="noopener">${svg('chat')}WhatsApp</a>`:''}${x.inv||x.rc?`<button class="bt s" onclick="rcp('${id}')">${svg('clip')}Receipt</button>`:''}</div>
- ${paid(x)?'':`<button class="bt a" style="width:100%;margin-top:10px" onclick="mp('${id}')">✓ Mark as paid</button>`}<div class="g2"><button class="bt s" onclick="edit('${id}')">Edit</button><button class="bt d" id="delB" onclick="del()">Delete</button></div>`;ov('mD')}
-async function mp(id){const x=S.exp.find(e=>e.id==id);if(!x||!can())return;const{id:_,...o}=x;o.status='Paid';o.due='';o.iso=today();if(await w(db.collection('exp').doc(id).set(o))){cl('mD');toast('Marked as paid')}}
+ $('dB').innerHTML=`<div class="bg2">${inr(x.amount)}</div><div class="m" style="margin-top:-2px">Total amount</div><div class="row" style="justify-content:flex-start"><b style="font-size:16px">${esc(x.desc)}</b>${st(x)}</div><div class="m">${CATS[x.cat]||''} ${esc(x.cat)} · ${esc(x.fn||'General')}</div>
+ <div class="kv"><span>Paid so far</span><b style="color:var(--ok)">${inr(got(x))}</b><span>Balance</span><b style="color:${rem(x)>0?'var(--acc)':'var(--ok)'}">${inr(rem(x))}</b><span>Paid to</span><b>${esc(x.givenTo)}</b><span>Date</span><b>${fd(x.iso)}</b>${x.due&&!paid(x)?`<span>Due</span><b>${fd(x.due)}</b>`:''}<span>Mode</span><b>${esc(x.mode||'—')}</b><span>Paid by</span><b>${esc(x.paidBy||'—')}</b></div>
+ ${hist(x)}<div class="acts">${ph?`<a class="bt s" href="tel:${ph}">${svg('phone')}Call</a><a class="bt s" href="https://wa.me/${wa}" target="_blank" rel="noopener">${svg('chat')}WhatsApp</a>`:''}${x.inv||x.rc?`<button class="bt s" onclick="rcp('${id}')">${svg('clip')}Receipt</button>`:''}</div>
+ ${paid(x)?'':`<button class="bt a" style="width:100%;margin-top:10px" onclick="rp('${id}')">+ Record a payment</button><div class="g2"><button class="bt s" onclick="pUpi('${id}')">Pay via UPI</button><button class="bt s" onclick="pQr('${id}')">Show QR</button></div>`}<div class="g2"><button class="bt s" onclick="edit('${id}')">Edit</button><button class="bt d" id="delB" onclick="del()">Delete</button></div>`;ov('mD')}
+let rpId=null;
+function rp(id,amt){const x=S.exp.find(e=>e.id==id);if(!x)return;rpId=id;$('rpI').textContent=x.givenTo+' · balance '+inr(rem(x));$('rpA').value=amt||rem(x)||'';$('rpD').value=today();$('rpM').value=x.mode||'UPI';ov('mP')}
+async function rpSave(){const x=S.exp.find(e=>e.id==rpId),a=Math.round(+$('rpA').value);if(!x||!(a>0))return toast('Enter the amount paid.');if(!can())return;const{id:_,...o}=x;o.pays=[...pays0(x),{a,iso:$('rpD').value||today(),mode:$('rpM').value}];const g=o.pays.reduce((q,p)=>q+p.a,0);o.status=g>=o.amount?'Paid':'Advance Paid';if(g>=o.amount)o.due='';if(await w(db.collection('exp').doc(rpId).set(o))){cl('mP');cl('mD');toast(g>=o.amount?'Fully paid ✓':'Payment recorded')}}
 async function del(){const b=$('delB');if(!b.dataset.a){b.dataset.a=1;b.textContent='Tap again to delete';dt=setTimeout(()=>{b.dataset.a='';b.textContent='Delete'},4000);return}if(!can())return;const x=S.exp.find(e=>e.id==cur);if(await w(db.collection('exp').doc(cur).delete())){if(x&&x.rc)await w(db.doc('rcpt/'+cur).delete());cl('mD');toast('Deleted')}}
 async function rcp(id){const x=S.exp.find(e=>e.id==id);let d=x.inv;if(!d&&x.rc){try{const s=await db.doc('rcpt/'+id).get();d=s.exists&&s.data().d}catch(e){}}if(!d)return toast('Receipt not found.');$('rim').src=d;ov('mR')}
-function stS(v){stat=v;document.querySelectorAll('#sg button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));$('dueW').hidden=v=='Paid'}
+function stS(v){stat=v;document.querySelectorAll('#sg button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));$('dueW').hidden=v=='Paid';$('partW').hidden=v!='Advance Paid'}
 function cs(i){cat=CK[i];document.querySelectorAll('#cg button').forEach((b,j)=>b.classList.toggle('on',j==i))}
-function af(){const p=$('fP');if(!p.value){const x=S.exp.find(e=>e.givenTo==$('fN').value&&e.phone);if(x)p.value=x.phone}}
-function reset(){editId=null;inv=null;['fA','fN','fP','fD','fB','fDue','fI'].forEach(i=>$(i).value='');$('fDt').value=today();$('fF').selectedIndex=0;$('fM').selectedIndex=0;$('iS').textContent='';$('aT').textContent='New payment';cs(0);stS('Paid')}
+function af(){const p=$('fP');if(!p.value){const x=S.exp.find(e=>e.givenTo==$('fN').value&&e.phone);if(x)p.value=x.phone}const u=$('fU');if(!u.value){const y=S.exp.find(e=>e.givenTo==$('fN').value&&e.upi);if(y)u.value=y.upi}}
+function reset(){editId=null;inv=null;['fA','fN','fP','fD','fB','fDue','fI','fPd','fU'].forEach(i=>$(i).value='');$('fDt').value=today();$('fF').selectedIndex=0;$('fM').selectedIndex=0;$('iS').textContent='';$('aT').textContent='New payment';cs(0);stS('Paid')}
 function openAdd(){reset();ov('mA')}
-function edit(id){const x=S.exp.find(e=>e.id==id);if(!x)return;cl('mD');reset();editId=id;$('aT').textContent='Edit payment';$('fA').value=x.amount;$('fDt').value=x.iso||today();$('fN').value=x.givenTo;$('fP').value=x.phone||'';$('fD').value=x.desc||'';cs(Math.max(0,CK.indexOf(x.cat)));$('fF').value=x.fn||'General';$('fM').value=x.mode||'UPI';$('fB').value=x.paidBy||'';$('fDue').value=x.due||'';stS(x.status);$('iS').textContent=(x.inv||x.rc)?'Receipt attached — pick a photo to replace.':'';ov('mA')}
+function edit(id){const x=S.exp.find(e=>e.id==id);if(!x)return;cl('mD');reset();editId=id;$('aT').textContent='Edit payment';$('fA').value=x.amount;$('fDt').value=x.iso||today();$('fN').value=x.givenTo;$('fP').value=x.phone||'';$('fD').value=x.desc||'';cs(Math.max(0,CK.indexOf(x.cat)));$('fF').value=x.fn||'General';$('fM').value=x.mode||'UPI';$('fB').value=x.paidBy||'';$('fDue').value=x.due||'';{const g=got(x);stS(g>=x.amount?'Paid':g>0?'Advance Paid':'Pending');$('fPd').value=g>0&&g<x.amount?g:'';$('fU').value=x.upi||''}$('iS').textContent=(x.inv||x.rc)?'Receipt attached — pick a photo to replace.':'';ov('mA')}
 async function save(){const a=Math.round(+$('fA').value),n=$('fN').value.trim();if(!(a>0)||!n)return toast('Enter an amount and who you paid.');if(!can())return;
- const id=editId||'e'+Date.now(),old=S.exp.find(x=>x.id==editId)||{},o={amount:a,iso:$('fDt').value||today(),givenTo:n,phone:$('fP').value.trim(),desc:$('fD').value.trim()||cat,cat,fn:$('fF').value,mode:$('fM').value,paidBy:$('fB').value.trim(),status:stat,due:stat=='Paid'?'':$('fDue').value,ts:Date.now()};
+ const id=editId||'e'+Date.now(),old=S.exp.find(x=>x.id==editId)||{};
+ const pd=Math.round(+$('fPd').value)||0,u=$('fU').value.trim();if(stat=='Advance Paid'&&!(pd>0&&pd<a))return toast('Enter the amount paid so far (less than the total).');if(u&&!/^[\w.\-]{2,}@[\w.\-]{2,}$/.test(u))return toast('UPI ID should look like name@bank.');
+ const want=stat=='Paid'?a:stat=='Advance Paid'?pd:0,have=editId?got(old):0,pays=(editId&&Array.isArray(old.pays)&&have==want)?old.pays:(want>0?[{a:want,iso:$('fDt').value||today(),mode:$('fM').value}]:[]);
+ const o={amount:a,iso:$('fDt').value||today(),givenTo:n,phone:$('fP').value.trim(),desc:$('fD').value.trim()||cat,cat,fn:$('fF').value,mode:$('fM').value,paidBy:$('fB').value.trim(),status:want>=a?'Paid':want>0?'Advance Paid':'Pending',due:want>=a?'':$('fDue').value,pays,upi:u,ts:Date.now()};
  if(inv){o.rc=1;if(!await w(db.doc('rcpt/'+id).set({d:inv})))return}else{if(old.rc)o.rc=1;if(old.inv)o.inv=old.inv}
  if(await w(db.collection('exp').doc(id).set(o))){cl('mA');toast('Saved')}}
 function openS(){$('sT').value=S.total||'';$('sD').value=S.date||'';ov('mS')}
 async function setB(){if(!can())return;const v=Math.round(+$('sT').value);if(await w(db.doc('meta/budget').set({total:v>0?v:S.total,cat:S.cat||{},date:$('sD').value||S.date||''}))){cl('mS');toast('Saved')}}
 function rsc(){const b=$('rsB');if(b.dataset.a){clearTimeout(rt);b.dataset.a='';b.textContent='Reset all data';doReset()}else{b.dataset.a='1';b.textContent='Tap again to wipe everything';rt=setTimeout(()=>{b.dataset.a='';b.textContent='Reset all data'},4000)}}
-function shr(){const p=sum(S.exp.filter(paid)),c=sum(S.exp.filter(x=>!paid(x))),t=`💍 Swetha & Kalyan — wedding budget\nBudget: ${inr(S.total)}\nSpent: ${inr(p)}\nRemaining: ${inr(S.total-p)}\nPending: ${inr(c)}`;if(navigator.share)navigator.share({text:t}).catch(()=>{});else{const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(t);a.target='_blank';a.rel='noopener';a.click()}}
+function shr(){const p=spent(),c=owed(),t=`💍 Swetha & Kalyan — wedding budget\nBudget: ${inr(S.total)}\nSpent: ${inr(p)}\nRemaining: ${inr(S.total-p)}\nPending: ${inr(c)}`;if(navigator.share)navigator.share({text:t}).catch(()=>{});else{const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(t);a.target='_blank';a.rel='noopener';a.click()}}
 function pick(e){const f=e.target.files[0];if(!f)return;const im=new Image(),u=URL.createObjectURL(f);im.onload=()=>{let s=1100,q=.7,d;const cv=document.createElement('canvas');
  do{const r=Math.min(1,s/Math.max(im.width,im.height));cv.width=im.width*r;cv.height=im.height*r;cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);d=cv.toDataURL('image/jpeg',q);s*=.8;q=Math.max(.4,q-.1)}while(d.length>90000&&s>250);
  URL.revokeObjectURL(u);inv=d;$('iS').textContent='✓ Attached ('+Math.round(d.length/1024)+' KB after compression)'};
  im.onerror=()=>{$('iS').textContent='Please choose a photo or screenshot (PDFs not supported).';e.target.value=''};im.src=u}
-function xl(){if(!S.exp.length)return alert('Nothing to export yet.');const r=[...S.exp].sort(byD).map((x,i)=>({'Sl':i+1,'Date':fd(x.iso),'Paid To':x.givenTo,'Phone':x.phone||'','Description':x.desc,'Category':x.cat,'Function':x.fn||'','Mode':x.mode||'','Paid By':x.paidBy||'','Status':x.status,'Due':fd(x.due),'Amount (INR)':x.amount}));
- const p=sum(S.exp.filter(paid));r.push({},{'Category':'TOTAL BUDGET','Amount (INR)':S.total},{'Category':'TOTAL PAID','Amount (INR)':p},{'Category':'BALANCE','Amount (INR)':S.total-p});
+function xl(){if(!S.exp.length)return alert('Nothing to export yet.');const r=[...S.exp].sort(byD).map((x,i)=>({'Sl':i+1,'Date':fd(x.iso),'Paid To':x.givenTo,'Phone':x.phone||'','Description':x.desc,'Category':x.cat,'Function':x.fn||'','Mode':x.mode||'','Paid By':x.paidBy||'','Status':stt(x),'Due':fd(x.due),'Total (INR)':x.amount,'Paid (INR)':got(x),'Balance (INR)':rem(x)}));
+ const p=spent();r.push({},{'Category':'TOTAL BUDGET','Total (INR)':S.total},{'Category':'TOTAL PAID','Total (INR)':p},{'Category':'BALANCE','Total (INR)':S.total-p});
  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(r),'Wedding Ledger');dl('Swetha_Wedding_Expenses.xlsx',XLSX.write(wb,{bookType:'xlsx',type:'array'}))}
 function bk(){dl('wedding-backup-'+today()+'.json',JSON.stringify({total:S.total,cat:S.cat,vend:S.vend,exp:S.exp}))}
 async function rs(e){const f=e.target.files[0];e.target.value='';if(!f||!can())return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.exp))throw 0;
  if(!await w(db.doc('meta/budget').set({total:d.total||0,cat:d.cat||{}})))return;for(const k in d.vend||{})await w(db.doc('vendors/'+k).set(d.vend[k]));
  for(const x of d.exp){const{id,...r}=x;if(!await w(db.collection('exp').doc(id||'e'+Date.now()+Math.random().toString(36).slice(2,5)).set(r)))return}alert('Restore complete.')}catch(_){alert('That file isn\'t a valid backup.')}}
 async function doReset(){hide('mR');if(!can())return;for(const x of S.exp){await w(db.collection('exp').doc(x.id).delete());if(x.rc)await w(db.doc('rcpt/'+x.id).delete())}for(const k in S.vend)await w(db.doc('vendors/'+k).delete());await w(db.doc('meta/budget').delete());go('home')}
-function shr(){const p=sum(S.exp.filter(paid)),c=sum(S.exp.filter(x=>!paid(x))),t='💍 Swetha & Kalyan — wedding budget\nBudget: '+inr(S.total)+'\nSpent: '+inr(p)+'\nRemaining: '+inr(S.total-p)+'\nPending: '+inr(c);$('shT').value=t;$('shW').href='https://wa.me/?text='+encodeURIComponent(t);ov('mH')}
+function shr(){const p=spent(),c=owed(),t='💍 Swetha & Kalyan — wedding budget\nBudget: '+inr(S.total)+'\nSpent: '+inr(p)+'\nRemaining: '+inr(S.total-p)+'\nPending: '+inr(c);$('shT').value=t;$('shW').href='https://wa.me/?text='+encodeURIComponent(t);ov('mH')}
 function cnt(el,to){const from=el._v||0;el._v=to;cancelAnimationFrame(el._r);if(from===to){el.textContent=inr(to);return}const t0=performance.now(),f=n=>{const k=Math.min(1,(n-t0)/600),e=1-Math.pow(1-k,3);el.textContent=inr(from+(to-from)*e);if(k<1)el._r=requestAnimationFrame(f)};el._r=requestAnimationFrame(f)}
 function go(t){tab=t;['home','pay','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});render();scrollTo(0,0);const s=$('v-'+t);s.classList.remove('an');void s.offsetWidth;s.classList.add('an');setTimeout(()=>s.classList.remove('an'),900)}
 const cp=n=>'₹'+(n>=1e7?(n/1e7).toFixed(1).replace('.0','')+'Cr':n>=1e5?(n/1e5).toFixed(1).replace('.0','')+'L':n>=1e3?Math.round(n/1e3)+'k':Math.round(n));
-function stats(){const P=S.exp.filter(paid),pe=S.exp.filter(x=>!paid(x)),tp=sum(P);return{P,tp,tc:sum(pe),avg:P.length?tp/P.length:0,mx:P.reduce((a,x)=>!a||x.amount>a.amount?x:a,null)}}
-function topn(f,n){const m={};S.exp.filter(paid).forEach(x=>{const g=f(x);m[g]=(m[g]||0)+x.amount});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,n)}
+function stats(){const P=S.exp.filter(x=>got(x)>0),tp=spent();return{P,tp,tc:owed(),avg:P.length?tp/P.length:0,mx:S.exp.reduce((a,x)=>!a||x.amount>a.amount?x:a,null)}}
+function topn(f,n){const m={};S.exp.filter(x=>got(x)>0).forEach(x=>{const g=f(x);m[g]=(m[g]||0)+got(x)});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,n)}
 const tl=a=>a.length?a.map(([k,v])=>`<div class="kl"><span class="t">${esc(k)}</span><b>${inr(v)}</b></div>`).join(''):'<div class="m" style="margin-top:6px">No data yet</div>';
-function sideP(){const s=stats(),n=S.exp.length,c={Paid:0,Advance:0,Pending:0};S.exp.forEach(x=>c[x.status=='Advance Paid'?'Advance':x.status]++);
+function sideP(){const s=stats(),n=S.exp.length,c={Paid:0,Advance:0,Pending:0};S.exp.forEach(x=>{const t=stt(x);c[t=='Part'?'Advance':t]++});
  $('pSide').innerHTML=`<div class="sx"><div><small>Paid</small><b>${inr(s.tp)}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div><div><small>Payments</small><b>${n}</b></div><div><small>Average</small><b>${inr(s.avg)}</b></div></div>
- <div class="ir"><div class="l">Status split</div><div class="sp">${n?`<i style="width:${c.Paid/n*100}%;background:var(--ok)"></i><i style="width:${c.Advance/n*100}%;background:#F5B85C"></i><i style="width:${c.Pending/n*100}%;background:var(--acc)"></i>`:''}</div><div class="row m"><span>Paid ${c.Paid}</span><span>Advance ${c.Advance}</span><span>Pending ${c.Pending}</span></div></div>
+ <div class="ir"><div class="l">Status split</div><div class="sp">${n?`<i style="width:${c.Paid/n*100}%;background:var(--ok)"></i><i style="width:${c.Advance/n*100}%;background:#F5B85C"></i><i style="width:${c.Pending/n*100}%;background:var(--acc)"></i>`:''}</div><div class="row m"><span>Paid ${c.Paid}</span><span>Part paid ${c.Advance}</span><span>Pending ${c.Pending}</span></div></div>
  <div class="ir"><div class="l">Biggest payment</div>${s.mx?`<div class="row" style="margin-top:6px"><span class="mn t"><b>${esc(s.mx.desc)}</b><div class="m">${esc(s.mx.givenTo)} · ${fd(s.mx.iso)}</div></span><b>${inr(s.mx.amount)}</b></div>`:'<div class="m" style="margin-top:6px">No data yet</div>'}</div>
  <div class="ir"><div class="l">Top vendors</div>${tl(topn(x=>x.givenTo.trim(),3))}</div>`}
 function sideI(){const s=stats(),r=S.total-s.tp,d=S.date?Math.ceil((new Date(S.date+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5):0,pc=S.total?Math.round(s.tp/S.total*100):0;
  $('insX').innerHTML=`<div class="sx" style="margin-top:12px"><div><small>Total spent</small><b>${inr(s.tp)}</b></div><div><small>Average payment</small><b>${inr(s.avg)}</b></div><div><small>Largest</small><b>${s.mx?inr(s.mx.amount):'—'}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div></div>
  <div class="ir"><div class="l">Payment modes</div>${tl(topn(x=>x.mode||'Not set',5))}</div>`}
 const PAL=['#FF5B1F','#3B82F6','#F5B85C','#1F9D63','#8A8A85','#E5383B','#7FB8B0','#C98A2B'];
-function homeX(){const s=stats(),t=today(),m0=t.slice(0,7),mo=sum(S.exp.filter(x=>paid(x)&&(x.iso||'').slice(0,7)==m0)),d=S.date?Math.ceil((new Date(S.date+'T00:00:00')-new Date(t+'T00:00:00'))/864e5):0,r=S.total-s.tp,pd=S.total&&d>0;
+function homeX(){const s=stats(),t=today(),m0=t.slice(0,7),mo=S.exp.reduce((q,x)=>q+pays0(x).filter(p=>(p.iso||'').slice(0,7)==m0).reduce((t2,p)=>t2+(+p.a||0),0),0),d=S.date?Math.ceil((new Date(S.date+'T00:00:00')-new Date(t+'T00:00:00'))/864e5):0,r=S.total-s.tp,pd=S.total&&d>0;
  $('hi').innerHTML=`<div class="sx"><div><small>This month</small><b>${inr(mo)}</b></div><div><small>Payments</small><b>${s.P.length}</b></div></div>`;
  const c=topn(x=>x.cat,8),tot=s.tp,col=k=>PAL[Math.max(0,CK.indexOf(k))];
  if(!c.length){$('hc').innerHTML='<div class="m">Spending by category will show here.</div>';return}
@@ -259,6 +282,70 @@ function acc(){const u=AUTH&&AUTH.currentUser;if(!u){$('accB').innerHTML='';retu
  <button class="bt d" style="width:100%;margin-top:18px" onclick="AUTH.signOut()">Sign out</button>`}
 async function saveName(){try{await AUTH.currentUser.updateProfile({displayName:$('aN').value.trim()});toast('Saved');acc()}catch(e){toast('Could not save name')}}
 async function pwReset(){try{await AUTH.sendPasswordResetEmail(AUTH.currentUser.email);toast('Reset email sent')}catch(e){toast('Could not send email')}}
+const QR=(function(){
+const EC=[0,[10,1,16,0,0],[16,1,28,0,0],[26,1,44,0,0],[18,2,32,0,0],[24,2,43,0,0],[16,4,27,0,0],[18,4,31,0,0],[22,2,38,2,39],[22,3,36,2,37],[26,4,43,1,44]];
+const AL=[0,[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50]];
+const EXP=new Array(512),LOG=new Array(256);{let x=1;for(let i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=0x11D}for(let i=255;i<512;i++)EXP[i]=EXP[i-255]}
+const mul=(a,b)=>a&&b?EXP[LOG[a]+LOG[b]]:0;
+const gen=n=>{let g=[1];for(let i=0;i<n;i++){const t=new Array(g.length+1).fill(0);for(let j=0;j<g.length;j++){t[j]^=g[j];t[j+1]^=mul(g[j],EXP[i])}g=t}return g};
+const rs=(d,n)=>{const g=gen(n),r=new Array(n).fill(0);for(const b of d){const f=b^r.shift();r.push(0);for(let i=0;i<n;i++)r[i]^=mul(g[i+1],f)}return r};
+const cap=v=>EC[v][1]*EC[v][2]+EC[v][3]*EC[v][4];
+const MASK=[(r,c)=>(r+c)%2==0,(r,c)=>r%2==0,(r,c)=>c%3==0,(r,c)=>(r+c)%3==0,(r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2==0,(r,c)=>r*c%2+r*c%3==0,(r,c)=>(r*c%2+r*c%3)%2==0,(r,c)=>((r+c)%2+r*c%3)%2==0];
+function penalty(M,n){let p=0,dark=0;
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++)dark+=M[r][c];
+ const lines=[];for(let i=0;i<n;i++){lines.push(M[i].slice());lines.push(M.map(row=>row[i]))}
+ for(const L of lines){let run=1;for(let i=1;i<n;i++){if(L[i]==L[i-1]){run++;if(run==5)p+=3;else if(run>5)p++}else run=1}
+  for(let i=0;i+11<=n;i++){const w=L.slice(i,i+11).join('');if(w=='10111010000'||w=='00001011101')p+=40}}
+ for(let r=0;r<n-1;r++)for(let c=0;c<n-1;c++){const x=M[r][c];if(x==M[r][c+1]&&x==M[r+1][c]&&x==M[r+1][c+1])p+=3}
+ const k=Math.ceil(Math.abs(dark*20-n*n*10)/(n*n))-1;return p+Math.max(0,k)*10}
+function make(text){
+ const bytes=[...unescape(encodeURIComponent(text))].map(c=>c.charCodeAt(0));
+ let v=1;for(;v<=10;v++){if(4+(v<10?8:16)+bytes.length*8<=cap(v)*8)break}if(v>10)return null;
+ const bits=[],put=(x,l)=>{for(let i=l-1;i>=0;i--)bits.push((x>>>i)&1)};
+ put(4,4);put(bytes.length,v<10?8:16);bytes.forEach(b=>put(b,8));put(0,Math.min(4,cap(v)*8-bits.length));while(bits.length%8)bits.push(0);
+ const data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=b<<1|bits[i+j];data.push(b)}
+ for(let pad=0xEC;data.length<cap(v);pad^=0xEC^0x11)data.push(pad);
+ const e=EC[v],nb=e[1]+e[3],blocks=[],ecs=[];let k=0;
+ for(let i=0;i<nb;i++){const len=i<e[1]?e[2]:e[4],b=data.slice(k,k+len);k+=len;blocks.push(b);ecs.push(rs(b,e[0]))}
+ const cw=[];for(let i=0;i<Math.max(e[2],e[4]);i++)blocks.forEach(b=>{if(i<b.length)cw.push(b[i])});for(let i=0;i<e[0];i++)ecs.forEach(b=>cw.push(b[i]));
+ const n=17+4*v,M=Array.from({length:n},()=>new Array(n).fill(0)),F=Array.from({length:n},()=>new Array(n).fill(false));
+ const sf=(c,r,d)=>{if(r<0||c<0||r>=n||c>=n)return;M[r][c]=d?1:0;F[r][c]=true};
+ const finder=(r0,c0)=>{for(let dr=-1;dr<=7;dr++)for(let dc=-1;dc<=7;dc++){const d=dr>=0&&dr<=6&&dc>=0&&dc<=6&&(dr==0||dr==6||dc==0||dc==6||(dr>=2&&dr<=4&&dc>=2&&dc<=4));sf(c0+dc,r0+dr,d)}};
+ finder(0,0);finder(0,n-7);finder(n-7,0);
+ for(let i=8;i<n-8;i++){sf(i,6,i%2==0);sf(6,i,i%2==0)}
+ const al=AL[v],la=al[al.length-1];for(const r of al)for(const c of al){if((r==6&&c==6)||(r==6&&c==la)||(c==6&&r==la))continue;for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++)sf(c+dc,r+dr,Math.max(Math.abs(dr),Math.abs(dc))!=1)}
+ const fmt=mask=>{let d=mask,r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)==1;
+  for(let i=0;i<=5;i++)sf(8,i,g(i));sf(8,7,g(6));sf(8,8,g(7));sf(7,8,g(8));for(let i=9;i<15;i++)sf(14-i,8,g(i));
+  for(let i=0;i<8;i++)sf(n-1-i,8,g(i));for(let i=8;i<15;i++)sf(8,n-15+i,g(i));sf(8,n-8,true)};
+ fmt(0);
+ if(v>=7){let r=v;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=(v<<12)|r;for(let i=0;i<18;i++){const bit=((b>>>i)&1)==1,a=n-11+i%3,c=Math.floor(i/3);sf(a,c,bit);sf(c,a,bit)}}
+ let bi=0;const nbits=cw.length*8;
+ for(let right=n-1;right>=1;right-=2){if(right==6)right=5;for(let vert=0;vert<n;vert++)for(let j=0;j<2;j++){const c=right-j,up=((right+1)&2)==0,r=up?n-1-vert:vert;if(!F[r][c]&&bi<nbits){M[r][c]=(cw[bi>>3]>>(7-(bi&7)))&1;bi++}}}
+ let best=null,bp=1e9,bm=0;
+ for(let m=0;m<8;m++){const T=M.map(row=>row.slice());for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(!F[r][c]&&MASK[m](r,c))T[r][c]^=1;
+  const save=M;/* temporarily draw format on T */ 
+  const Mx=T;const sfT=(c,r,d)=>{Mx[r][c]=d?1:0};
+  let dd=m,rr=dd;for(let i=0;i<10;i++)rr=(rr<<1)^((rr>>>9)*0x537);const b=((dd<<10)|rr)^0x5412,g=i=>((b>>>i)&1)==1;
+  for(let i=0;i<=5;i++)sfT(8,i,g(i));sfT(8,7,g(6));sfT(8,8,g(7));sfT(7,8,g(8));for(let i=9;i<15;i++)sfT(14-i,8,g(i));
+  for(let i=0;i<8;i++)sfT(n-1-i,8,g(i));for(let i=8;i<15;i++)sfT(8,n-15+i,g(i));sfT(8,n-8,true);
+  const p=penalty(T,n);if(p<bp){bp=p;best=T;bm=m}}
+ return best}
+return{make}})();
+
+const isMob=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent),upiLink=(u,n,a)=>'upi://pay?pa='+encodeURIComponent(u)+'&pn='+encodeURIComponent(n)+'&am='+Number(a).toFixed(2)+'&cu=INR&tn='+encodeURIComponent('Wedding payment');
+const upiOf=x=>x.upi||((S.exp.find(e=>e.upi&&(e.givenTo||'').trim().toLowerCase()==(x.givenTo||'').trim().toLowerCase())||{}).upi)||'';
+let qId=null;const qAmt=()=>Math.round(+$('qA').value*100)/100,qU=()=>$('qUi').value.trim(),qOk=u=>/^[\w.\-]{2,}@[\w.\-]{2,}$/.test(u);
+function qrSvg(m){const n=m.length,q=4,z=n+q*2;let d='';for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(m[r][c])d+='M'+(c+q)+' '+(r+q)+'h1v1h-1z';return `<svg class="qrs" viewBox="0 0 ${z} ${z}" shape-rendering="crispEdges" style="background:#fff;border-radius:14px;display:block;margin:auto"><path d="${d}"/></svg>`}
+function pUpi(id){const x=S.exp.find(e=>e.id==id);if(!x)return;const u=upiOf(x);if(!u||!isMob())return pQr(id);const b=rem(x);if(b>1e5)toast('Large amount — your bank\'s UPI limit may block it.');else toast('After paying, tap Record a payment.');location.href=upiLink(u,x.givenTo,b)}
+function pQr(id){const x=S.exp.find(e=>e.id==id);if(!x)return;qId=id;$('qN').textContent=x.givenTo;$('qUi').value=upiOf(x);$('qA').value=rem(x)||'';ov('mQ');qr()}
+function qr(){const x=S.exp.find(e=>e.id==qId);if(!x)return;const a=qAmt(),u=qU(),box=$('qI');
+ if(!qOk(u)){box.innerHTML='<div class="m" style="padding:60px 0">Enter the vendor\'s UPI ID (like name@bank) to show the QR.</div>';$('qW').hidden=true;return}
+ if(!(a>0)){box.innerHTML='<div class="m" style="padding:60px 0">Enter an amount to show the QR code.</div>';$('qW').hidden=true;return}
+ $('qW').hidden=a<=1e5;const m=QR.make(upiLink(u,x.givenTo,a));box.innerHTML=m?qrSvg(m):'<div class="m" style="padding:60px 0">Could not make the QR. Use Open UPI app.</div>'}
+async function saveUpi(){const x=S.exp.find(e=>e.id==qId),u=qU();if(!x||!qOk(u)||x.upi==u||!db||!canW)return;const{id:_,...o}=x;o.upi=u;await w(db.collection('exp').doc(qId).set(o))}
+function qOpen(){const x=S.exp.find(e=>e.id==qId),a=qAmt(),u=qU();if(!x)return;if(!qOk(u))return toast('Enter a valid UPI ID.');if(!(a>0))return toast('Enter an amount.');saveUpi();if(!isMob())return toast('Scan the QR with your phone, or open this page on your phone.');location.href=upiLink(u,x.givenTo,a)}
+async function qCopy(){const u=qU();if(!qOk(u))return toast('Enter a valid UPI ID.');try{await navigator.clipboard.writeText(u);toast('UPI ID copied')}catch(e){toast(u)}}
+function qDone(){const a=qAmt();if(!(a>0))return toast('Enter the amount you paid.');saveUpi();cl('mQ');rp(qId,a)}
 function quick(i){openAdd();cs(i)}
 function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('wl-theme',t)}catch(e){}const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t=='dark'?'#0F0F11':'#F6F5F2';document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.v==t));const b=$('thB');if(b)b.innerHTML=svg(t=='dark'?'sun':'moon')}
 const toggleTheme=()=>setTheme(document.documentElement.dataset.theme=='dark'?'light':'dark');
@@ -288,6 +375,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='
 document.addEventListener('click',e=>{const a=document.activeElement;if(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&!e.target.closest('input,select,textarea,label,.dn'))a.blur()});
 $('cg').innerHTML=CK.map((c,i)=>`<button onclick="cs(${i})"><span>${CATS[c]}</span>${SH[i]}</button>`).join('');$('fF').innerHTML=FN.map(x=>`<option>${x}</option>`).join('');$('fM').innerHTML=MO.map(x=>`<option>${x}</option>`).join('');
 {let t='light';try{t=localStorage.getItem('wl-theme')||'light'}catch(e){}setTheme(t)}
+$('rpM').innerHTML=MO.map(x=>`<option>${x}</option>`).join('');
 icons();reset();go('home');
 window.startApp=async()=>{try{db=await claude.use('db')}catch(e){}
  if(!db){try{if(window.storage&&window.storage.get)db=storageDb()}catch(e){}}
