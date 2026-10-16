@@ -93,7 +93,6 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 .tbs{display:flex;gap:8px;align-items:center}
 .lgn{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}.lgc{width:100%;max-width:360px;background:var(--card);border-radius:28px;padding:26px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}.lgc input{text-align:left}
 .bt.ap{background:#000!important;color:#fff!important}
-svg.qrs{width:240px;height:240px;stroke:none;fill:#111}svg.qrs path{fill:#111;stroke:none}
 </style></head><body><div class="w">
 <header class="tp hd2"><i class="r1"></i><i class="r2"></i><div class="row"><span class="m" id="sy">…</span><div class="tbs"><button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button><button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button></div></div><div class="ey">THE WEDDING OF</div><h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1><div class="orn"><u></u><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:none;fill:#FFE2A8"><g><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/></g><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div><div class="wd" id="wd">Set your wedding date in settings</div><div class="cdp" id="cd">Wedding ledger</div></header>
 <section id="v-home"><div class="c1"><div class="hero"><div class="l">Remaining</div><div class="big" id="hR">₹0</div><div class="bar"><b id="hBar" style="width:0"></b></div><div class="hs"><div><small>Budget</small><b id="hB">—</b></div><div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div></div></div>
@@ -117,7 +116,6 @@ svg.qrs{width:240px;height:240px;stroke:none;fill:#111}svg.qrs path{fill:#111;st
 <div class="g2"><div><label>Date</label><input type="date" id="fDt"></div><div id="dueW"><label>Balance due date</label><input type="date" id="fDue"></div></div>
 <div class="g2"><div><label>Function</label><select id="fF"></select></div><div><label>Mode</label><select id="fM"></select></div></div>
 <div class="g2"><div><label>Paid by</label><input id="fB" list="dlP" placeholder="Family member"></div><div><label>Phone</label><input id="fP" type="tel" inputmode="tel"></div></div>
-<label>Vendor UPI ID (optional)</label><input id="fU" placeholder="name@bank" autocapitalize="off">
 <label>Receipt photo</label><input id="fI" type="file" accept="image/*" onchange="pick(event)"><div class="m" id="iS"></div>
 <button class="bt a" style="width:100%;margin-top:18px" onclick="save()">Save payment</button></div></div>
 <div class="ov" id="mD" onclick="if(event.target==this)cl('mD')"><div class="sh"><div class="shh"><span class="l">Payment</span><button class="ib" onclick="cl('mD')" data-i="x"></button></div><div id="dB"></div></div></div>
@@ -132,15 +130,6 @@ svg.qrs{width:240px;height:240px;stroke:none;fill:#111}svg.qrs path{fill:#111;st
 <label>Amount paid (₹)</label><input id="rpA" type="number" inputmode="numeric" placeholder="0">
 <div class="g2"><div><label>Date</label><input type="date" id="rpD"></div><div><label>Mode</label><select id="rpM"></select></div></div>
 <button class="bt a" style="width:100%;margin-top:18px" onclick="rpSave()">Save payment</button></div></div>
-<div class="ov" id="mQ" onclick="if(event.target==this)cl('mQ')"><div class="sh"><div class="shh"><b>Pay by UPI</b><button class="ib" onclick="cl('mQ')" data-i="x"></button></div>
-<div class="m" style="margin-top:6px">To <b id="qN"></b></div>
-<label>Vendor UPI ID</label><input id="qUi" placeholder="name@bank" autocapitalize="off" oninput="qr()">
-<label>Amount (₹)</label><input id="qA" type="number" inputmode="decimal" oninput="qr()">
-<div id="qI" style="margin:16px 0 8px;text-align:center"></div>
-<div class="m" id="qW" hidden style="color:#B8860B;text-align:center;margin-bottom:6px">Above ₹1 lakh — your bank may block this. Pay in parts or use a bank transfer.</div>
-<div class="m" style="text-align:center">Scan with GPay, PhonePe, Paytm or any UPI app.</div>
-<div class="g2"><button class="bt a" onclick="qOpen()">Open UPI app</button><button class="bt s" onclick="qCopy()">Copy UPI ID</button></div>
-<button class="bt s" style="width:100%;margin-top:8px" onclick="qDone()">I've paid — record it</button></div></div>
 <div class="ov" id="mR" onclick="cl('mR')"><div class="sh"><div class="shh"><b>Receipt</b><button class="ib" data-i="x"></button></div><img id="rim" style="max-width:100%;border-radius:14px;margin-top:10px"></div></div>
 <div id="lg" class="lgn"><div class="lgc" id="lc"><div class="ey">THE WEDDING OF</div><h1 class="nm" style="font-size:30px">Swetha <em>&amp;</em> Kalyan</h1><p class="m" style="margin:8px 0 22px">Sign in to view and edit the wedding ledger</p>
 <button class="bt s" style="width:100%;padding:15px" onclick="doProv('google')"><b style="color:#4285F4;font-size:18px">G</b>Continue with Google</button>
@@ -175,7 +164,7 @@ const CK=Object.keys(CATS),SH=['Jewelry','Clothing','Venue','Catering','Photo','
 const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',list:'<path d="M4 6h16M4 12h16M4 18h10"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',plus:'<path d="M12 5v14M5 12h14"/>',sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.8 7L3 21l2-5.5A8 8 0 1 1 21 12z"/>',clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>'};
 const svg=n=>`<svg viewBox="0 0 24 24">${IC[n]}</svg>`;
 const icons=()=>document.querySelectorAll('[data-i]').forEach(e=>e.innerHTML=svg(e.dataset.i)+(e.dataset.t?`<span>${e.dataset.t}</span>`:''));
-const got=x=>Array.isArray(x.pays)?x.pays.reduce((s,p)=>s+(+p.a||0),0):(x.status==='Pending'?0:x.amount),rem=x=>Math.max(0,x.amount-got(x)),paid=x=>rem(x)<=0,stt=x=>paid(x)?'Paid':got(x)>0?'Part':'Pending',spent=()=>S.exp.reduce((s,x)=>s+got(x),0),owed=()=>S.exp.reduce((s,x)=>s+rem(x),0),pays0=x=>Array.isArray(x.pays)?x.pays:(got(x)>0?[{a:got(x),iso:x.iso,mode:x.mode}]:[]),sum=a=>a.reduce((s,x)=>s+x.amount,0),byD=(a,b)=>(b.iso||'').localeCompare(a.iso||'')||(b.ts||0)-(a.ts||0);
+const got=x=>Array.isArray(x.pays)?x.pays.reduce((s,p)=>s+(+p.a||0),0):(x.status==='Pending'?0:x.amount),rem=x=>Math.max(0,x.amount-got(x)),paid=x=>rem(x)<=0,stt=x=>paid(x)?'Paid':got(x)>0?'Part':'Pending',spent=()=>S.exp.reduce((s,x)=>s+got(x),0),owed=()=>S.exp.reduce((s,x)=>s+rem(x),0),lastPay=x=>pays0(x).map(p=>p.iso).filter(Boolean).sort().pop()||x.iso,pays0=x=>Array.isArray(x.pays)?x.pays:(got(x)>0?[{a:got(x),iso:x.iso,mode:x.mode}]:[]),sum=a=>a.reduce((s,x)=>s+x.amount,0),byD=(a,b)=>(b.iso||'').localeCompare(a.iso||'')||(b.ts||0)-(a.ts||0);
 const ov=i=>$(i).classList.add('on'),cl=i=>$(i).classList.remove('on'),hide=i=>{const e=$(i);e&&e.classList.remove('on')},ss=t=>$('sy').textContent=t;
 function toast(m){const e=$('ts');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2400)}
 window.alert=toast;const err=e=>ss('Sync issue');
@@ -189,7 +178,7 @@ function render(){const p=spent(),r=S.total-p,pc=S.total?Math.min(100,Math.round
  if(tab=='home'){home();homeX()}if(tab=='pay'){pay();sideP()}if(tab=='ins'){ins();sideI()}if(tab=='acc')acc()}
 const st=x=>{const t=stt(x);return t=='Pending'?'<div class="pd">Pending</div>':t=='Part'?'<div class="ad" style="color:#B8860B">Part paid</div>':''};
 const hist=x=>{const P=pays0(x);return P.length?`<div class="ir" style="margin-top:0"><div class="l">Payments made</div>${P.map(p=>`<div class="kl"><span>${fd(p.iso)} · ${esc(p.mode||'—')}</span><b>${inr(p.a)}</b></div>`).join('')}</div>`:''};
-const rw=x=>{const g=got(x),pt=stt(x)=='Part';return `<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${fd(x.iso)}</div>${pt?`<div class="bar" style="margin:6px 0 0"><b style="width:${Math.min(100,Math.round(g/x.amount*100))}%"></b></div>`:''}</div><div style="text-align:right"><b>${inr(x.amount)}</b>${st(x)}${pt?`<div class="m">${inr(rem(x))} left</div>`:''}</div></div>`};
+const rw=x=>{const g=got(x),pt=stt(x)=='Part';return `<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${pt?'last paid '+fd(lastPay(x)):fd(x.iso)}</div>${pt?`<div class="bar" style="margin:6px 0 0"><b style="width:${Math.min(100,Math.round(g/x.amount*100))}%"></b></div>`:''}</div><div style="text-align:right"><b>${inr(x.amount)}</b>${st(x)}${pt?`<div class="m">${inr(rem(x))} left</div>`:''}</div></div>`};
 function home(){const t=today(),du=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
  $('due').innerHTML=du.length?du.map(x=>`<div class="dc" onclick="det('${x.id}')"><div class="m">${x.due?(x.due<t?'<b style="color:var(--bad)">Overdue</b> · ':'Due ')+fd(x.due):'No due date'}</div><b>${inr(rem(x))}</b><div class="m t">${esc(x.givenTo)}</div></div>`).join(''):'<div class="m">Nothing pending 🎉</div>';
  const e=[...S.exp].sort(byD).slice(0,6);$('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>'}
@@ -210,7 +199,7 @@ function det(id){const x=S.exp.find(e=>e.id==id);if(!x)return;cur=id;const ph=(x
  $('dB').innerHTML=`<div class="bg2">${inr(x.amount)}</div><div class="m" style="margin-top:-2px">Total amount</div><div class="row" style="justify-content:flex-start"><b style="font-size:16px">${esc(x.desc)}</b>${st(x)}</div><div class="m">${CATS[x.cat]||''} ${esc(x.cat)} · ${esc(x.fn||'General')}</div>
  <div class="kv"><span>Paid so far</span><b style="color:var(--ok)">${inr(got(x))}</b><span>Balance</span><b style="color:${rem(x)>0?'var(--acc)':'var(--ok)'}">${inr(rem(x))}</b><span>Paid to</span><b>${esc(x.givenTo)}</b><span>Date</span><b>${fd(x.iso)}</b>${x.due&&!paid(x)?`<span>Due</span><b>${fd(x.due)}</b>`:''}<span>Mode</span><b>${esc(x.mode||'—')}</b><span>Paid by</span><b>${esc(x.paidBy||'—')}</b></div>
  ${hist(x)}<div class="acts">${ph?`<a class="bt s" href="tel:${ph}">${svg('phone')}Call</a><a class="bt s" href="https://wa.me/${wa}" target="_blank" rel="noopener">${svg('chat')}WhatsApp</a>`:''}${x.inv||x.rc?`<button class="bt s" onclick="rcp('${id}')">${svg('clip')}Receipt</button>`:''}</div>
- ${paid(x)?'':`<button class="bt a" style="width:100%;margin-top:10px" onclick="rp('${id}')">+ Record a payment</button><div class="g2"><button class="bt s" onclick="pUpi('${id}')">Pay via UPI</button><button class="bt s" onclick="pQr('${id}')">Show QR</button></div>`}<div class="g2"><button class="bt s" onclick="edit('${id}')">Edit</button><button class="bt d" id="delB" onclick="del()">Delete</button></div>`;ov('mD')}
+ ${paid(x)?'':`<button class="bt a" style="width:100%;margin-top:10px" onclick="rp('${id}')">+ Record a payment</button>`}<div class="g2"><button class="bt s" onclick="edit('${id}')">Edit</button><button class="bt d" id="delB" onclick="del()">Delete</button></div>`;ov('mD')}
 let rpId=null;
 function rp(id,amt){const x=S.exp.find(e=>e.id==id);if(!x)return;rpId=id;$('rpI').textContent=x.givenTo+' · balance '+inr(rem(x));$('rpA').value=amt||rem(x)||'';$('rpD').value=today();$('rpM').value=x.mode||'UPI';ov('mP')}
 async function rpSave(){const x=S.exp.find(e=>e.id==rpId),a=Math.round(+$('rpA').value);if(!x||!(a>0))return toast('Enter the amount paid.');if(!can())return;const{id:_,...o}=x;o.pays=[...pays0(x),{a,iso:$('rpD').value||today(),mode:$('rpM').value}];const g=o.pays.reduce((q,p)=>q+p.a,0);o.status=g>=o.amount?'Paid':'Advance Paid';if(g>=o.amount)o.due='';if(await w(db.collection('exp').doc(rpId).set(o))){cl('mP');cl('mD');toast(g>=o.amount?'Fully paid ✓':'Payment recorded')}}
@@ -218,15 +207,15 @@ async function del(){const b=$('delB');if(!b.dataset.a){b.dataset.a=1;b.textCont
 async function rcp(id){const x=S.exp.find(e=>e.id==id);let d=x.inv;if(!d&&x.rc){try{const s=await db.doc('rcpt/'+id).get();d=s.exists&&s.data().d}catch(e){}}if(!d)return toast('Receipt not found.');$('rim').src=d;ov('mR')}
 function stS(v){stat=v;document.querySelectorAll('#sg button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));$('dueW').hidden=v=='Paid';$('partW').hidden=v!='Advance Paid'}
 function cs(i){cat=CK[i];document.querySelectorAll('#cg button').forEach((b,j)=>b.classList.toggle('on',j==i))}
-function af(){const p=$('fP');if(!p.value){const x=S.exp.find(e=>e.givenTo==$('fN').value&&e.phone);if(x)p.value=x.phone}const u=$('fU');if(!u.value){const y=S.exp.find(e=>e.givenTo==$('fN').value&&e.upi);if(y)u.value=y.upi}}
-function reset(){editId=null;inv=null;['fA','fN','fP','fD','fB','fDue','fI','fPd','fU'].forEach(i=>$(i).value='');$('fDt').value=today();$('fF').selectedIndex=0;$('fM').selectedIndex=0;$('iS').textContent='';$('aT').textContent='New payment';cs(0);stS('Paid')}
+function af(){const p=$('fP');if(!p.value){const x=S.exp.find(e=>e.givenTo==$('fN').value&&e.phone);if(x)p.value=x.phone}}
+function reset(){editId=null;inv=null;['fA','fN','fP','fD','fB','fDue','fI','fPd'].forEach(i=>$(i).value='');$('fDt').value=today();$('fF').selectedIndex=0;$('fM').selectedIndex=0;$('iS').textContent='';$('aT').textContent='New payment';cs(0);stS('Paid')}
 function openAdd(){reset();ov('mA')}
-function edit(id){const x=S.exp.find(e=>e.id==id);if(!x)return;cl('mD');reset();editId=id;$('aT').textContent='Edit payment';$('fA').value=x.amount;$('fDt').value=x.iso||today();$('fN').value=x.givenTo;$('fP').value=x.phone||'';$('fD').value=x.desc||'';cs(Math.max(0,CK.indexOf(x.cat)));$('fF').value=x.fn||'General';$('fM').value=x.mode||'UPI';$('fB').value=x.paidBy||'';$('fDue').value=x.due||'';{const g=got(x);stS(g>=x.amount?'Paid':g>0?'Advance Paid':'Pending');$('fPd').value=g>0&&g<x.amount?g:'';$('fU').value=x.upi||''}$('iS').textContent=(x.inv||x.rc)?'Receipt attached — pick a photo to replace.':'';ov('mA')}
+function edit(id){const x=S.exp.find(e=>e.id==id);if(!x)return;cl('mD');reset();editId=id;$('aT').textContent='Edit payment';$('fA').value=x.amount;$('fDt').value=x.iso||today();$('fN').value=x.givenTo;$('fP').value=x.phone||'';$('fD').value=x.desc||'';cs(Math.max(0,CK.indexOf(x.cat)));$('fF').value=x.fn||'General';$('fM').value=x.mode||'UPI';$('fB').value=x.paidBy||'';$('fDue').value=x.due||'';{const g=got(x);stS(g>=x.amount?'Paid':g>0?'Advance Paid':'Pending');$('fPd').value=g>0&&g<x.amount?g:''}$('iS').textContent=(x.inv||x.rc)?'Receipt attached — pick a photo to replace.':'';ov('mA')}
 async function save(){const a=Math.round(+$('fA').value),n=$('fN').value.trim();if(!(a>0)||!n)return toast('Enter an amount and who you paid.');if(!can())return;
  const id=editId||'e'+Date.now(),old=S.exp.find(x=>x.id==editId)||{};
- const pd=Math.round(+$('fPd').value)||0,u=$('fU').value.trim();if(stat=='Advance Paid'&&!(pd>0&&pd<a))return toast('Enter the amount paid so far (less than the total).');if(u&&!/^[\w.\-]{2,}@[\w.\-]{2,}$/.test(u))return toast('UPI ID should look like name@bank.');
+ const pd=Math.round(+$('fPd').value)||0;if(stat=='Advance Paid'&&!(pd>0&&pd<a))return toast('Enter the amount paid so far (less than the total).');
  const want=stat=='Paid'?a:stat=='Advance Paid'?pd:0,have=editId?got(old):0,pays=(editId&&Array.isArray(old.pays)&&have==want)?old.pays:(want>0?[{a:want,iso:$('fDt').value||today(),mode:$('fM').value}]:[]);
- const o={amount:a,iso:$('fDt').value||today(),givenTo:n,phone:$('fP').value.trim(),desc:$('fD').value.trim()||cat,cat,fn:$('fF').value,mode:$('fM').value,paidBy:$('fB').value.trim(),status:want>=a?'Paid':want>0?'Advance Paid':'Pending',due:want>=a?'':$('fDue').value,pays,upi:u,ts:Date.now()};
+ const o={amount:a,iso:$('fDt').value||today(),givenTo:n,phone:$('fP').value.trim(),desc:$('fD').value.trim()||cat,cat,fn:$('fF').value,mode:$('fM').value,paidBy:$('fB').value.trim(),status:want>=a?'Paid':want>0?'Advance Paid':'Pending',due:want>=a?'':$('fDue').value,pays,ts:Date.now()};
  if(inv){o.rc=1;if(!await w(db.doc('rcpt/'+id).set({d:inv})))return}else{if(old.rc)o.rc=1;if(old.inv)o.inv=old.inv}
  if(await w(db.collection('exp').doc(id).set(o))){cl('mA');toast('Saved')}}
 function openS(){$('sT').value=S.total||'';$('sD').value=S.date||'';ov('mS')}
@@ -282,70 +271,6 @@ function acc(){const u=AUTH&&AUTH.currentUser;if(!u){$('accB').innerHTML='';retu
  <button class="bt d" style="width:100%;margin-top:18px" onclick="AUTH.signOut()">Sign out</button>`}
 async function saveName(){try{await AUTH.currentUser.updateProfile({displayName:$('aN').value.trim()});toast('Saved');acc()}catch(e){toast('Could not save name')}}
 async function pwReset(){try{await AUTH.sendPasswordResetEmail(AUTH.currentUser.email);toast('Reset email sent')}catch(e){toast('Could not send email')}}
-const QR=(function(){
-const EC=[0,[10,1,16,0,0],[16,1,28,0,0],[26,1,44,0,0],[18,2,32,0,0],[24,2,43,0,0],[16,4,27,0,0],[18,4,31,0,0],[22,2,38,2,39],[22,3,36,2,37],[26,4,43,1,44]];
-const AL=[0,[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50]];
-const EXP=new Array(512),LOG=new Array(256);{let x=1;for(let i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=0x11D}for(let i=255;i<512;i++)EXP[i]=EXP[i-255]}
-const mul=(a,b)=>a&&b?EXP[LOG[a]+LOG[b]]:0;
-const gen=n=>{let g=[1];for(let i=0;i<n;i++){const t=new Array(g.length+1).fill(0);for(let j=0;j<g.length;j++){t[j]^=g[j];t[j+1]^=mul(g[j],EXP[i])}g=t}return g};
-const rs=(d,n)=>{const g=gen(n),r=new Array(n).fill(0);for(const b of d){const f=b^r.shift();r.push(0);for(let i=0;i<n;i++)r[i]^=mul(g[i+1],f)}return r};
-const cap=v=>EC[v][1]*EC[v][2]+EC[v][3]*EC[v][4];
-const MASK=[(r,c)=>(r+c)%2==0,(r,c)=>r%2==0,(r,c)=>c%3==0,(r,c)=>(r+c)%3==0,(r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2==0,(r,c)=>r*c%2+r*c%3==0,(r,c)=>(r*c%2+r*c%3)%2==0,(r,c)=>((r+c)%2+r*c%3)%2==0];
-function penalty(M,n){let p=0,dark=0;
- for(let r=0;r<n;r++)for(let c=0;c<n;c++)dark+=M[r][c];
- const lines=[];for(let i=0;i<n;i++){lines.push(M[i].slice());lines.push(M.map(row=>row[i]))}
- for(const L of lines){let run=1;for(let i=1;i<n;i++){if(L[i]==L[i-1]){run++;if(run==5)p+=3;else if(run>5)p++}else run=1}
-  for(let i=0;i+11<=n;i++){const w=L.slice(i,i+11).join('');if(w=='10111010000'||w=='00001011101')p+=40}}
- for(let r=0;r<n-1;r++)for(let c=0;c<n-1;c++){const x=M[r][c];if(x==M[r][c+1]&&x==M[r+1][c]&&x==M[r+1][c+1])p+=3}
- const k=Math.ceil(Math.abs(dark*20-n*n*10)/(n*n))-1;return p+Math.max(0,k)*10}
-function make(text){
- const bytes=[...unescape(encodeURIComponent(text))].map(c=>c.charCodeAt(0));
- let v=1;for(;v<=10;v++){if(4+(v<10?8:16)+bytes.length*8<=cap(v)*8)break}if(v>10)return null;
- const bits=[],put=(x,l)=>{for(let i=l-1;i>=0;i--)bits.push((x>>>i)&1)};
- put(4,4);put(bytes.length,v<10?8:16);bytes.forEach(b=>put(b,8));put(0,Math.min(4,cap(v)*8-bits.length));while(bits.length%8)bits.push(0);
- const data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=b<<1|bits[i+j];data.push(b)}
- for(let pad=0xEC;data.length<cap(v);pad^=0xEC^0x11)data.push(pad);
- const e=EC[v],nb=e[1]+e[3],blocks=[],ecs=[];let k=0;
- for(let i=0;i<nb;i++){const len=i<e[1]?e[2]:e[4],b=data.slice(k,k+len);k+=len;blocks.push(b);ecs.push(rs(b,e[0]))}
- const cw=[];for(let i=0;i<Math.max(e[2],e[4]);i++)blocks.forEach(b=>{if(i<b.length)cw.push(b[i])});for(let i=0;i<e[0];i++)ecs.forEach(b=>cw.push(b[i]));
- const n=17+4*v,M=Array.from({length:n},()=>new Array(n).fill(0)),F=Array.from({length:n},()=>new Array(n).fill(false));
- const sf=(c,r,d)=>{if(r<0||c<0||r>=n||c>=n)return;M[r][c]=d?1:0;F[r][c]=true};
- const finder=(r0,c0)=>{for(let dr=-1;dr<=7;dr++)for(let dc=-1;dc<=7;dc++){const d=dr>=0&&dr<=6&&dc>=0&&dc<=6&&(dr==0||dr==6||dc==0||dc==6||(dr>=2&&dr<=4&&dc>=2&&dc<=4));sf(c0+dc,r0+dr,d)}};
- finder(0,0);finder(0,n-7);finder(n-7,0);
- for(let i=8;i<n-8;i++){sf(i,6,i%2==0);sf(6,i,i%2==0)}
- const al=AL[v],la=al[al.length-1];for(const r of al)for(const c of al){if((r==6&&c==6)||(r==6&&c==la)||(c==6&&r==la))continue;for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++)sf(c+dc,r+dr,Math.max(Math.abs(dr),Math.abs(dc))!=1)}
- const fmt=mask=>{let d=mask,r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)==1;
-  for(let i=0;i<=5;i++)sf(8,i,g(i));sf(8,7,g(6));sf(8,8,g(7));sf(7,8,g(8));for(let i=9;i<15;i++)sf(14-i,8,g(i));
-  for(let i=0;i<8;i++)sf(n-1-i,8,g(i));for(let i=8;i<15;i++)sf(8,n-15+i,g(i));sf(8,n-8,true)};
- fmt(0);
- if(v>=7){let r=v;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=(v<<12)|r;for(let i=0;i<18;i++){const bit=((b>>>i)&1)==1,a=n-11+i%3,c=Math.floor(i/3);sf(a,c,bit);sf(c,a,bit)}}
- let bi=0;const nbits=cw.length*8;
- for(let right=n-1;right>=1;right-=2){if(right==6)right=5;for(let vert=0;vert<n;vert++)for(let j=0;j<2;j++){const c=right-j,up=((right+1)&2)==0,r=up?n-1-vert:vert;if(!F[r][c]&&bi<nbits){M[r][c]=(cw[bi>>3]>>(7-(bi&7)))&1;bi++}}}
- let best=null,bp=1e9,bm=0;
- for(let m=0;m<8;m++){const T=M.map(row=>row.slice());for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(!F[r][c]&&MASK[m](r,c))T[r][c]^=1;
-  const save=M;/* temporarily draw format on T */ 
-  const Mx=T;const sfT=(c,r,d)=>{Mx[r][c]=d?1:0};
-  let dd=m,rr=dd;for(let i=0;i<10;i++)rr=(rr<<1)^((rr>>>9)*0x537);const b=((dd<<10)|rr)^0x5412,g=i=>((b>>>i)&1)==1;
-  for(let i=0;i<=5;i++)sfT(8,i,g(i));sfT(8,7,g(6));sfT(8,8,g(7));sfT(7,8,g(8));for(let i=9;i<15;i++)sfT(14-i,8,g(i));
-  for(let i=0;i<8;i++)sfT(n-1-i,8,g(i));for(let i=8;i<15;i++)sfT(8,n-15+i,g(i));sfT(8,n-8,true);
-  const p=penalty(T,n);if(p<bp){bp=p;best=T;bm=m}}
- return best}
-return{make}})();
-
-const isMob=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent),upiLink=(u,n,a)=>'upi://pay?pa='+encodeURIComponent(u)+'&pn='+encodeURIComponent(n)+'&am='+Number(a).toFixed(2)+'&cu=INR&tn='+encodeURIComponent('Wedding payment');
-const upiOf=x=>x.upi||((S.exp.find(e=>e.upi&&(e.givenTo||'').trim().toLowerCase()==(x.givenTo||'').trim().toLowerCase())||{}).upi)||'';
-let qId=null;const qAmt=()=>Math.round(+$('qA').value*100)/100,qU=()=>$('qUi').value.trim(),qOk=u=>/^[\w.\-]{2,}@[\w.\-]{2,}$/.test(u);
-function qrSvg(m){const n=m.length,q=4,z=n+q*2;let d='';for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(m[r][c])d+='M'+(c+q)+' '+(r+q)+'h1v1h-1z';return `<svg class="qrs" viewBox="0 0 ${z} ${z}" shape-rendering="crispEdges" style="background:#fff;border-radius:14px;display:block;margin:auto"><path d="${d}"/></svg>`}
-function pUpi(id){const x=S.exp.find(e=>e.id==id);if(!x)return;const u=upiOf(x);if(!u||!isMob())return pQr(id);const b=rem(x);if(b>1e5)toast('Large amount — your bank\'s UPI limit may block it.');else toast('After paying, tap Record a payment.');location.href=upiLink(u,x.givenTo,b)}
-function pQr(id){const x=S.exp.find(e=>e.id==id);if(!x)return;qId=id;$('qN').textContent=x.givenTo;$('qUi').value=upiOf(x);$('qA').value=rem(x)||'';ov('mQ');qr()}
-function qr(){const x=S.exp.find(e=>e.id==qId);if(!x)return;const a=qAmt(),u=qU(),box=$('qI');
- if(!qOk(u)){box.innerHTML='<div class="m" style="padding:60px 0">Enter the vendor\'s UPI ID (like name@bank) to show the QR.</div>';$('qW').hidden=true;return}
- if(!(a>0)){box.innerHTML='<div class="m" style="padding:60px 0">Enter an amount to show the QR code.</div>';$('qW').hidden=true;return}
- $('qW').hidden=a<=1e5;const m=QR.make(upiLink(u,x.givenTo,a));box.innerHTML=m?qrSvg(m):'<div class="m" style="padding:60px 0">Could not make the QR. Use Open UPI app.</div>'}
-async function saveUpi(){const x=S.exp.find(e=>e.id==qId),u=qU();if(!x||!qOk(u)||x.upi==u||!db||!canW)return;const{id:_,...o}=x;o.upi=u;await w(db.collection('exp').doc(qId).set(o))}
-function qOpen(){const x=S.exp.find(e=>e.id==qId),a=qAmt(),u=qU();if(!x)return;if(!qOk(u))return toast('Enter a valid UPI ID.');if(!(a>0))return toast('Enter an amount.');saveUpi();if(!isMob())return toast('Scan the QR with your phone, or open this page on your phone.');location.href=upiLink(u,x.givenTo,a)}
-async function qCopy(){const u=qU();if(!qOk(u))return toast('Enter a valid UPI ID.');try{await navigator.clipboard.writeText(u);toast('UPI ID copied')}catch(e){toast(u)}}
-function qDone(){const a=qAmt();if(!(a>0))return toast('Enter the amount you paid.');saveUpi();cl('mQ');rp(qId,a)}
 function quick(i){openAdd();cs(i)}
 function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('wl-theme',t)}catch(e){}const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t=='dark'?'#0F0F11':'#F6F5F2';document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.v==t));const b=$('thB');if(b)b.innerHTML=svg(t=='dark'?'sun':'moon')}
 const toggleTheme=()=>setTheme(document.documentElement.dataset.theme=='dark'?'light':'dark');
