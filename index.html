@@ -97,41 +97,6 @@ body{transition:background-color .35s,color .35s}.grp,.sh,.hero,input,select,tex
 @media(min-width:960px){#v-home{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}#v-pay{grid-template-columns:minmax(0,1fr) 340px}#v-ins{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 .dock{transition:transform .3s ease}
 @media(max-width:959px){.dock.hide{transform:translateY(140px)}}
-/* ===== iOS glass look ===== */
-:root{--bg:#F5EEE8;--card:rgba(255,255,255,.58);--line:rgba(60,60,67,.12)}
-body{background:#F7F0EA}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(560px 460px at 6% 4%,rgba(255,128,64,.40),transparent 70%),radial-gradient(600px 480px at 98% 14%,rgba(255,190,92,.36),transparent 70%),radial-gradient(700px 560px at 38% 102%,rgba(255,91,31,.22),transparent 70%),radial-gradient(460px 460px at 100% 88%,rgba(255,140,175,.24),transparent 70%)}
-.grp,.ir,.sx>div,.dc,.mon,.kv,.cf,.ct,.ch,.bt.s,.lgc,.ib,input,select,textarea{-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%)}
-.grp,.ir,.sx>div,.dc,.mon,.kv,.cf,.ct,.lgc{border:1px solid rgba(255,255,255,.72);box-shadow:0 10px 30px rgba(140,80,40,.10),inset 0 1px 0 rgba(255,255,255,.85)}
-.rw:hover{background:rgba(255,255,255,.4)}
-.ch,.bt.s{border:1px solid rgba(255,255,255,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
-input,select,textarea{background:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.75)}input:focus,select:focus{border-color:var(--acc)}
-.hero{background:linear-gradient(160deg,rgba(38,38,44,.88),rgba(10,10,12,.84));border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(26px) saturate(160%);backdrop-filter:blur(26px) saturate(160%);box-shadow:0 18px 44px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22)}
-.hd2{border:1px solid rgba(255,255,255,.45);box-shadow:0 14px 38px rgba(255,91,31,.30),inset 0 1px 0 rgba(255,255,255,.6)}
-.hd2::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.24),transparent 46%);pointer-events:none}
-.pill{background:rgba(26,26,30,.52);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);box-shadow:0 14px 34px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.22)}
-.pill button.on{background:rgba(255,255,255,.9)}
-.plus{background:linear-gradient(145deg,rgba(255,150,92,.96),rgba(255,91,31,.96));border:1px solid rgba(255,255,255,.45);box-shadow:0 12px 28px rgba(255,91,31,.42),inset 0 1px 0 rgba(255,255,255,.55)}
-.bt.a{background:linear-gradient(145deg,#FF8A4C,#FF5B1F);box-shadow:0 8px 20px rgba(255,91,31,.3),inset 0 1px 0 rgba(255,255,255,.45)}
-.ov{background:rgba(24,18,12,.30);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.sh{background:rgba(250,246,242,.74);-webkit-backdrop-filter:blur(36px) saturate(180%);backdrop-filter:blur(36px) saturate(180%);border:1px solid rgba(255,255,255,.75);box-shadow:0 -12px 44px rgba(0,0,0,.2)}
-.ts{background:rgba(20,20,24,.72);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.18)}
-.lgn{background:transparent}
-.sg{background:rgba(120,120,128,.16)}.sg button.on{background:rgba(255,255,255,.92)}
-:root[data-theme="dark"]{--bg:#0B0B0E;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.12)}
-:root[data-theme="dark"] body{background:#0B0B0E}
-:root[data-theme="dark"] body::before{background:radial-gradient(560px 460px at 6% 4%,rgba(255,106,51,.26),transparent 70%),radial-gradient(600px 480px at 98% 14%,rgba(255,170,80,.16),transparent 70%),radial-gradient(700px 560px at 38% 102%,rgba(255,91,31,.18),transparent 70%)}
-:root[data-theme="dark"] :is(.grp,.ir,.sx>div,.dc,.mon,.kv,.cf,.ct,.lgc){border-color:rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
-:root[data-theme="dark"] .sh{background:rgba(26,26,30,.74);border-color:rgba(255,255,255,.12)}
-:root[data-theme="dark"] :is(input,select,textarea){background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14)}
-:root[data-theme="dark"] .pill{background:rgba(40,40,46,.55);border:1px solid rgba(255,255,255,.18)}
-:root[data-theme="dark"] .ch{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12)}
-:root[data-theme="dark"] .sg button.on{background:rgba(255,255,255,.2)}
-/* login: keep the original solid look */
-.lgn{background:#F6F5F2}
-.lgc{background:#fff;border:0;box-shadow:0 8px 30px rgba(0,0,0,.08);-webkit-backdrop-filter:none;backdrop-filter:none}
-:root[data-theme="dark"] .lgn{background:#0F0F11}
-:root[data-theme="dark"] .lgc{background:#1A1A1D;border:0;box-shadow:0 8px 30px rgba(0,0,0,.4)}
 </style></head><body><div class="w">
 <header class="tp hd2"><i class="r1"></i><i class="r2"></i><div class="row"><span class="m" id="sy">…</span><div class="tbs"><button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button><button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button></div></div><div class="ey">THE WEDDING OF</div><h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1><div class="orn"><u></u><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:none;fill:#FFE2A8"><g><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/></g><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div><div class="wd" id="wd">Set your wedding date in settings</div><div class="cdp" id="cd">Wedding ledger</div></header>
 <section id="v-home"><div class="c1"><div class="hero"><div class="l">Remaining</div><div class="big" id="hR">₹0</div><div class="bar"><b id="hBar" style="width:0"></b></div><div class="hs"><div><small>Budget</small><b id="hB">—</b></div><div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div></div></div>
