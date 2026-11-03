@@ -15,13 +15,12 @@ svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-l
 .ib:active{transform:scale(.92)}
 .l{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}.m{color:var(--mut);font-size:12px;font-weight:600}.t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mn{min-width:0;flex:1}
 
-/* ULTRA-COMPACT SLIM HEADER */
+/* COMPACT HEADER */
 .hd2{position:relative;overflow:hidden;border-radius:20px;padding:10px 14px 12px;text-align:center;color:#fff;background:linear-gradient(160deg,#FF8A4C,#FF5B1F 55%,#E8430C);box-shadow:0 6px 20px rgba(255,91,31,.22);animation:fu .4s cubic-bezier(.2,.8,.2,1) both;margin-bottom:14px}
 .hd2>*{position:relative}
 .hd2 i{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);pointer-events:none}
 .r1{width:130px;height:130px;top:-55px;right:-35px}.r2{width:90px;height:90px;bottom:-45px;left:-30px}
 
-/* LIVE STATUS LEFT, BUTTONS STACKED VERTICALLY RIGHT */
 .hd2 .sy-tag{position:absolute;left:12px;top:10px;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.02em}
 .hd2 .tbs{position:absolute;right:10px;top:8px;display:flex;flex-direction:column;gap:5px;z-index:5}
 .hd2 .ib{background:rgba(255,255,255,.22);color:#fff}
@@ -79,7 +78,6 @@ label{display:block;margin-top:12px;font-size:11px;font-weight:800;letter-spacin
 .logo,.pc2{display:none}.sx{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sx>div{background:var(--card);border-radius:18px;padding:13px;transition:transform .2s ease,box-shadow .2s ease}.sx small{display:block;color:var(--mut);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sx b{font-size:19px;display:block;margin-top:3px}
 .kl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.kl:last-child{border:0}.sp{display:flex;height:9px;border-radius:99px;overflow:hidden;margin:8px 0;background:var(--line)}.sp i{display:block;height:100%}.big2{font-size:26px;font-weight:800;margin-top:4px;letter-spacing:-.02em}.big2 small{font-size:13px;color:var(--mut);font-weight:700}.ir .m{margin-top:2px}
 
-/* REDESIGNED DONUT & RESPONSIVE TEXT CLAMP */
 .dr{display:flex;align-items:center;gap:16px}.ringc{position:relative;width:144px;height:144px;flex:none}.ringc svg{width:144px;height:144px;transform:rotate(-90deg);transform-origin:50% 50%}.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;padding:8px;text-align:center;z-index:2}
 .rc b{font-size:16.5px;line-height:1.1;margin:0;font-weight:800}.rc small{color:var(--mut);font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
 .lg2{flex:1;min-width:0}.lr{display:flex;align-items:center;gap:8px;padding:5px 7px;font-weight:600;font-size:13px;cursor:pointer;border-radius:10px;transition:background .2s ease,transform .15s ease}.lr.on{background:var(--soft);transform:translateX(3px)}.lr i{width:9px;height:9px;border-radius:50%;flex:none}.lr .t{flex:1}
@@ -123,19 +121,29 @@ section[id^="v-"]{animation:fu .3s cubic-bezier(.2,.8,.2,1) both}
 @media(hover:hover){
 .ib:hover{background:rgba(255,255,255,.3)}
 .plus:hover{transform:scale(1.03);box-shadow:0 10px 24px rgba(255,91,31,.45)}
-.dc:hover,.ir:hover,.sx>div:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.07)}
+.dc:hover,.ir:hover,.sx>div:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
 }
 }
 
-.lgn{position:fixed;inset:0;z-index:100;background:#F7F3EF;overflow:auto;padding:20px;display:flex;align-items:center;justify-content:center}
-.lgc2{position:relative;width:100%;max-width:400px;background:#fff;border-radius:30px;padding:36px 30px 26px;box-shadow:0 24px 60px rgba(120,60,20,.14);text-align:center}
-.lgmark{width:76px;height:76px;margin:0 auto 20px;border-radius:24px;background:#1b1b1e;border:1px solid #C9A24B;box-shadow:0 12px 26px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center}
-.lgmark svg{width:56px;height:37px}
-.lgeye{font:800 12px Manrope;letter-spacing:.24em;color:var(--acc)}
-.lgh2{margin:10px 0 8px;font:800 32px/1.1 Manrope;color:#111}
-.lgp2{margin:0 0 26px;color:#8A8783;font-size:15px;line-height:1.5}
-.lgg2{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:56px;border-radius:99px;background:#fff;border:1.5px solid #E5E1DD;font:700 16px Manrope;color:#111;cursor:pointer;box-shadow:0 6px 16px rgba(60,40,30,.07);transition:transform .15s ease}
-.lgg2:active{transform:scale(.98)}
+/* REDESIGNED WEDDING LOGIN CARD */
+.lgn{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at top, #FFF7F2 0%, #EFE8E1 100%);overflow:auto;padding:24px;display:flex;align-items:center;justify-content:center}
+:root[data-theme="dark"] .lgn{background:radial-gradient(ellipse at top, #1E1614 0%, #0D0B0A 100%)}
+.lg-card{position:relative;width:100%;max-width:420px;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.6);border-radius:32px;padding:42px 32px 36px;box-shadow:0 24px 50px rgba(180,90,40,.12),0 4px 12px rgba(0,0,0,.04);text-align:center;overflow:hidden;animation:fu .45s cubic-bezier(.2,.8,.2,1) both}
+:root[data-theme="dark"] .lg-card{background:rgba(26,26,29,.94);border-color:rgba(255,255,255,.08);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.lg-card::before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,76,.25),transparent 70%);top:-60px;right:-60px;pointer-events:none}
+.lg-badge{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--acc);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px}
+.lg-crest{width:72px;height:72px;margin:0 auto 18px;border-radius:24px;background:radial-gradient(circle at 30% 20%,#2e2e33,#0b0b0d);border:1px solid rgba(245,208,122,.6);box-shadow:0 10px 22px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center}
+.lg-crest svg{width:48px;height:32px}
+.lg-title{margin:0 0 6px;font:700 32px/1.15 'Playfair Display',Georgia,serif;color:var(--ink);letter-spacing:-.01em}
+.lg-title em{font:italic 600 30px 'Playfair Display',Georgia,serif;color:var(--acc)}
+.lg-sub{margin:0 0 28px;color:var(--mut);font-size:13.5px;font-weight:500;line-height:1.4}
+.lg-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:54px;border-radius:99px;background:#fff;border:1.5px solid var(--line);font:700 15px Manrope;color:#111;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.06);transition:all .2s ease}
+:root[data-theme="dark"] .lg-btn{background:#26262B;border-color:#38383e;color:#fff}
+.lg-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.lg-btn:active{transform:scale(.97)}
+.lg-btn svg{width:22px;height:22px}
+.lg-sec{margin:22px 0 0;font-size:12px;color:var(--mut);display:flex;align-items:center;justify-content:center;gap:6px}
+.lg-sec svg{width:14px;height:14px}
 </style></head>
 <body>
 <div class="w">
@@ -234,15 +242,31 @@ section[id^="v-"]{animation:fu .3s cubic-bezier(.2,.8,.2,1) both}
 
 <div class="ov" id="mR" onclick="cl('mR')"><div class="sh"><div class="shh"><b>Receipt</b><button class="ib" data-i="x"></button></div><img id="rim" alt="Receipt" style="max-width:100%;border-radius:14px;margin-top:10px"></div></div>
 
-<div id="lg" class="lgn"><div class="lgc2">
-  <div id="lc">
-    <div class="lgmark"><svg viewBox="0 0 60 40"><circle cx="18" cy="22" r="14" fill="none" stroke="#FFE9B0" stroke-width="2.4"/><circle cx="42" cy="22" r="14" fill="none" stroke="#FFE9B0" stroke-width="2.4"/><text x="18" y="27" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#FFE9B0;stroke:none">S</text><text x="42" y="27" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#FFE9B0;stroke:none">K</text></svg></div>
-    <div class="lgeye">SWETHA &amp; KALYAN</div>
-    <h1 class="lgh2">Welcome back</h1><p class="lgp2">Sign in to open the family wedding ledger.</p>
-    <button class="lgg2" onclick="doProv('google')"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Continue with Google</span></button>
-    <div id="lM" class="m" style="margin-top:12px;color:var(--bad)"></div>
+<!-- REDESIGNED WEDDING LOGIN CARD -->
+<div id="lg" class="lgn">
+  <div class="lg-card">
+    <div class="lg-badge">Wedding Ledger</div>
+    <div class="lg-crest">
+      <svg viewBox="0 0 60 40">
+        <circle cx="18" cy="22" r="14" fill="none" stroke="#FFE9B0" stroke-width="2.4"/>
+        <circle cx="42" cy="22" r="14" fill="none" stroke="#FFE9B0" stroke-width="2.4"/>
+        <text x="18" y="27" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#FFE9B0;stroke:none">S</text>
+        <text x="42" y="27" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#FFE9B0;stroke:none">K</text>
+      </svg>
+    </div>
+    <h1 class="lg-title">Swetha <em>&amp;</em> Kalyan</h1>
+    <p class="lg-sub">Welcome back! Sign in with your family Google account to manage expenses.</p>
+    <button class="lg-btn" onclick="doProv('google')">
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      <span>Continue with Google</span>
+    </button>
+    <div id="lM" class="m" style="margin-top:14px;color:var(--bad)"></div>
+    <div class="lg-sec">
+      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>Private Family Space</span>
+    </div>
   </div>
-</div></div>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -265,12 +289,29 @@ window.storage=(function(){
 </script>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const CATS={'Jewelry & Gold':'💍','Clothing & Bridal Wear':'🛍️','Venue':'🏰','Decor & Lighting':'💡','Catering & Sweets':'🍽️','Photography & Video':'📸','Invitations & Gifting':'✉️','Logistics & Travel':'🚗','Home Function':'🏠','Other Misc. Spend':'📦'};
+
+/* MUSIC & DJ ADDED TO CATEGORIES */
+const CATS={
+  'Jewelry & Gold':'💍',
+  'Clothing & Bridal Wear':'🛍️',
+  'Venue':'🏰',
+  'Decor & Lighting':'💡',
+  'Catering & Sweets':'🍽️',
+  'Photography & Video':'📸',
+  'Music & DJ':'🎵',
+  'Invitations & Gifting':'✉️',
+  'Logistics & Travel':'🚗',
+  'Home Function':'🏠',
+  'Other Misc. Spend':'📦'
+};
 const FN=['General','Engagement','Engagement & Wedding','Haldi','Mehendi','Sangeet','Wedding','Reception'],MO=['UPI','Cash','Cheque','Bank transfer','Card'];
 const inr=n=>'₹'+Math.round(n||0).toLocaleString('en-IN'),fd=i=>i?new Date(i+'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'';
 const today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
 let db=null,S={total:0,cat:{},date:'',exp:[],vend:{}},tab='home',editId=null,inv=null,cur=null,insK='cat',stF='',catF='',qs='',stat='Paid',canW=true,tt,rt,dt;
-const CK=Object.keys(CATS),SH=['Jewelry','Clothing','Venue','Decor','Catering','Photo','Invites','Travel','Home','Other'];let cat=CK[0];
+
+const CK=Object.keys(CATS);
+const SH=['Jewelry','Clothing','Venue','Decor','Catering','Photo','Music','Invites','Travel','Home','Other'];
+let cat=CK[0];
 
 const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',list:'<path d="M4 6h16M4 12h16M4 18h10"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',plus:'<path d="M12 5v14M5 12h14"/>',sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',chat:'<path d="M21 12a8 8 0 0 1-11.8 7L3 21l2-5.5A8 8 0 1 1 21 12z"/>',clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>'};
 const svg=n=>`<svg viewBox="0 0 24 24">${IC[n]||''}</svg>`;
@@ -419,10 +460,11 @@ function sideI(){const s=stats(),dues=S.exp.filter(x=>rem(x)>0).sort((a,b)=>(a.d
  <div class="sx" style="margin-top:12px"><div><small>Total spent</small><b>${inr(s.tp)}</b></div><div><small>Average</small><b>${inr(s.avg)}</b></div><div><small>Largest</small><b>${s.mx?inr(s.mx.amount):'—'}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div></div>
  <div class="ir"><div class="l">Payment modes</div>${tl(topn(x=>x.mode||'Not set',5))}</div>`}
 
-const PAL=['#FF5B1F','#3B82F6','#F5B85C','#8B5CF6','#1F9D63','#8A8A85','#E5383B','#7FB8B0','#C98A2B','#14B8A6'];
+/* PALETTE WITH MUSIC COLOR MAPPING */
+const PAL=['#FF5B1F','#3B82F6','#F5B85C','#8B5CF6','#1F9D63','#8A8A85','#EC4899','#E5383B','#7FB8B0','#C98A2B','#14B8A6'];
 function homeX(){const s=stats(),t=today(),m0=t.slice(0,7),mo=S.exp.reduce((q,x)=>q+pays0(x).filter(p=>(p.iso||'').slice(0,7)==m0).reduce((t2,p)=>t2+(+p.a||0),0),0);
  $('hi').innerHTML=`<div class="sx"><div><small>This month</small><b>${inr(mo)}</b></div><div><small>Payments</small><b>${s.P.length}</b></div></div>`;
- const c=topn(x=>x.cat,8),tot=s.tp,col=k=>PAL[Math.max(0,CK.indexOf(k))];
+ const c=topn(x=>x.cat,8),tot=s.tp,col=k=>PAL[Math.max(0,CK.indexOf(k))%PAL.length];
  if(!c.length){$('hc').innerHTML='<div class="m">Spending by category will show here.</div>';return}
  let off=25;const segs=c.map(([k,v])=>{const p=v/tot*100,o=`<circle class="sg-circ" cx="21" cy="21" r="16" fill="none" stroke="${col(k)}" stroke-width="4.5" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"/>`;off-=p;return o}).join('');
  $('hc').innerHTML=`<div class="grp" style="padding:16px"><div class="dr"><div class="ringc"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="var(--line)" stroke-width="4.5"/>${segs}</svg><div class="rc"><b>${cp(tot)}</b><small>spent</small></div></div><div class="lg2">${c.slice(0,5).map(([k,v])=>{const q=v/tot*100;return `<div class="lr"><i style="background:${col(k)}"></i><span class="t">${esc(k)}</span><b>${q>0&&q<1?'<1':Math.round(q)}%</b></div>`}).join('')}</div></div></div>`;
