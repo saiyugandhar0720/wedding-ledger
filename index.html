@@ -1,201 +1,1789 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#F6F5F2"><meta name="apple-mobile-web-app-title" content="S &amp; K Wedding"><link rel="manifest" href="manifest.webmanifest"><title>Swetha &amp; Kalyan — Wedding Ledger</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&amp;family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600&amp;display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#F7F5F0">
+<meta name="apple-mobile-web-app-title" content="S &amp; K Wedding">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Swetha &amp; Kalyan — Wedding Ledger</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&amp;family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600&amp;display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-:root{--bg:#F6F5F2;--card:#fff;--ink:#111;--mut:#8A8A85;--line:#ECEAE5;--acc:#FF5B1F;--soft:#FFEDE5;--ok:#1F9D63;--bad:#E5383B;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scrollbar-width:none;-ms-overflow-style:none}
-html::-webkit-scrollbar,body::-webkit-scrollbar,.sh::-webkit-scrollbar,.chs::-webkit-scrollbar,.ds::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
-*{box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none}[hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--ink);font:500 14px/1.4 Manrope,system-ui,sans-serif;transition:background-color .35s ease,color .35s ease}
-svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.w{max-width:560px;margin:auto;padding:10px 16px 130px}.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-
-.ib{width:32px;height:32px;border-radius:50%;border:0;background:var(--card);color:var(--ink);display:grid;place-items:center;flex:none;cursor:pointer;transition:transform .2s ease,background .25s ease}
-.ib svg{width:16px;height:16px}
-.ib:active{transform:scale(.92)}
-.l{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}.m{color:var(--mut);font-size:12px;font-weight:600}.t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mn{min-width:0;flex:1}
-
-/* COMPACT HEADER */
-.hd2{position:relative;overflow:hidden;border-radius:20px;padding:10px 14px 12px;text-align:center;color:#fff;background:linear-gradient(160deg,#FF8A4C,#FF5B1F 55%,#E8430C);box-shadow:0 6px 20px rgba(255,91,31,.22);animation:fu .4s cubic-bezier(.2,.8,.2,1) both;margin-bottom:14px}
-.hd2>*{position:relative}
-.hd2 i{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);pointer-events:none}
-.r1{width:130px;height:130px;top:-55px;right:-35px}.r2{width:90px;height:90px;bottom:-45px;left:-30px}
-
-.hd2 .sy-tag{position:absolute;left:12px;top:10px;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.02em}
-.hd2 .tbs{position:absolute;right:10px;top:8px;display:flex;flex-direction:column;gap:5px;z-index:5}
-.hd2 .ib{background:rgba(255,255,255,.22);color:#fff}
-
-.hd2 .ey{color:rgba(255,255,255,.85);font-size:9px;font-weight:800;letter-spacing:.28em;margin:0 0 2px}
-.hd2 .nm{margin:1px 0 2px;font:700 24px/1.05 'Playfair Display',Georgia,serif;color:#fff;padding:0 40px}
-.hd2 .nm em{font:italic 600 22px 'Playfair Display',Georgia,serif;color:#FFE2A8}
-.orn{display:flex;align-items:center;justify-content:center;gap:6px;margin:2px 0 4px}
-.orn u{width:28px;height:1px;background:rgba(255,255,255,.45)}
-.wd{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.95);display:inline-block;vertical-align:middle}
-.hd2 .cdp{display:inline-block;margin-left:6px;background:#fff;color:#E8430C;font-weight:800;font-size:10.5px;border-radius:99px;padding:3px 10px;vertical-align:middle}
-
-.hero{background:#111;color:#fff;border-radius:24px;padding:18px 20px;margin-top:0}.hero .l,.hs small{color:#999}.big{font-size:38px;font-weight:800;letter-spacing:-.04em;margin:2px 0 10px;line-height:1.1}
-.bar{height:6px;background:var(--line);border-radius:9px;overflow:hidden}.hero .bar{background:#2c2c2c}.bar b{display:block;height:100%;background:var(--acc);border-radius:9px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
-.hs{display:flex;justify-content:space-between;margin-top:12px}.hs small{display:block;font-size:11px}.hs b{font-size:19px}
-.qa{display:flex;gap:8px;margin-top:10px}.qa .bt{flex:1}
-.sh2{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 8px}.sh2 b{font-size:16.5px}
-.ds{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
-.dc{flex:none;width:145px;background:var(--card);border-radius:16px;padding:12px;border:1px solid var(--line);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
-.dc b{font-size:17px;display:block;margin:2px 0}
-.grp{background:var(--card);border-radius:20px;padding:2px 14px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
-.rw{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s ease,transform .15s ease}
-.rw:last-child{border:0}.rw:active{background:var(--bg);transform:scale(.99)}
-.ei{width:40px;height:40px;border-radius:13px;background:var(--bg);display:grid;place-items:center;font-size:19px;flex:none}.pd,.ad{font-size:10px;font-weight:800;text-transform:uppercase}.pd{color:var(--acc)}.ad{color:var(--ok)}
-.mh{display:flex;justify-content:space-between;margin:16px 4px 6px;font-weight:800}
-.chs{display:flex;gap:8px;overflow-x:auto;margin-top:8px}
-.ch{flex:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 13px;font:700 12.5px Manrope;color:var(--ink);cursor:pointer;transition:all .2s ease}
-.ch.on{background:#111;color:#fff;border-color:#111}
-input,select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);font:inherit;color:var(--ink);outline:0;margin-top:6px;transition:border-color .2s ease}input:focus,select:focus{border-color:var(--ink)}
-input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-height:46px;text-align:left}input[type=date]::-webkit-date-and-time-value{text-align:left}
-.sr{position:relative}.sr input{padding-left:42px}.sr span{position:absolute;left:14px;top:19px;color:var(--mut)}
-label{display:block;margin-top:12px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
-.bt{border:0;border-radius:14px;padding:12px 16px;font:800 13.5px Manrope;background:#111;color:#fff;display:inline-flex;gap:6px;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;transition:transform .15s ease,background .25s ease,color .25s ease}
-.bt:active{transform:scale(.96)}.bt.s{background:var(--card);color:var(--ink);border:1px solid var(--line)}.bt.d{background:#FDE8E8;color:var(--bad)}.bt.a{background:var(--acc)}
-.dock{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;align-items:center;z-index:25;max-width:532px;margin:auto;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.pill{flex:1;background:#111;border-radius:99px;display:flex;padding:5px;gap:4px;box-shadow:0 8px 24px rgba(0,0,0,.18)}.pill button{flex:1;border:0;background:none;color:#aaa;border-radius:99px;padding:11px 0;font:800 12px Manrope;display:flex;gap:6px;align-items:center;justify-content:center;cursor:pointer;transition:all .25s ease}
-.pill button span{display:none}.pill button.on{background:#fff;color:#111;flex:2}.pill button.on span{display:inline}
-.plus{width:54px;height:54px;border-radius:50%;background:var(--acc);border:0;color:#fff;display:grid;place-items:center;box-shadow:0 8px 20px rgba(255,91,31,.38);cursor:pointer;transition:transform .2s ease}
-.plus:active{transform:scale(.92)}.plus svg{width:22px;height:22px;stroke-width:2.6}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:40}.ov.on{display:flex;animation:fade .25s ease}
-.sh{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:28px 28px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom,0px));animation:up .3s cubic-bezier(.2,.8,.2,1)}@keyframes up{from{transform:translateY(40px);opacity:0}}
-.shh{display:flex;justify-content:space-between;align-items:center}.shh b{font-size:19px}
-.sg{display:flex;background:var(--line);border-radius:14px;padding:4px;gap:4px}.sg button{flex:1;border:0;background:none;border-radius:10px;padding:9px 4px;font:700 12px Manrope;color:var(--mut);cursor:pointer;transition:all .2s ease}.sg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}.cg button{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:10px 2px;font:700 10px Manrope;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--ink);cursor:pointer;transition:all .2s ease}.cg button span{font-size:20px}.cg button.on{border-color:var(--acc);background:var(--soft)}
-.amr{display:flex;align-items:center;gap:6px;font-size:34px;font-weight:800;margin:8px 0 10px}.amr input{margin:0;border:0;background:none;font-size:34px;font-weight:800;padding:0}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.g2>div{min-width:0}
-.bg2{font-size:34px;font-weight:800;letter-spacing:-.03em;margin:4px 0}.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin:14px 0;background:var(--card);border-radius:18px;padding:14px}.kv span{color:var(--mut)}.kv b{text-align:right}.acts{display:flex;gap:8px;flex-wrap:wrap}.acts>*{flex:1}
-.ir{background:var(--card);border-radius:18px;padding:14px;margin-top:10px;transition:transform .2s ease,box-shadow .2s ease}.ir .bar{margin:8px 0 4px}
-.mon{display:flex;gap:10px;align-items:flex-end;height:140px;background:var(--card);border-radius:20px;padding:14px;margin-top:10px}.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}.cb{width:100%;max-width:32px;background:var(--acc);border-radius:8px 8px 4px 4px;transform-origin:bottom;animation:gr .8s cubic-bezier(.2,.8,.2,1) both}.col small{color:var(--mut);font-size:10px;font-weight:700}
-.ts{position:fixed;left:50%;transform:translate(-50%,20px);bottom:calc(95px + env(safe-area-inset-bottom,0px));background:#111;color:#fff;padding:10px 16px;border-radius:99px;font-weight:700;font-size:13px;opacity:0;transition:.3s cubic-bezier(.2,.8,.2,1);pointer-events:none;z-index:45;max-width:90%;text-align:center}.ts.on{opacity:1;transform:translate(-50%,0)}
-#cc{display:block}.cf{width:100%;display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font:700 13.5px Manrope;color:var(--ink);cursor:pointer}.cf.on{border-color:var(--acc);background:var(--soft)}
-.cl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.ct{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:14px;text-align:left;font:700 13px Manrope;color:var(--ink);cursor:pointer}.ct span{font-size:24px;display:block;margin-bottom:4px}.ct small{display:block;color:var(--mut);font-weight:600;margin-top:2px}.ct.on{border-color:var(--acc);background:var(--soft)}
-.dn{border:0;background:var(--soft);color:var(--acc);font:800 13px Manrope;border-radius:99px;padding:7px 13px;flex:none;cursor:pointer}textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);font:inherit;color:var(--ink);margin-top:10px;resize:none;outline:0}
-@keyframes fu{from{opacity:0;transform:translateY(12px)}}@keyframes fade{from{opacity:0}}@keyframes gr{from{transform:scaleY(0)}}
-.logo,.pc2{display:none}.sx{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sx>div{background:var(--card);border-radius:18px;padding:13px;transition:transform .2s ease,box-shadow .2s ease}.sx small{display:block;color:var(--mut);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sx b{font-size:19px;display:block;margin-top:3px}
-.kl{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.kl:last-child{border:0}.sp{display:flex;height:9px;border-radius:99px;overflow:hidden;margin:8px 0;background:var(--line)}.sp i{display:block;height:100%}.big2{font-size:26px;font-weight:800;margin-top:4px;letter-spacing:-.02em}.big2 small{font-size:13px;color:var(--mut);font-weight:700}.ir .m{margin-top:2px}
-
-.dr{display:flex;align-items:center;gap:16px}.ringc{position:relative;width:144px;height:144px;flex:none}.ringc svg{width:144px;height:144px;transform:rotate(-90deg);transform-origin:50% 50%}.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;padding:8px;text-align:center;z-index:2}
-.rc b{font-size:16.5px;line-height:1.1;margin:0;font-weight:800}.rc small{color:var(--mut);font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
-.lg2{flex:1;min-width:0}.lr{display:flex;align-items:center;gap:8px;padding:5px 7px;font-weight:600;font-size:13px;cursor:pointer;border-radius:10px;transition:background .2s ease,transform .15s ease}.lr.on{background:var(--soft);transform:translateX(3px)}.lr i{width:9px;height:9px;border-radius:50%;flex:none}.lr .t{flex:1}
-.rc .e{font-size:20px;line-height:1;margin-bottom:2px;display:block}
-.rc .n{font-size:10px;font-weight:800;line-height:1.15;color:var(--ink);max-width:80px;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-overflow:ellipsis}
-.rc .p{font-size:16px;font-weight:800;line-height:1.1;margin:2px 0 0;color:var(--acc)}
-.sg-circ{cursor:pointer;transition:opacity .25s ease,stroke-width .25s ease;transform-origin:center}.ringc.hv .sg-circ{opacity:.22}.ringc.hv .sg-circ.on{opacity:1;stroke-width:5.2}
-
-:root[data-theme="dark"]{--bg:#0F0F11;--card:#1A1A1D;--ink:#F3F1ED;--mut:#9B9A94;--line:#2A2A2E;--acc:#FF6A33;--soft:rgba(255,106,51,.15);--ok:#3DD68C;--bad:#FF7070;color-scheme:dark}
-:root[data-theme="dark"] .hero{background:#202024}:root[data-theme="dark"] .hero .bar{background:#38383d}:root[data-theme="dark"] .pill{background:#26262B;border:1px solid #34343a}
-:root[data-theme="dark"] .ch.on{background:#F3F1ED;color:#111;border-color:#F3F1ED}:root[data-theme="dark"] .sg button.on{background:#3A3A40;color:var(--ink)}
-:root[data-theme="dark"] .bt{background:#F3F1ED;color:#111}:root[data-theme="dark"] .bt.s{background:var(--card);color:var(--ink)}:root[data-theme="dark"] .bt.a{background:var(--acc);color:#fff}:root[data-theme="dark"] .bt.d{background:rgba(255,112,112,.15);color:var(--bad)}
-:root[data-theme="dark"] .ts{background:#F3F1ED;color:#111}:root[data-theme="dark"] .sh{background:#141416}:root[data-theme="dark"] .rw:hover{background:rgba(255,255,255,.04)}:root[data-theme="dark"] .ei{background:#26262B}
-#v-home>*,#v-pay>*,#v-ins>*{min-width:0}
-section[id^="v-"]{animation:fu .3s cubic-bezier(.2,.8,.2,1) both}
-
-/* DESKTOP LAYOUT */
-@media(min-width:960px){
-.dock{left:max(24px,calc((100vw - 1340px)/2));right:auto;top:24px;bottom:24px;width:210px;max-width:none;margin:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:12px}
-.logo{display:flex;align-items:center;gap:12px;order:-3;margin:2px 4px 8px}
-.lg{width:50px;height:50px;border-radius:18px;background:radial-gradient(circle at 30% 20%,#2e2e33,#0b0b0d);border:1px solid rgba(245,208,122,.5);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(0,0,0,.25);position:relative;overflow:hidden}
-.lg svg{width:44px;height:30px;stroke-linecap:butt}.lg text{stroke:none;fill:#FFE9B0;font:700 14px 'Playfair Display',Georgia,serif}
-.lt b{display:block;font:700 17px/1.1 'Playfair Display',Georgia,serif}.lt span{font-size:9.5px;font-weight:800;letter-spacing:.3em;color:var(--mut)}
-.plus{order:-1;width:100%;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:none}.plus::after{content:"Add payment";font:800 13.5px Manrope}.plus svg{width:19px;height:19px}
-.pill{flex:none;flex-direction:column;border-radius:24px;padding:8px;gap:4px}.pill button,.pill button.on{flex:none;justify-content:flex-start;padding:12px 16px;font-size:13.5px}.pill button span{display:inline}
-.w{max-width:1100px;margin:0 0 0 max(258px,calc((100vw - 1340px)/2 + 234px));padding:24px 30px 48px}
-
-.hd2{padding:12px 20px 14px;margin-bottom:24px;border-radius:24px}
-.hd2 .nm{font-size:28px;padding:0}
-.hd2 .tbs{top:12px;right:16px;flex-direction:row;gap:8px}
-
-#v-home{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
-#v-pay{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start;position:relative}
-.pc2{display:block;position:relative;top:auto;padding-top:0}
-#v-ins{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
-#v-ins .sh2{grid-column:1/-1;margin:0 0 4px}
-#v-ins .ic1{grid-column:1}
-#v-ins .ic2{grid-column:2}
-.ov{align-items:center;padding:24px}.sh{max-width:520px;max-height:90vh;border-radius:28px}
-.ts{bottom:32px}.qa .bt.a{display:none}
-@media(hover:hover){
-.ib:hover{background:rgba(255,255,255,.3)}
-.plus:hover{transform:scale(1.03);box-shadow:0 10px 24px rgba(255,91,31,.45)}
-.dc:hover,.ir:hover,.sx>div:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
-}
+/* ==========================================================================
+   1. DESIGN TOKENS & BASE RESET
+   ========================================================================== */
+:root {
+  --bg: #F7F5F0;
+  --bg-sub: #EFECE6;
+  --card: #FFFFFF;
+  --card-tinted: #FAF9F6;
+  --ink: #141413;
+  --ink-sec: #4A4945;
+  --mut: #86847E;
+  --line: rgba(20, 20, 19, 0.07);
+  --line-strong: rgba(20, 20, 19, 0.13);
+  --acc: #FF551A;
+  --acc-dark: #D93800;
+  --soft: #FFF0EA;
+  --ok: #15803D;
+  --ok-bg: #DCFCE7;
+  --warn: #B45309;
+  --warn-bg: #FEF3C7;
+  --bad: #DC2626;
+  --bad-bg: #FEE2E2;
+  --sh-sm: 0 2px 8px -1px rgba(20, 18, 14, 0.04), 0 1px 2px rgba(20, 18, 14, 0.02);
+  --sh-md: 0 8px 24px -4px rgba(20, 18, 14, 0.06), 0 2px 6px -1px rgba(20, 18, 14, 0.03);
+  --sh-lg: 0 18px 40px -8px rgba(20, 18, 14, 0.12), 0 4px 12px -2px rgba(20, 18, 14, 0.05);
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* REDESIGNED WEDDING LOGIN CARD */
-.lgn{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at top, #FFF7F2 0%, #EFE8E1 100%);overflow:auto;padding:24px;display:flex;align-items:center;justify-content:center}
-:root[data-theme="dark"] .lgn{background:radial-gradient(ellipse at top, #1E1614 0%, #0D0B0A 100%)}
-.lg-card{position:relative;width:100%;max-width:420px;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.6);border-radius:32px;padding:42px 32px 36px;box-shadow:0 24px 50px rgba(180,90,40,.12),0 4px 12px rgba(0,0,0,.04);text-align:center;overflow:hidden;animation:fu .45s cubic-bezier(.2,.8,.2,1) both}
-:root[data-theme="dark"] .lg-card{background:rgba(26,26,29,.94);border-color:rgba(255,255,255,.08);box-shadow:0 24px 60px rgba(0,0,0,.45)}
-.lg-card::before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,76,.25),transparent 70%);top:-60px;right:-60px;pointer-events:none}
-.lg-badge{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--acc);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px}
-.lg-crest{width:72px;height:72px;margin:0 auto 18px;border-radius:24px;background:radial-gradient(circle at 30% 20%,#2e2e33,#0b0b0d);border:1px solid rgba(245,208,122,.6);box-shadow:0 10px 22px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center}
-.lg-crest svg{width:48px;height:32px}
-.lg-title{margin:0 0 6px;font:700 32px/1.15 'Playfair Display',Georgia,serif;color:var(--ink);letter-spacing:-.01em}
-.lg-title em{font:italic 600 30px 'Playfair Display',Georgia,serif;color:var(--acc)}
-.lg-sub{margin:0 0 28px;color:var(--mut);font-size:13.5px;font-weight:500;line-height:1.4}
-.lg-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:54px;border-radius:99px;background:#fff;border:1.5px solid var(--line);font:700 15px Manrope;color:#111;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.06);transition:all .2s ease}
-:root[data-theme="dark"] .lg-btn{background:#26262B;border-color:#38383e;color:#fff}
-.lg-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
-.lg-btn:active{transform:scale(.97)}
-.lg-btn svg{width:22px;height:22px}
-.lg-sec{margin:22px 0 0;font-size:12px;color:var(--mut);display:flex;align-items:center;justify-content:center;gap:6px}
-.lg-sec svg{width:14px;height:14px}
-</style></head>
+:root[data-theme="dark"] {
+  --bg: #0B0B0E;
+  --bg-sub: #121216;
+  --card: #16161B;
+  --card-tinted: #1D1D24;
+  --ink: #F5F3EF;
+  --ink-sec: #C2C0B8;
+  --mut: #8A8882;
+  --line: rgba(255, 255, 255, 0.075);
+  --line-strong: rgba(255, 255, 255, 0.15);
+  --acc: #FF6B35;
+  --acc-dark: #E84A14;
+  --soft: rgba(255, 107, 53, 0.15);
+  --ok: #4ADE80;
+  --ok-bg: rgba(74, 222, 128, 0.14);
+  --warn: #FBBF24;
+  --warn-bg: rgba(251, 191, 36, 0.14);
+  --bad: #F87171;
+  --bad-bg: rgba(248, 113, 113, 0.15);
+  --sh-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --sh-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --sh-lg: 0 22px 50px rgba(0, 0, 0, 0.65);
+  color-scheme: dark;
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar, .sh::-webkit-scrollbar, .chs::-webkit-scrollbar, .ds::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+* {
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 500 14px/1.45 'Manrope', system-ui, -apple-system, sans-serif;
+  font-variant-numeric: tabular-nums;
+  transition: background-color .35s ease, color .35s ease;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.w {
+  max-width: 560px;
+  margin: auto;
+  padding: 12px 16px 136px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY & UTILITY HELPERS
+   ========================================================================== */
+.ib {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  flex: none;
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: transform .2s cubic-bezier(.2,.8,.2,1), background .25s ease, border-color .25s ease;
+}
+.ib svg { width: 16px; height: 16px; }
+.ib:active { transform: scale(.90); }
+
+.l {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+.m {
+  color: var(--mut);
+  font-size: 12px;
+  font-weight: 600;
+}
+.t {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mn {
+  min-width: 0;
+  flex: 1;
+}
+
+/* ==========================================================================
+   3. REGAL COMPACT HEADER (.hd2)
+   ========================================================================== */
+.hd2 {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 14px 16px 16px;
+  text-align: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 232, 175, 0.28) 0%, transparent 62%),
+    linear-gradient(145deg, #FF834A 0%, #FF5319 52%, #D43400 100%);
+  box-shadow: 0 12px 28px -6px rgba(232, 67, 12, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  animation: fu .4s cubic-bezier(.2,.8,.2,1) both;
+  margin-bottom: 16px;
+}
+.hd2 > * { position: relative; z-index: 2; }
+.hd2 i {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 1;
+}
+.r1 { width: 150px; height: 150px; top: -65px; right: -45px; background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%); }
+.r2 { width: 110px; height: 110px; bottom: -55px; left: -35px; background: radial-gradient(circle, rgba(255,226,168,0.12), transparent 70%); }
+
+/* Live Status Pill in Header */
+.hd2 .sy-tag {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: .04em;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 4px 10px 4px 8px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.hd2 .sy-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6EE7B7;
+  box-shadow: 0 0 8px #6EE7B7;
+}
+
+.hd2 .tbs {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  z-index: 5;
+}
+.hd2 .ib {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.hd2 .ib:hover { background: rgba(255, 255, 255, 0.28); }
+
+.hd2 .ey {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .32em;
+  margin: 4px 0 3px;
+  text-transform: uppercase;
+}
+.hd2 .nm {
+  margin: 0 0 3px;
+  font: 700 25px/1.08 'Playfair Display', Georgia, serif;
+  color: #fff;
+  padding: 0 68px;
+  text-shadow: 0 2px 10px rgba(120, 25, 0, 0.22);
+}
+.hd2 .nm em {
+  font: italic 600 22px 'Playfair Display', Georgia, serif;
+  color: #FFE5B4;
+  padding: 0 2px;
+}
+.orn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 8px;
+}
+.orn u {
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  text-decoration: none;
+}
+.hd-meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.14);
+  padding: 4px 6px 4px 12px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.wd {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+  display: inline-block;
+  vertical-align: middle;
+}
+.hd2 .cdp {
+  display: inline-block;
+  background: #FFFFFF;
+  color: #D93800;
+  font-weight: 800;
+  font-size: 10.5px;
+  border-radius: 99px;
+  padding: 3.5px 11px;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   4. HERO BUDGET CARD (.hero) & QUICK ACTIONS
+   ========================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 91, 31, 0.24) 0%, transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(255, 195, 113, 0.1) 0%, transparent 50%),
+    linear-gradient(155deg, #1E1E24 0%, #111115 100%);
+  color: #fff;
+  border-radius: 26px;
+  padding: 20px 20px 18px;
+  margin-top: 0;
+  box-shadow: 0 16px 34px -8px rgba(17, 17, 21, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+:root[data-theme="dark"] .hero {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 107, 53, 0.25) 0%, transparent 58%),
+    linear-gradient(155deg, #22222A 0%, #15151A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.hero .l {
+  color: rgba(255, 255, 255, 0.62);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero .l::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--acc);
+  box-shadow: 0 0 10px var(--acc);
+}
+.big {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  margin: 4px 0 14px;
+  line-height: 1.06;
+}
+.bar {
+  height: 8px;
+  background: var(--bg-sub);
+  border-radius: 99px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.hero .bar {
+  background: rgba(255, 255, 255, 0.11);
+  height: 8px;
+  padding: 1px;
+}
+.bar b {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #FF8A4C 0%, #FF551A 100%);
+  border-radius: 99px;
+  transition: width .65s cubic-bezier(.2, .8, .2, 1);
+  box-shadow: 0 0 12px rgba(255, 91, 31, 0.45);
+}
+.hs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+.hs > div {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 10px 13px;
+}
+.hs small {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(255, 255, 255, 0.58);
+  margin-bottom: 2px;
+}
+.hs b {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+
+.qa {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.qa .bt { flex: 1; }
+
+/* ==========================================================================
+   5. SECTION HEADINGS & DUE SOON CARDS (.sh2, .ds, .dc)
+   ========================================================================== */
+.sh2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 22px 2px 10px;
+}
+.sh2 b {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -.015em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sh2 a.m {
+  font-weight: 800;
+  font-size: 12px;
+  text-decoration: none;
+  background: var(--soft);
+  color: var(--acc) !important;
+  padding: 5px 11px;
+  border-radius: 99px;
+  transition: transform .15s ease, opacity .2s ease;
+}
+.sh2 a.m:active { transform: scale(.95); }
+
+.ds {
+  display: flex;
+  gap: 11px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+}
+.dc {
+  flex: none;
+  width: 166px;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-sm);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, border-color .22s ease;
+}
+.dc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--acc), #FF9866);
+  opacity: .85;
+}
+.dc:active { transform: scale(.97); }
+.dc .m:first-child {
+  font-size: 10.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg);
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin-bottom: 6px;
+  color: var(--ink-sec);
+}
+.dc b {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  display: block;
+  margin: 2px 0 4px;
+  color: var(--ink);
+}
+.dc > b { color: var(--acc); }
+.dc .m:last-child {
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+/* Empty State Box */
+.empty-box {
+  width: 100%;
+  background: var(--card);
+  border: 1px dashed var(--line-strong);
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+  color: var(--mut);
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+/* ==========================================================================
+   6. GROUPED LIST CARDS & PAYMENT ROWS (.grp, .rw, .ei)
+   ========================================================================== */
+.grp {
+  background: var(--card);
+  border-radius: 22px;
+  padding: 4px 14px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-sm);
+}
+.rw {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 13px 4px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background .2s ease, transform .15s ease, padding .2s ease;
+}
+.rw:last-child { border-bottom: 0; }
+.rw:active {
+  background: var(--bg);
+  transform: scale(.99);
+}
+
+.ei {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, var(--bg) 0%, var(--bg-sub) 100%);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  flex: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+:root[data-theme="dark"] .ei {
+  background: linear-gradient(145deg, #23232B 0%, #1B1B22 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.rw .mn b.t {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+/* Status Pill Badges */
+.pd, .ad {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: 2.5px 8px;
+  border-radius: 99px;
+  margin-top: 3px;
+}
+.pd {
+  color: var(--bad);
+  background: var(--bad-bg);
+}
+.ad {
+  color: var(--warn) !important;
+  background: var(--warn-bg);
+}
+
+.mh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 6px 8px;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink-sec);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.mh .m {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   7. FILTER CHIPS, SEARCH & FORM INPUTS
+   ========================================================================== */
+.chs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-top: 10px;
+  padding-bottom: 2px;
+}
+.ch {
+  flex: none;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 99px;
+  padding: 8px 15px;
+  font: 700 12.5px 'Manrope', sans-serif;
+  color: var(--ink-sec);
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: all .2s ease;
+}
+.ch.on {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 15px;
+  background: var(--card);
+  font: 600 14px 'Manrope', sans-serif;
+  color: var(--ink);
+  outline: 0;
+  margin-top: 6px;
+  box-shadow: var(--sh-sm);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--acc);
+  box-shadow: 0 0 0 3px var(--soft);
+}
+input[type=date] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-height: 48px;
+  text-align: left;
+}
+input[type=date]::-webkit-date-and-time-value { text-align: left; }
+
+.sr { position: relative; }
+.sr input {
+  padding-left: 44px;
+  border-radius: 18px;
+  background: var(--card);
+  border-color: var(--line);
+}
+.sr span {
+  position: absolute;
+  left: 15px;
+  top: 20px;
+  color: var(--mut);
+  pointer-events: none;
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+/* ==========================================================================
+   8. BUTTONS & FLOATING NAVIGATION DOCK
+   ========================================================================== */
+.bt {
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 13px 18px;
+  font: 800 13.5px 'Manrope', sans-serif;
+  background: var(--ink);
+  color: var(--bg);
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: transform .15s ease, background .25s ease, box-shadow .25s ease;
+}
+.bt:active { transform: scale(.96); }
+.bt.s {
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+.bt.d {
+  background: var(--bad-bg);
+  color: var(--bad);
+  border-color: rgba(220, 38, 38, 0.15);
+}
+.bt.a {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF4B0F 100%);
+  color: #fff;
+  box-shadow: 0 6px 18px -3px rgba(255, 85, 26, 0.4);
+}
+
+.dock {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 25;
+  max-width: 528px;
+  margin: auto;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.pill {
+  flex: 1;
+  background: rgba(20, 20, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  display: flex;
+  padding: 5px;
+  gap: 4px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26);
+}
+:root[data-theme="dark"] .pill {
+  background: rgba(32, 32, 38, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.pill button {
+  flex: 1;
+  border: 0;
+  background: none;
+  color: #9E9D99;
+  border-radius: 99px;
+  padding: 11px 0;
+  font: 800 12px 'Manrope', sans-serif;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .25s cubic-bezier(.2, .8, .2, 1);
+}
+.pill button span { display: none; }
+.pill button.on {
+  background: #FFFFFF;
+  color: #141413;
+  flex: 2.1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+.pill button.on span { display: inline; }
+
+.plus {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF743D 0%, #FF4B0F 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 24px rgba(255, 85, 26, 0.45);
+  cursor: pointer;
+  transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease;
+}
+.plus:active { transform: scale(.91); }
+.plus svg { width: 23px; height: 23px; stroke-width: 2.6; }
+
+/* ==========================================================================
+   9. MODALS, SHEETS & SEGMENTED CONTROLS (.ov, .sh, .sg, .cg, .kv)
+   ========================================================================== */
+.ov {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 40;
+}
+.ov.on {
+  display: flex;
+  animation: fade .25s ease;
+}
+.sh {
+  background: var(--bg);
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 30px 30px 0 0;
+  padding: 12px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line-strong);
+  box-shadow: var(--sh-lg);
+  animation: up .32s cubic-bezier(.2, .8, .2, 1);
+  position: relative;
+}
+.sh::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--line-strong);
+  margin: 0 auto 12px;
+}
+@keyframes up { from { transform: translateY(44px); opacity: 0; } }
+
+.shh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.shh b {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.sg {
+  display: flex;
+  background: var(--bg-sub);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 4px;
+  gap: 4px;
+}
+.sg button {
+  flex: 1;
+  border: 0;
+  background: none;
+  border-radius: 12px;
+  padding: 10px 6px;
+  font: 800 12px 'Manrope', sans-serif;
+  color: var(--mut);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.sg button.on {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--sh-sm);
+}
+
+.cg {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.cg button {
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  border-radius: 16px;
+  padding: 11px 4px;
+  font: 700 10.5px 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-sec);
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: all .2s ease;
+}
+.cg button span { font-size: 21px; }
+.cg button.on {
+  border-color: var(--acc);
+  background: var(--soft);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.amr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 36px;
+  font-weight: 800;
+  margin: 10px 0 12px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  padding: 10px 16px;
+  box-shadow: var(--sh-sm);
+}
+.amr span { color: var(--acc); }
+.amr input {
+  margin: 0;
+  border: 0;
+  background: none;
+  font-size: 34px;
+  font-weight: 800;
+  padding: 0;
+  box-shadow: none;
+}
+.amr input:focus { box-shadow: none; }
+
+.g2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.g2 > div { min-width: 0; }
+
+.bg2 {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  margin: 6px 0 2px;
+  color: var(--ink);
+}
+.kv {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 16px;
+  margin: 14px 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--sh-sm);
+}
+.kv span {
+  color: var(--mut);
+  font-weight: 600;
+  font-size: 13px;
+}
+.kv b {
+  text-align: right;
+  font-weight: 800;
+  font-size: 13.5px;
+}
+.acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.acts > * { flex: 1; }
+
+/* ==========================================================================
+   10. METRIC BOXES, INSIGHTS CARDS & DONUT CHART (.ir, .sx, .mon, .dr)
+   ========================================================================== */
+.ir {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 16px;
+  margin-top: 12px;
+  box-shadow: var(--sh-sm);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.ir .bar { margin: 10px 0 6px; }
+.ir .m { margin-top: 2px; }
+
+.mon {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  height: 156px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 16px;
+  margin-top: 10px;
+  box-shadow: var(--sh-sm);
+}
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  height: 100%;
+}
+.cb {
+  width: 100%;
+  max-width: 34px;
+  background: linear-gradient(180deg, #FF7B47 0%, #FF511A 100%);
+  border-radius: 10px 10px 5px 5px;
+  transform-origin: bottom;
+  animation: gr .8s cubic-bezier(.2, .8, .2, 1) both;
+  box-shadow: 0 4px 12px rgba(255, 85, 26, 0.25);
+}
+.col small {
+  color: var(--mut);
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.ts {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  background: var(--ink);
+  color: var(--bg);
+  padding: 11px 18px;
+  border-radius: 99px;
+  font-weight: 800;
+  font-size: 13px;
+  opacity: 0;
+  box-shadow: var(--sh-lg);
+  transition: .3s cubic-bezier(.2, .8, .2, 1);
+  pointer-events: none;
+  z-index: 45;
+  max-width: 90%;
+  text-align: center;
+}
+.ts.on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#cc { display: block; }
+.cf {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 12px 16px;
+  font: 800 13.5px 'Manrope', sans-serif;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+}
+.cf.on {
+  border-color: var(--acc);
+  background: var(--soft);
+}
+
+.cl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+.ct {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  padding: 15px;
+  text-align: left;
+  font: 800 13px 'Manrope', sans-serif;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: all .2s ease;
+}
+.ct span {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 6px;
+}
+.ct small {
+  display: block;
+  color: var(--mut);
+  font-weight: 600;
+  margin-top: 3px;
+}
+.ct.on {
+  border-color: var(--acc);
+  background: var(--soft);
+}
+
+.dn {
+  border: 0;
+  background: var(--soft);
+  color: var(--acc);
+  font: 800 13px 'Manrope', sans-serif;
+  border-radius: 99px;
+  padding: 8px 14px;
+  flex: none;
+  cursor: pointer;
+}
+
+@keyframes fu { from { opacity: 0; transform: translateY(12px); } }
+@keyframes fade { from { opacity: 0; } }
+@keyframes gr { from { transform: scaleY(0); } }
+
+.logo, .pc2 { display: none; }
+
+/* Stat Grid Boxes (.sx) */
+.sx {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+.sx > div {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 15px 16px;
+  box-shadow: var(--sh-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.sx > div::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--line-strong);
+  opacity: .5;
+}
+.sx > div:first-child::after {
+  background: linear-gradient(90deg, var(--acc), transparent);
+  opacity: 1;
+}
+.sx small {
+  display: block;
+  color: var(--mut);
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.sx b {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.025em;
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+}
+
+.kl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.kl:last-child { border: 0; padding-bottom: 2px; }
+.kl span { color: var(--ink-sec); font-weight: 600; }
+.kl b { font-weight: 800; color: var(--ink); }
+
+.sp {
+  display: flex;
+  height: 10px;
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 10px 0;
+  background: var(--bg-sub);
+  gap: 2px;
+}
+.sp i {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+}
+
+.big2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-top: 4px;
+  letter-spacing: -.02em;
+}
+.big2 small {
+  font-size: 13px;
+  color: var(--mut);
+  font-weight: 700;
+}
+
+/* Donut Ring & Legend Card */
+.dr {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.ringc {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  flex: none;
+}
+.ringc svg {
+  width: 148px;
+  height: 148px;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+.rc {
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background: var(--card-tinted);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  padding: 8px;
+  text-align: center;
+  z-index: 2;
+}
+.rc b {
+  font-size: 17px;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+.rc small {
+  color: var(--mut);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.lg2 {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.lr {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 9px;
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  border-radius: 11px;
+  border: 1px solid transparent;
+  transition: background .2s ease, transform .15s ease, border-color .2s ease;
+}
+.lr:hover { background: var(--bg); }
+.lr.on {
+  background: var(--soft);
+  border-color: rgba(255, 85, 26, 0.22);
+  transform: translateX(3px);
+}
+.lr i {
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  flex: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.lr .t { flex: 1; color: var(--ink-sec); }
+.lr.on .t { color: var(--ink); font-weight: 800; }
+.lr b {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--bg);
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.lr.on b {
+  background: var(--acc);
+  color: #fff;
+}
+
+.rc .e { font-size: 20px; line-height: 1; margin-bottom: 2px; display: block; }
+.rc .n {
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--ink-sec);
+  max-width: 82px;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+.rc .p {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 2px 0 0;
+  color: var(--acc);
+}
+
+.sg-circ {
+  cursor: pointer;
+  transition: opacity .25s ease, stroke-width .25s ease;
+  transform-origin: center;
+}
+.ringc.hv .sg-circ { opacity: .22; }
+.ringc.hv .sg-circ.on {
+  opacity: 1;
+  stroke-width: 5.4;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Dark Mode Specific Overrides */
+:root[data-theme="dark"] .ch.on {
+  background: #F5F3EF;
+  color: #111;
+  border-color: #F5F3EF;
+}
+:root[data-theme="dark"] .sg button.on {
+  background: #282830;
+  color: var(--ink);
+}
+:root[data-theme="dark"] .bt {
+  background: #F5F3EF;
+  color: #111;
+}
+:root[data-theme="dark"] .bt.s {
+  background: var(--card);
+  color: var(--ink);
+}
+:root[data-theme="dark"] .bt.a {
+  background: linear-gradient(135deg, #FF743D 0%, #FF511A 100%);
+  color: #fff;
+}
+:root[data-theme="dark"] .bt.d {
+  background: var(--bad-bg);
+  color: var(--bad);
+}
+:root[data-theme="dark"] .ts {
+  background: #F5F3EF;
+  color: #111;
+}
+:root[data-theme="dark"] .sh {
+  background: #121216;
+}
+:root[data-theme="dark"] .rw:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+#v-home > *, #v-pay > *, #v-ins > * { min-width: 0; }
+section[id^="v-"] { animation: fu .3s cubic-bezier(.2, .8, .2, 1) both; }
+
+/* ==========================================================================
+   11. DESKTOP RESPONSIVE LAYOUT (min-width: 960px)
+   ========================================================================== */
+@media (min-width: 960px) {
+  .dock {
+    left: max(24px, calc((100vw - 1340px) / 2));
+    right: auto;
+    top: 24px;
+    bottom: 24px;
+    width: 218px;
+    max-width: none;
+    margin: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    order: -3;
+    margin: 2px 4px 6px;
+    padding: 10px 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--sh-sm);
+  }
+  .lg {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: radial-gradient(circle at 30% 20%, #2e2e33, #0b0b0d);
+    border: 1px solid rgba(245, 208, 122, 0.55);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    flex: none;
+  }
+  .lg svg { width: 42px; height: 28px; stroke-linecap: butt; }
+  .lg text {
+    stroke: none;
+    fill: #FFE9B0;
+    font: 700 14px 'Playfair Display', Georgia, serif;
+  }
+  .lt b {
+    display: block;
+    font: 700 17px/1.1 'Playfair Display', Georgia, serif;
+  }
+  .lt span {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: .28em;
+    color: var(--mut);
+  }
+  .plus {
+    order: -1;
+    width: 100%;
+    height: 52px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .plus::after {
+    content: "Add payment";
+    font: 800 14px 'Manrope', sans-serif;
+  }
+  .plus svg { width: 19px; height: 19px; }
+
+  .pill {
+    flex: none;
+    flex-direction: column;
+    border-radius: 24px;
+    padding: 8px;
+    gap: 4px;
+  }
+  .pill button, .pill button.on {
+    flex: none;
+    justify-content: flex-start;
+    padding: 13px 16px;
+    font-size: 13.5px;
+  }
+  .pill button span { display: inline; }
+
+  .w {
+    max-width: 1100px;
+    margin: 0 0 0 max(264px, calc((100vw - 1340px) / 2 + 242px));
+    padding: 24px 32px 56px;
+  }
+
+  .hd2 {
+    padding: 18px 24px 20px;
+    margin-bottom: 24px;
+    border-radius: 28px;
+  }
+  .hd2 .nm { font-size: 31px; padding: 0; }
+  .hd2 .tbs { top: 14px; right: 16px; flex-direction: row; gap: 8px; }
+  .hd2 .sy-tag { top: 14px; left: 16px; }
+
+  #v-home {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 26px;
+    align-items: start;
+  }
+  #v-pay {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 26px;
+    align-items: start;
+    position: relative;
+  }
+  .pc2 {
+    display: block;
+    position: sticky;
+    top: 24px;
+    padding-top: 0;
+  }
+  #v-ins {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 26px;
+    align-items: start;
+  }
+  #v-ins .sh2 { grid-column: 1 / -1; margin: 0 0 4px; }
+  #v-ins .ic1 { grid-column: 1; }
+  #v-ins .ic2 { grid-column: 2; }
+
+  .ov { align-items: center; padding: 24px; }
+  .sh {
+    max-width: 520px;
+    max-height: 90vh;
+    border-radius: 30px;
+    border: 1px solid var(--line-strong);
+  }
+  .sh::before { display: none; }
+  .ts { bottom: 32px; }
+  .qa .bt.a { display: none; }
+
+  @media (hover: hover) {
+    .plus:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(255, 85, 26, 0.5);
+    }
+    .dc:hover, .ir:hover, .sx > div:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sh-md);
+      border-color: var(--line-strong);
+    }
+    .rw:hover {
+      background: var(--card-tinted);
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+}
+
+/* ==========================================================================
+   12. WEDDING LOGIN CARD (.lgn)
+   ========================================================================== */
+.lgn {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 138, 76, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at top, #FFF8F3 0%, #EDE6DD 100%);
+  overflow: auto;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:root[data-theme="dark"] .lgn {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 107, 53, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse at top, #1A1412 0%, #0A0908 100%);
+}
+.lg-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 34px;
+  padding: 44px 32px 38px;
+  box-shadow: 0 28px 60px -12px rgba(140, 65, 20, 0.16), 0 4px 16px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  overflow: hidden;
+  animation: fu .45s cubic-bezier(.2, .8, .2, 1) both;
+}
+:root[data-theme="dark"] .lg-card {
+  background: rgba(24, 24, 29, 0.92);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.65);
+}
+.lg-card::before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 138, 76, 0.25), transparent 70%);
+  top: -70px;
+  right: -70px;
+  pointer-events: none;
+}
+.lg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--soft);
+  color: var(--acc);
+  border: 1px solid rgba(255, 85, 26, 0.2);
+  border-radius: 99px;
+  padding: 6px 15px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.lg-crest {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 18px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 30% 20%, #2e2e33, #0b0b0d);
+  border: 1.5px solid rgba(245, 208, 122, 0.65);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lg-crest svg { width: 48px; height: 32px; }
+.lg-title {
+  margin: 0 0 8px;
+  font: 700 33px/1.15 'Playfair Display', Georgia, serif;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.lg-title em {
+  font: italic 600 30px 'Playfair Display', Georgia, serif;
+  color: var(--acc);
+}
+.lg-sub {
+  margin: 0 0 28px;
+  color: var(--mut);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.lg-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 54px;
+  border-radius: 99px;
+  background: #fff;
+  border: 1.5px solid var(--line-strong);
+  font: 800 15px 'Manrope', sans-serif;
+  color: #141413;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: all .2s ease;
+}
+:root[data-theme="dark"] .lg-btn {
+  background: #24242B;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+.lg-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+.lg-btn:active { transform: scale(.97); }
+.lg-btn svg { width: 22px; height: 22px; }
+.lg-sec {
+  margin: 22px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mut);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.lg-sec svg { width: 14px; height: 14px; }
+</style>
+</head>
 <body>
 <div class="w">
-<header class="tp hd2"><i class="r1"></i><i class="r2"></i>
-  <span class="sy-tag" id="sy">…</span>
-  <div class="tbs">
-    <button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button>
-    <button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button>
-  </div>
-  <div class="ey">THE WEDDING OF</div>
-  <h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1>
-  <div class="orn"><u></u><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:none;fill:#FFE2A8"><g><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/></g><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div>
-  <div><div class="wd" id="wd">Set your wedding date in settings</div><div class="cdp" id="cd">Wedding ledger</div></div>
-</header>
-
-<section id="v-home">
-  <div class="c1">
-    <div class="hero"><div class="l">Remaining</div><div class="big" id="hR">₹0</div><div class="bar"><b id="hBar" style="width:0"></b></div>
-      <div class="hs"><div><small>Budget</small><b id="hB">—</b></div><div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div></div>
+  <!-- COMPACT REGAL HEADER -->
+  <header class="tp hd2">
+    <i class="r1"></i><i class="r2"></i>
+    <span class="sy-tag" id="sy">…</span>
+    <div class="tbs">
+      <button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button>
+      <button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button>
     </div>
-    <div class="qa"><button class="bt a" onclick="openAdd()" data-i="plus" data-t="Add payment"></button><button class="bt s" onclick="shr()" data-i="chat" data-t="Share"></button></div>
-    <div class="sh2"><b>Due soon</b></div><div class="ds" id="due"></div>
-    <div class="sh2"><b>Where the money went</b></div><div id="hc"></div>
-  </div>
-  <div class="c2">
-    <div class="sh2"><b>At a glance</b></div><div id="hi"></div>
-    <div class="sh2"><b>Recent</b><a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc)">See all</a></div><div id="rec"></div>
-  </div>
-</section>
+    <div class="ey">THE WEDDING OF</div>
+    <h1 class="nm">Swetha <em>&amp;</em> Kalyan</h1>
+    <div class="orn">
+      <u></u>
+      <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:none;fill:#FFE2A8">
+        <g>
+          <circle cx="12" cy="5" r="3.2"/>
+          <circle cx="18.2" cy="8.5" r="3.2"/>
+          <circle cx="18.2" cy="15.5" r="3.2"/>
+          <circle cx="12" cy="19" r="3.2"/>
+          <circle cx="5.8" cy="15.5" r="3.2"/>
+          <circle cx="5.8" cy="8.5" r="3.2"/>
+        </g>
+        <circle cx="12" cy="12" r="3" fill="#fff"/>
+      </svg>
+      <u></u>
+    </div>
+    <div class="hd-meta">
+      <div class="wd" id="wd">Set your wedding date in settings</div>
+      <div class="cdp" id="cd">Wedding ledger</div>
+    </div>
+  </header>
 
-<section id="v-pay" hidden>
-  <div class="pc1">
-    <div class="sh2" style="margin-top:0"><b style="font-size:22px">Payments</b></div>
-    <div class="sr"><span data-i="search"></span><input id="qi" placeholder="Search vendor, item, phone" oninput="qs=this.value.toLowerCase();pay()"></div>
-    <div class="chs" id="stc"></div><div class="chs" id="cc"></div>
-    <div id="payL"></div>
-  </div>
-  <aside class="pc2" id="pSide"></aside>
-</section>
+  <!-- HOME VIEW -->
+  <section id="v-home">
+    <div class="c1">
+      <div class="hero">
+        <div class="l">Remaining Balance</div>
+        <div class="big" id="hR">₹0</div>
+        <div class="bar"><b id="hBar" style="width:0"></b></div>
+        <div class="hs">
+          <div>
+            <small>Total Budget</small>
+            <b id="hB">—</b>
+          </div>
+          <div style="text-align:right">
+            <small>Spent · <span id="hPc" style="color:#FF9866">0%</span></small>
+            <b id="hP">₹0</b>
+          </div>
+        </div>
+      </div>
+      <div class="qa">
+        <button class="bt a" onclick="openAdd()" data-i="plus" data-t="Add payment"></button>
+        <button class="bt s" onclick="shr()" data-i="chat" data-t="Share summary"></button>
+      </div>
+      <div class="sh2"><b>Due soon</b></div>
+      <div class="ds" id="due"></div>
+      <div class="sh2"><b>Where the money went</b></div>
+      <div id="hc"></div>
+    </div>
+    <div class="c2">
+      <div class="sh2"><b>At a glance</b></div>
+      <div id="hi"></div>
+      <div class="sh2">
+        <b>Recent payments</b>
+        <a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc)">See all →</a>
+      </div>
+      <div id="rec"></div>
+    </div>
+  </section>
 
-<section id="v-acc" hidden style="max-width:520px"><div class="sh2" style="margin-top:0"><b style="font-size:22px">Account</b></div><div id="accB"></div></section>
+  <!-- PAYMENTS VIEW -->
+  <section id="v-pay" hidden>
+    <div class="pc1">
+      <div class="sh2" style="margin-top:0"><b style="font-size:22px">Payments</b></div>
+      <div class="sr">
+        <span data-i="search"></span>
+        <input id="qi" placeholder="Search vendor, item, phone, family member…" oninput="qs=this.value.toLowerCase();pay()">
+      </div>
+      <div class="chs" id="stc"></div>
+      <div class="chs" id="cc"></div>
+      <div id="payL"></div>
+    </div>
+    <aside class="pc2" id="pSide"></aside>
+  </section>
 
-<section id="v-ins" hidden>
-  <div class="sh2"><b style="font-size:22px">Insights</b></div>
-  <div class="ic1"><div class="mon" id="mon"></div><div id="insX"></div></div>
-  <div class="ic2"><div class="sg" id="insS" style="margin-top:0"></div><div id="insL"></div></div>
-</section>
+  <!-- ACCOUNT VIEW -->
+  <section id="v-acc" hidden style="max-width:520px">
+    <div class="sh2" style="margin-top:0"><b style="font-size:22px">Account</b></div>
+    <div id="accB"></div>
+  </section>
+
+  <!-- INSIGHTS VIEW -->
+  <section id="v-ins" hidden>
+    <div class="sh2"><b style="font-size:22px">Insights &amp; Analytics</b></div>
+    <div class="ic1">
+      <div class="mon" id="mon"></div>
+      <div id="insX"></div>
+    </div>
+    <div class="ic2">
+      <div class="sg" id="insS" style="margin-top:0"></div>
+      <div id="insL"></div>
+    </div>
+  </section>
 </div>
 
+<!-- FLOATING NAVIGATION DOCK -->
 <div class="dock">
   <div class="logo">
-    <div class="lg"><svg viewBox="0 0 60 40"><defs><linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE9B0"/><stop offset="1" stop-color="#C98A2B"/></linearGradient></defs><circle cx="18" cy="22" r="14" fill="none" stroke="url(#gd)" stroke-width="2.4"/><circle cx="42" cy="22" r="14" fill="none" stroke="url(#gd)" stroke-width="2.4"/><text x="18" y="27" text-anchor="middle">S</text><text x="42" y="27" text-anchor="middle">K</text></svg></div>
+    <div class="lg">
+      <svg viewBox="0 0 60 40">
+        <defs>
+          <linearGradient id="gd" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FFE9B0"/>
+            <stop offset="1" stop-color="#C98A2B"/>
+          </linearGradient>
+        </defs>
+        <circle cx="18" cy="22" r="14" fill="none" stroke="url(#gd)" stroke-width="2.4"/>
+        <circle cx="42" cy="22" r="14" fill="none" stroke="url(#gd)" stroke-width="2.4"/>
+        <text x="18" y="27" text-anchor="middle">S</text>
+        <text x="42" y="27" text-anchor="middle">K</text>
+      </svg>
+    </div>
     <div class="lt"><b>Wedding</b><span>LEDGER</span></div>
   </div>
   <div class="pill">
@@ -207,42 +1795,154 @@ section[id^="v-"]{animation:fu .3s cubic-bezier(.2,.8,.2,1) both}
   <button class="plus" onclick="openAdd()" aria-label="Add payment" data-i="plus"></button>
 </div>
 
-<div class="ts" id="ts"></div><datalist id="dlV"></datalist><datalist id="dlP"></datalist>
+<div class="ts" id="ts"></div>
+<datalist id="dlV"></datalist>
+<datalist id="dlP"></datalist>
 
-<div class="ov" id="mA" onclick="if(event.target==this)cl('mA')"><div class="sh"><div class="shh"><b id="aT">New payment</b><button class="ib" onclick="cl('mA')" data-i="x"></button></div>
-<div class="amr"><span>₹</span><input id="fA" type="number" inputmode="numeric" placeholder="0"><button class="dn" type="button" onclick="document.activeElement.blur()">Done</button></div>
-<div class="sg" id="sg"><button data-v="Paid" onclick="stS('Paid')">Paid in full</button><button data-v="Advance Paid" onclick="stS('Advance Paid')">Part paid</button><button data-v="Pending" onclick="stS('Pending')">Not paid yet</button></div>
-<div id="partW" hidden><label>Paid so far (₹)</label><input id="fPd" type="number" inputmode="numeric" placeholder="e.g. 20000"></div>
-<div class="m" id="eN" hidden style="margin-top:8px">To change one payment's date or amount, open the entry and tap that payment under "Payments made".</div>
-<label>Paid to</label><input id="fN" list="dlV" placeholder="Vendor or person" oninput="af()">
-<label>What for (optional)</label><input id="fD" placeholder="e.g. Venue advance">
-<label>Category</label><div class="cg" id="cg"></div>
-<div class="g2"><div><label>Date</label><input type="date" id="fDt"></div><div id="dueW"><label>Balance due date</label><input type="date" id="fDue"></div></div>
-<div class="g2"><div><label>Function</label><select id="fF"></select></div><div><label>Mode</label><select id="fM"></select></div></div>
-<div class="g2"><div><label>Paid by</label><input id="fB" list="dlP" placeholder="Family member"></div><div><label>Phone</label><input id="fP" type="tel" inputmode="tel"></div></div>
-<label>Receipt photo</label><input id="fI" type="file" accept="image/*" onchange="pick(event)"><div class="m" id="iS"></div>
-<button class="bt a" style="width:100%;margin-top:18px" onclick="save()">Save payment</button></div></div>
+<!-- ADD / EDIT PAYMENT SHEET -->
+<div class="ov" id="mA" onclick="if(event.target==this)cl('mA')">
+  <div class="sh">
+    <div class="shh">
+      <b id="aT">New payment</b>
+      <button class="ib" onclick="cl('mA')" data-i="x"></button>
+    </div>
+    <div class="amr">
+      <span>₹</span>
+      <input id="fA" type="number" inputmode="numeric" placeholder="0">
+      <button class="dn" type="button" onclick="document.activeElement.blur()">Done</button>
+    </div>
+    <div class="sg" id="sg">
+      <button data-v="Paid" onclick="stS('Paid')">Paid in full</button>
+      <button data-v="Advance Paid" onclick="stS('Advance Paid')">Part paid</button>
+      <button data-v="Pending" onclick="stS('Pending')">Not paid yet</button>
+    </div>
+    <div id="partW" hidden>
+      <label>Paid so far (₹)</label>
+      <input id="fPd" type="number" inputmode="numeric" placeholder="e.g. 20000">
+    </div>
+    <div class="m" id="eN" hidden style="margin-top:8px">To change one payment's date or amount, open the entry and tap that payment under "Payments made".</div>
+    <label>Paid to</label>
+    <input id="fN" list="dlV" placeholder="Vendor or person" oninput="af()">
+    <label>What for (optional)</label>
+    <input id="fD" placeholder="e.g. Venue advance">
+    <label>Category</label>
+    <div class="cg" id="cg"></div>
+    <div class="g2">
+      <div><label>Date</label><input type="date" id="fDt"></div>
+      <div id="dueW"><label>Balance due date</label><input type="date" id="fDue"></div>
+    </div>
+    <div class="g2">
+      <div><label>Function</label><select id="fF"></select></div>
+      <div><label>Mode</label><select id="fM"></select></div>
+    </div>
+    <div class="g2">
+      <div><label>Paid by</label><input id="fB" list="dlP" placeholder="Family member"></div>
+      <div><label>Phone</label><input id="fP" type="tel" inputmode="tel"></div>
+    </div>
+    <label>Receipt photo</label>
+    <input id="fI" type="file" accept="image/*" onchange="pick(event)">
+    <div class="m" id="iS"></div>
+    <button class="bt a" style="width:100%;margin-top:18px" onclick="save()">Save payment</button>
+  </div>
+</div>
 
-<div class="ov" id="mD" onclick="if(event.target==this)cl('mD')"><div class="sh"><div class="shh"><span class="l">Payment</span><button class="ib" onclick="cl('mD')" data-i="x"></button></div><div id="dB"></div></div></div>
+<!-- PAYMENT DETAILS SHEET -->
+<div class="ov" id="mD" onclick="if(event.target==this)cl('mD')">
+  <div class="sh">
+    <div class="shh">
+      <span class="l">Payment Details</span>
+      <button class="ib" onclick="cl('mD')" data-i="x"></button>
+    </div>
+    <div id="dB"></div>
+  </div>
+</div>
 
-<div class="ov" id="mS" onclick="if(event.target==this)cl('mS')"><div class="sh"><div class="shh"><b>Settings</b><button class="ib" onclick="cl('mS')" data-i="x"></button></div>
-<label>Total wedding budget (₹)</label><input id="sT" type="number" inputmode="numeric"><label>Wedding date</label><input id="sD" type="date">
-<button class="bt a" style="width:100%;margin-top:14px" onclick="setB()">Save</button><button class="bt s" style="width:100%;margin-top:8px" onclick="AUTH&&AUTH.signOut()">Sign out</button><label style="margin-top:24px">Appearance</label><div class="sg" id="tg"><button data-v="light" onclick="setTheme('light')">☀️ Light</button><button data-v="dark" onclick="setTheme('dark')">🌙 Dark</button></div><label style="margin-top:24px">Data</label>
-<div class="g2"><button class="bt s" onclick="xl()">Excel</button><button class="bt s" onclick="bk()">Backup</button><button class="bt s" onclick="$('rf').click()">Restore</button><button class="bt d" id="rsB" onclick="rsc()">Reset all data</button></div><input type="file" id="rf" accept=".json" hidden onchange="rs(event)"></div></div>
+<!-- SETTINGS SHEET -->
+<div class="ov" id="mS" onclick="if(event.target==this)cl('mS')">
+  <div class="sh">
+    <div class="shh">
+      <b>Settings</b>
+      <button class="ib" onclick="cl('mS')" data-i="x"></button>
+    </div>
+    <label>Total wedding budget (₹)</label>
+    <input id="sT" type="number" inputmode="numeric">
+    <label>Wedding date</label>
+    <input id="sD" type="date">
+    <button class="bt a" style="width:100%;margin-top:14px" onclick="setB()">Save changes</button>
+    <button class="bt s" style="width:100%;margin-top:8px" onclick="AUTH&&AUTH.signOut()">Sign out</button>
+    <label style="margin-top:24px">Appearance</label>
+    <div class="sg" id="tg">
+      <button data-v="light" onclick="setTheme('light')">☀️ Light</button>
+      <button data-v="dark" onclick="setTheme('dark')">🌙 Dark</button>
+    </div>
+    <label style="margin-top:24px">Data &amp; Backup</label>
+    <div class="g2">
+      <button class="bt s" onclick="xl()">📊 Excel</button>
+      <button class="bt s" onclick="bk()">💾 Backup</button>
+      <button class="bt s" onclick="$('rf').click()">📂 Restore</button>
+      <button class="bt d" id="rsB" onclick="rsc()">Reset all data</button>
+    </div>
+    <input type="file" id="rf" accept=".json" hidden onchange="rs(event)">
+  </div>
+</div>
 
-<div class="ov" id="mH" onclick="if(event.target==this)cl('mH')"><div class="sh"><div class="shh"><b>Share summary</b><button class="ib" onclick="cl('mH')" data-i="x"></button></div><textarea id="shT" readonly rows="5"></textarea><div class="g2"><a class="bt a" id="shW" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="bt s" onclick="cpy()">Copy text</button></div></div></div>
+<!-- SHARE SUMMARY SHEET -->
+<div class="ov" id="mH" onclick="if(event.target==this)cl('mH')">
+  <div class="sh">
+    <div class="shh">
+      <b>Share summary</b>
+      <button class="ib" onclick="cl('mH')" data-i="x"></button>
+    </div>
+    <textarea id="shT" readonly rows="5"></textarea>
+    <div class="g2">
+      <a class="bt a" id="shW" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="bt s" onclick="cpy()">Copy text</button>
+    </div>
+  </div>
+</div>
 
-<div class="ov" id="mC" onclick="if(event.target==this)cl('mC')"><div class="sh"><div class="shh"><b>Filter by category</b><button class="ib" onclick="cl('mC')" data-i="x"></button></div><div class="cl" id="cl"></div></div></div>
+<!-- CATEGORY FILTER SHEET -->
+<div class="ov" id="mC" onclick="if(event.target==this)cl('mC')">
+  <div class="sh">
+    <div class="shh">
+      <b>Filter by category</b>
+      <button class="ib" onclick="cl('mC')" data-i="x"></button>
+    </div>
+    <div class="cl" id="cl"></div>
+  </div>
+</div>
 
-<div class="ov" id="mP" onclick="if(event.target==this)cl('mP')"><div class="sh"><div class="shh"><b id="rpT">Record a payment</b><button class="ib" onclick="cl('mP')" data-i="x"></button></div>
-<div class="m" id="rpI" style="margin-top:6px"></div>
-<label>Amount paid (₹)</label><input id="rpA" type="number" inputmode="numeric" placeholder="0">
-<div class="g2"><div><label>Date</label><input type="date" id="rpD"></div><div><label>Mode</label><select id="rpM"></select></div></div>
-<button class="bt a" style="width:100%;margin-top:18px" onclick="rpSave()">Save payment</button><button class="bt d" id="rpX" style="width:100%;margin-top:8px" hidden onclick="rpDel()">Delete this payment</button></div></div>
+<!-- RECORD INSTALLMENT PAYMENT SHEET -->
+<div class="ov" id="mP" onclick="if(event.target==this)cl('mP')">
+  <div class="sh">
+    <div class="shh">
+      <b id="rpT">Record a payment</b>
+      <button class="ib" onclick="cl('mP')" data-i="x"></button>
+    </div>
+    <div class="m" id="rpI" style="margin-top:6px"></div>
+    <label>Amount paid (₹)</label>
+    <input id="rpA" type="number" inputmode="numeric" placeholder="0">
+    <div class="g2">
+      <div><label>Date</label><input type="date" id="rpD"></div>
+      <div><label>Mode</label><select id="rpM"></select></div>
+    </div>
+    <button class="bt a" style="width:100%;margin-top:18px" onclick="rpSave()">Save payment</button>
+    <button class="bt d" id="rpX" style="width:100%;margin-top:8px" hidden onclick="rpDel()">Delete this payment</button>
+  </div>
+</div>
 
-<div class="ov" id="mR" onclick="cl('mR')"><div class="sh"><div class="shh"><b>Receipt</b><button class="ib" data-i="x"></button></div><img id="rim" alt="Receipt" style="max-width:100%;border-radius:14px;margin-top:10px"></div></div>
+<!-- RECEIPT LIGHTBOX SHEET -->
+<div class="ov" id="mR" onclick="cl('mR')">
+  <div class="sh">
+    <div class="shh">
+      <b>Receipt</b>
+      <button class="ib" data-i="x"></button>
+    </div>
+    <img id="rim" alt="Receipt" style="max-width:100%;border-radius:16px;margin-top:10px">
+  </div>
+</div>
 
-<!-- REDESIGNED WEDDING LOGIN CARD -->
+<!-- WEDDING LOGIN CARD -->
 <div id="lg" class="lgn">
   <div class="lg-card">
     <div class="lg-badge">Wedding Ledger</div>
@@ -255,7 +1955,7 @@ section[id^="v-"]{animation:fu .3s cubic-bezier(.2,.8,.2,1) both}
       </svg>
     </div>
     <h1 class="lg-title">Swetha <em>&amp;</em> Kalyan</h1>
-    <p class="lg-sub">Welcome back! Sign in with your family Google account to manage expenses.</p>
+    <p class="lg-sub">Welcome back! Sign in with your family Google account to manage wedding expenses.</p>
     <button class="lg-btn" onclick="doProv('google')">
       <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       <span>Continue with Google</span>
@@ -268,6 +1968,7 @@ section[id^="v-"]{animation:fu .3s cubic-bezier(.2,.8,.2,1) both}
   </div>
 </div>
 
+<!-- FIREBASE & APPLICATION LOGIC -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
@@ -290,7 +1991,7 @@ window.storage=(function(){
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-/* MUSIC & DJ ADDED TO CATEGORIES */
+/* CATEGORIES WITH MUSIC & DJ */
 const CATS={
   'Jewelry & Gold':'💍',
   'Clothing & Bridal Wear':'🛍️',
@@ -348,16 +2049,16 @@ function render(){
   if(tab=='acc')acc();
 }
 
-const st=x=>{const t=stt(x);return t=='Pending'?'<div class="pd">Pending</div>':t=='Part'?'<div class="ad" style="color:#B8860B">Part paid</div>':''};
+const st=x=>{const t=stt(x);return t=='Pending'?'<div class="pd">Pending</div>':t=='Part'?'<div class="ad">Part paid</div>':''};
 const meta=x=>{const d=t=>t?fd(new Date(t-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10)):'';return x.cby?'<div class="m" style="margin:10px 2px 0">Added by '+esc(x.cby)+' · '+d(x.cts)+(x.by&&x.by!==x.cby?' · Updated by '+esc(x.by)+' · '+d(x.ts):'')+'</div>':''};
-const hist=x=>{const P=pays0(x);return P.length?`<div class="ir" style="margin-top:0"><div class="l">Payments made · tap to edit</div>${P.map((p,i)=>`<div class="kl" style="cursor:pointer" onclick="rpEdit('${x.id}',${i})"><span>${fd(p.iso)} · ${esc(p.mode||'—')}</span><b>${inr(p.a)} ›</b></div>`).join('')}</div>`:''};
-const rw=x=>{const g=got(x),pt=stt(x)=='Part';return `<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${pt?'last paid '+fd(lastPay(x)):fd(x.iso)}</div>${pt?`<div class="bar" style="margin:6px 0 0"><b style="width:${Math.min(100,Math.round(g/x.amount*100))}%"></b></div>`:''}</div><div style="text-align:right"><b>${inr(x.amount)}</b>${st(x)}${pt?`<div class="m">${inr(rem(x))} left</div>`:''}</div></div>`};
+const hist=x=>{const P=pays0(x);return P.length?`<div class="ir" style="margin-top:10px"><div class="l" style="margin-bottom:4px">Payments made · tap to edit</div>${P.map((p,i)=>`<div class="kl" style="cursor:pointer" onclick="rpEdit('${x.id}',${i})"><span>${fd(p.iso)} · ${esc(p.mode||'—')}</span><b>${inr(p.a)} ›</b></div>`).join('')}</div>`:''};
+const rw=x=>{const g=got(x),pt=stt(x)=='Part';return `<div class="rw" onclick="det('${x.id}')"><div class="ei">${CATS[x.cat]||'📦'}</div><div class="mn"><b class="t">${esc(x.desc)}</b><div class="m t">${esc(x.givenTo)} · ${pt?'last paid '+fd(lastPay(x)):fd(x.iso)}</div>${pt?`<div class="bar" style="margin:6px 0 0;height:5px"><b style="width:${Math.min(100,Math.round(g/x.amount*100))}%"></b></div>`:''}</div><div style="text-align:right"><b>${inr(x.amount)}</b>${st(x)}${pt?`<div class="m" style="font-size:11px;margin-top:2px">${inr(rem(x))} left</div>`:''}</div></div>`};
 
 function home(){
   const t=today(),du=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
-  $('due').innerHTML=du.length?du.map(x=>`<div class="dc" onclick="det('${x.id}')"><div class="m">${x.due?(x.due<t?'<b style="color:var(--bad)">Overdue</b> · ':'Due ')+fd(x.due):'No due date'}</div><b>${inr(rem(x))}</b><div class="m t">${esc(x.givenTo)}</div></div>`).join(''):'<div class="m">Nothing pending 🎉</div>';
+  $('due').innerHTML=du.length?du.map(x=>`<div class="dc" onclick="det('${x.id}')"><div class="m">${x.due?(x.due<t?'<b style="color:var(--bad);font-size:10.5px;margin:0">Overdue</b> · ':'Due ')+fd(x.due):'No due date'}</div><b>${inr(rem(x))}</b><div class="m t">${esc(x.givenTo)}</div></div>`).join(''):'<div class="empty-box">Nothing pending 🎉 All dues are clear!</div>';
   const e=[...S.exp].sort(byD).slice(0,6);
-  $('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>';
+  $('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="empty-box" style="padding:26px 16px">No payments recorded yet. Tap <b>+</b> to add your first wedding expense.</div>';
 }
 
 function catSheet(){
@@ -372,24 +2073,24 @@ function pay(){
   a.forEach(x=>{const k=(x.iso||'').slice(0,7);(m[k]=m[k]||[]).push(x)});
   $('stc').innerHTML=[['','All'],['Paid','Paid'],['Part','Part paid'],['Pending','Pending']].map(([v,l])=>`<button class="ch${stF==v?' on':''}" onclick="stF='${v}';pay()">${l}</button>`).join('');
   $('cc').innerHTML=`<button class="cf${catF?' on':''}" onclick="catSheet()"><span>${catF?CATS[catF]+' '+esc(catF):'🗂️ All categories'}</span><i style="font-style:normal">▾</i></button>`;
-  $('payL').innerHTML=a.length?Object.keys(m).sort().reverse().map(k=>`<div class="mh"><span>${k?new Date(k+'-01T00:00:00').toLocaleDateString('en-IN',{month:'long',year:'numeric'}):'No date'}</span><span class="m">${inr(sum(m[k]))}</span></div><div class="grp">${m[k].map(rw).join('')}</div>`).join(''):'<div class="m" style="padding:30px;text-align:center">Nothing found.</div>';
+  $('payL').innerHTML=a.length?Object.keys(m).sort().reverse().map(k=>`<div class="mh"><span>${k?new Date(k+'-01T00:00:00').toLocaleDateString('en-IN',{month:'long',year:'numeric'}):'No date'}</span><span class="m">${inr(sum(m[k]))}</span></div><div class="grp">${m[k].map(rw).join('')}</div>`).join(''):'<div class="empty-box" style="margin-top:16px;padding:30px">No matching payments found.</div>';
 }
 
 function ins(){
   const k=insK,f={cat:x=>x.cat,fn:x=>x.fn||'General',by:x=>x.paidBy||'Not set',ven:x=>x.givenTo.trim()},m={},pm={},mo={};
   S.exp.forEach(x=>{const g=f[k](x);m[g]=(m[g]||0)+got(x);pm[g]=(pm[g]||0)+rem(x);pays0(x).forEach(p=>{const z=(p.iso||'').slice(0,7);if(z)mo[z]=(mo[z]||0)+(+p.a||0)})});
   const tot=spent(),ks=Object.keys(m).filter(g=>m[g]+pm[g]>0).sort((a,b)=>(m[b]+pm[b])-(m[a]+pm[a])),ms=Object.keys(mo).sort().slice(-6),mx=Math.max(...ms.map(z=>mo[z]),1);
-  $('mon').hidden=!ms.length;$('mon').innerHTML=ms.map(z=>`<div class="col"><small>${cp(mo[z])}</small><div class="cb" style="height:${Math.max(6,mo[z]/mx*70)}px"></div><small>${new Date(z+'-01T00:00:00').toLocaleDateString('en-IN',{month:'short'})}</small></div>`).join('');
+  $('mon').hidden=!ms.length;$('mon').innerHTML=ms.map(z=>`<div class="col"><small>${cp(mo[z])}</small><div class="cb" style="height:${Math.max(8,mo[z]/mx*78)}px"></div><small>${new Date(z+'-01T00:00:00').toLocaleDateString('en-IN',{month:'short'})}</small></div>`).join('');
   $('insS').innerHTML=[['cat','Category'],['fn','Function'],['by','Paid by'],['ven','Vendors']].map(([a,b])=>`<button class="${k==a?'on':''}" onclick="insK='${a}';ins()">${b}</button>`).join('');
-  $('insL').innerHTML=ks.length?ks.map(g=>{const p=m[g],q=pm[g],bk=p+q,pp=bk?p/bk*100:0,qq=bk?q/bk*100:0,pc=tot?Math.round(p/tot*100):0;return `<div class="ir"><div class="row"><b>${k=='cat'?(CATS[g]||'')+' ':''}${esc(g)}</b><b>${inr(p)}</b></div><div class="bar" style="display:flex"><b style="width:${pp}%"></b><b style="width:${qq}%;background:#F5B85C"></b></div><div class="row m"><span>${pc}% of spend</span><span style="${q>0?'color:#B8860B;font-weight:700':''}">${q>0?inr(q)+' pending':'No dues'}</span></div></div>`}).join(''):'<div class="m" style="padding:30px;text-align:center">Add payments to see insights.</div>';
+  $('insL').innerHTML=ks.length?ks.map(g=>{const p=m[g],q=pm[g],bk=p+q,pp=bk?p/bk*100:0,qq=bk?q/bk*100:0,pc=tot?Math.round(p/tot*100):0;return `<div class="ir"><div class="row"><b>${k=='cat'?(CATS[g]||'')+' ':''}${esc(g)}</b><b>${inr(p)}</b></div><div class="bar" style="display:flex"><b style="width:${pp}%"></b><b style="width:${qq}%;background:#F5B85C;box-shadow:none"></b></div><div class="row m"><span>${pc}% of total spend</span><span style="${q>0?'color:var(--warn);font-weight:800':''}">${q>0?inr(q)+' pending':'Settled ✓'}</span></div></div>`}).join(''):'<div class="empty-box" style="margin-top:12px;padding:30px">Add payments to see category &amp; vendor breakdowns.</div>';
 }
 
 function det(id){
   const x=S.exp.find(e=>e.id==id);if(!x)return;cur=id;const ph=(x.phone||'').replace(/\D/g,''),wa=ph.length==10?'91'+ph:ph;
-  $('dB').innerHTML=`<div class="bg2">${inr(x.amount)}</div><div class="m" style="margin-top:-2px">Total amount</div><div class="row" style="justify-content:flex-start;margin-top:6px"><b style="font-size:16px">${esc(x.desc)}</b>${st(x)}</div><div class="m">${CATS[x.cat]||''} ${esc(x.cat)} · ${esc(x.fn||'General')}</div>
-  <div class="kv"><span>Paid so far</span><b style="color:var(--ok)">${inr(got(x))}</b><span>Balance</span><b style="color:${rem(x)>0?'var(--acc)':'var(--ok)'}">${inr(rem(x))}</b><span>Paid to</span><b>${esc(x.givenTo)}</b><span>Date</span><b>${fd(x.iso)}</b>${x.due&&!paid(x)?`<span>Due</span><b>${fd(x.due)}</b>`:''}<span>Mode</span><b>${esc(x.mode||'—')}</b><span>Paid by</span><b>${esc(x.paidBy||'—')}</b></div>
-  ${meta(x)}${hist(x)}<div class="acts">${ph?`<a class="bt s" href="tel:${ph}">${svg('phone')}Call</a><a class="bt s" href="https://wa.me/${wa}" target="_blank" rel="noopener">${svg('chat')}WhatsApp</a>`:''}${x.inv||x.rc?`<button class="bt s" onclick="rcp('${id}')">${svg('clip')}Receipt</button>`:''}</div>
-  ${paid(x)?'':`<button class="bt a" style="width:100%;margin-top:10px" onclick="rp('${id}')">+ Record a payment</button>`}<div class="g2"><button class="bt s" onclick="edit('${id}')">Edit</button><button class="bt d" id="delB" onclick="del()">Delete</button></div>`;ov('mD');
+  $('dB').innerHTML=`<div class="bg2">${inr(x.amount)}</div><div class="m" style="margin-top:-2px">Total billed amount</div><div class="row" style="justify-content:flex-start;margin-top:8px"><b style="font-size:16.5px">${esc(x.desc)}</b>${st(x)}</div><div class="m" style="margin-top:2px">${CATS[x.cat]||''} ${esc(x.cat)} · ${esc(x.fn||'General')}</div>
+  <div class="kv"><span>Paid so far</span><b style="color:var(--ok)">${inr(got(x))}</b><span>Balance remaining</span><b style="color:${rem(x)>0?'var(--acc)':'var(--ok)'}">${inr(rem(x))}</b><span>Paid to</span><b>${esc(x.givenTo)}</b><span>Date</span><b>${fd(x.iso)}</b>${x.due&&!paid(x)?`<span>Due date</span><b>${fd(x.due)}</b>`:''}<span>Payment mode</span><b>${esc(x.mode||'—')}</b><span>Paid by</span><b>${esc(x.paidBy||'—')}</b></div>
+  ${meta(x)}${hist(x)}<div class="acts" style="margin-top:12px">${ph?`<a class="bt s" href="tel:${ph}">${svg('phone')}Call</a><a class="bt s" href="https://wa.me/${wa}" target="_blank" rel="noopener">${svg('chat')}WhatsApp</a>`:''}${x.inv||x.rc?`<button class="bt s" onclick="rcp('${id}')">${svg('clip')}Receipt</button>`:''}</div>
+  ${paid(x)?'':`<button class="bt a" style="width:100%;margin-top:10px" onclick="rp('${id}')">+ Record a payment</button>`}<div class="g2"><button class="bt s" onclick="edit('${id}')">Edit entry</button><button class="bt d" id="delB" onclick="del()">Delete</button></div>`;ov('mD');
 }
 
 let rpId=null,rpIdx=null;
@@ -450,7 +2151,7 @@ function topn(f,n){const m={};S.exp.filter(x=>got(x)>0).forEach(x=>{const g=f(x)
 const tl=a=>a.length?a.map(([k,v])=>`<div class="kl"><span class="t">${esc(k)}</span><b>${inr(v)}</b></div>`).join(''):'<div class="m" style="margin-top:6px">No data yet</div>';
 
 function sideP(){const s=stats(),n=S.exp.length,c={Paid:0,Advance:0,Pending:0};S.exp.forEach(x=>{const t=stt(x);c[t=='Part'?'Advance':t]++});
- $('pSide').innerHTML=`<div class="sx"><div><small>Paid</small><b>${inr(s.tp)}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div><div><small>Payments</small><b>${n}</b></div><div><small>Average</small><b>${inr(s.avg)}</b></div></div>
+ $('pSide').innerHTML=`<div class="sx"><div><small>Paid</small><b>${inr(s.tp)}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div><div><small>Entries</small><b>${n}</b></div><div><small>Average</small><b>${inr(s.avg)}</b></div></div>
  <div class="ir"><div class="l">Status split</div><div class="sp">${n?`<i style="width:${c.Paid/n*100}%;background:var(--ok)"></i><i style="width:${c.Advance/n*100}%;background:#F5B85C"></i><i style="width:${c.Pending/n*100}%;background:var(--acc)"></i>`:''}</div><div class="row m"><span>Paid ${c.Paid}</span><span>Part ${c.Advance}</span><span>Pending ${c.Pending}</span></div></div>
  <div class="ir"><div class="l">Biggest payment</div>${s.mx?`<div class="row" style="margin-top:6px"><span class="mn t"><b>${esc(s.mx.desc)}</b><div class="m">${esc(s.mx.givenTo)} · ${fd(s.mx.iso)}</div></span><b>${inr(s.mx.amount)}</b></div>`:'<div class="m" style="margin-top:6px">No data yet</div>'}</div>
  <div class="ir"><div class="l">Top vendors</div>${tl(topn(x=>x.givenTo.trim(),3))}</div>`}
@@ -461,13 +2162,13 @@ function sideI(){const s=stats(),dues=S.exp.filter(x=>rem(x)>0).sort((a,b)=>(a.d
  <div class="ir"><div class="l">Payment modes</div>${tl(topn(x=>x.mode||'Not set',5))}</div>`}
 
 /* PALETTE WITH MUSIC COLOR MAPPING */
-const PAL=['#FF5B1F','#3B82F6','#F5B85C','#8B5CF6','#1F9D63','#8A8A85','#EC4899','#E5383B','#7FB8B0','#C98A2B','#14B8A6'];
+const PAL=['#FF551A','#3B82F6','#F59E0B','#8B5CF6','#10B981','#64748B','#EC4899','#EF4444','#06B6D4','#D97706','#14B8A6'];
 function homeX(){const s=stats(),t=today(),m0=t.slice(0,7),mo=S.exp.reduce((q,x)=>q+pays0(x).filter(p=>(p.iso||'').slice(0,7)==m0).reduce((t2,p)=>t2+(+p.a||0),0),0);
  $('hi').innerHTML=`<div class="sx"><div><small>This month</small><b>${inr(mo)}</b></div><div><small>Payments</small><b>${s.P.length}</b></div></div>`;
  const c=topn(x=>x.cat,8),tot=s.tp,col=k=>PAL[Math.max(0,CK.indexOf(k))%PAL.length];
- if(!c.length){$('hc').innerHTML='<div class="m">Spending by category will show here.</div>';return}
+ if(!c.length){$('hc').innerHTML='<div class="empty-box">Spending by category will appear here once payments are recorded.</div>';return}
  let off=25;const segs=c.map(([k,v])=>{const p=v/tot*100,o=`<circle class="sg-circ" cx="21" cy="21" r="16" fill="none" stroke="${col(k)}" stroke-width="4.5" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"/>`;off-=p;return o}).join('');
- $('hc').innerHTML=`<div class="grp" style="padding:16px"><div class="dr"><div class="ringc"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="var(--line)" stroke-width="4.5"/>${segs}</svg><div class="rc"><b>${cp(tot)}</b><small>spent</small></div></div><div class="lg2">${c.slice(0,5).map(([k,v])=>{const q=v/tot*100;return `<div class="lr"><i style="background:${col(k)}"></i><span class="t">${esc(k)}</span><b>${q>0&&q<1?'<1':Math.round(q)}%</b></div>`}).join('')}</div></div></div>`;
+ $('hc').innerHTML=`<div class="grp" style="padding:18px"><div class="dr"><div class="ringc"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="var(--line)" stroke-width="4.5"/>${segs}</svg><div class="rc"><b>${cp(tot)}</b><small>spent</small></div></div><div class="lg2">${c.slice(0,5).map(([k,v])=>{const q=v/tot*100;return `<div class="lr"><i style="background:${col(k)}"></i><span class="t">${esc(k)}</span><b>${q>0&&q<1?'<1':Math.round(q)}%</b></div>`}).join('')}</div></div></div>`;
  const R=$('hc').querySelector('.ringc'),sgArr=R.querySelectorAll('.sg-circ'),rows=$('hc').querySelectorAll('.lr'),rcEl=R.querySelector('.rc'),info=c.map(([k,v])=>({k,v,q:v/tot*100}));let pin=-1;
  const hon=i=>{R.classList.add('hv');sgArr.forEach((e,j)=>e.classList.toggle('on',j==i));rows.forEach((e,j)=>e.classList.toggle('on',j==i));const x=info[i];rcEl.innerHTML=`<span class="e">${CATS[x.k]||''}</span><span class="n">${esc(x.k)}</span><b class="p">${x.q<1?'<1':Math.round(x.q)}%</b>`};
  const hoff=()=>{if(pin>=0)return hon(pin);R.classList.remove('hv');sgArr.forEach(e=>e.classList.remove('on'));rows.forEach(e=>e.classList.remove('on'));rcEl.innerHTML=`<b>${cp(tot)}</b><small>spent</small>`};
@@ -478,11 +2179,11 @@ function homeX(){const s=stats(),t=today(),m0=t.slice(0,7),mo=S.exp.reduce((q,x)
 
 function acc(){const u=AUTH&&AUTH.currentUser;if(!u){$('accB').innerHTML='';return}
  const pid=(u.providerData[0]&&u.providerData[0].providerId)||'',nm=u.displayName||(u.email||'User').split('@')[0],f=t=>t?new Date(t).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}):'—';
- $('accB').innerHTML=`<div class="ir" style="text-align:center;padding:24px"><div style="width:72px;height:72px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font:800 28px Manrope;margin:auto">${esc(nm.charAt(0).toUpperCase())}</div><div class="big2" style="font-size:22px;margin-top:12px">${esc(nm)}</div><div class="m">${esc(u.email||'')}</div></div>
+ $('accB').innerHTML=`<div class="ir" style="text-align:center;padding:28px 24px"><div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#FF743D,#FF4B0F);color:#fff;display:flex;align-items:center;justify-content:center;font:800 30px Manrope;margin:auto;box-shadow:0 8px 20px rgba(255,85,26,.3)">${esc(nm.charAt(0).toUpperCase())}</div><div class="big2" style="font-size:22px;margin-top:14px">${esc(nm)}</div><div class="m">${esc(u.email||'')}</div></div>
  <div class="kv"><span>Sign-in provider</span><b>${pid.includes('google')?'Google':'Email'}</b><span>Account created</span><b>${f(u.metadata.creationTime)}</b><span>Last sign-in</span><b>${f(u.metadata.lastSignInTime)}</b></div>
  <button class="bt d" style="width:100%;margin-top:18px" onclick="AUTH.signOut()">Sign out</button>`}
 
-function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('wl-theme',t)}catch(e){}const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t=='dark'?'#0F0F11':'#F6F5F2';document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.v==t));const b=$('thB');if(b)b.innerHTML=svg(t=='dark'?'sun':'moon')}
+function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('wl-theme',t)}catch(e){}const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t=='dark'?'#0B0B0E':'#F7F5F0';document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.v==t));const b=$('thB');if(b)b.innerHTML=svg(t=='dark'?'sun':'moon')}
 const toggleTheme=()=>setTheme(document.documentElement.dataset.theme=='dark'?'light':'dark');
 
 function storageDb(){
@@ -518,4 +2219,5 @@ if(AUTH){
   });
 }
 </script>
-</body></html>
+</body>
+</html>
