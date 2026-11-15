@@ -98,32 +98,32 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 @keyframes up { from { transform: translateY(40px); opacity: 0; } }
 @keyframes fade { from { opacity: 0; } }
 
-/* HEADER: thin card, same width as every box */
-.thin-hd { display: flex; align-items: center; gap: 10px; padding: 9px 10px 9px 10px; margin: 0 0 14px; background: var(--card); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border: 1px solid var(--line-strong); border-radius: 22px; box-shadow: var(--rim-shadow); }
-.hd-crest { position: relative; width: 42px; height: 42px; border-radius: 14px; background: radial-gradient(circle at 30% 20%, #2e2e33, #0b0b0d); border: 1px solid rgba(245, 208, 122, 0.6); display: grid; place-items: center; flex: none; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2); }
-.hd-crest svg { width: 30px; height: 20px; }
-.sy-tag { position: absolute; right: -3px; top: -3px; width: 11px; height: 11px; border-radius: 50%; background: var(--ok); border: 2px solid var(--card-solid); font-size: 0; line-height: 0; overflow: hidden; }
+/* HEADER: medium card, same width as every box */
+.thin-hd { display: flex; align-items: center; gap: 14px; padding: 14px 16px 14px 14px; margin: 0 0 16px; background: var(--card); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border: 1px solid var(--line-strong); border-radius: 26px; box-shadow: var(--rim-shadow); }
+.hd-crest { position: relative; width: 54px; height: 54px; border-radius: 18px; background: radial-gradient(circle at 30% 20%, #2e2e33, #0b0b0d); border: 1px solid rgba(245, 208, 122, 0.6); display: grid; place-items: center; flex: none; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22); }
+.hd-crest svg { width: 40px; height: 27px; }
+.sy-tag { position: absolute; right: -3px; top: -3px; width: 12px; height: 12px; border-radius: 50%; background: var(--ok); border: 2px solid var(--card-solid); font-size: 0; line-height: 0; overflow: hidden; }
 .hd-t { min-width: 0; flex: 1; }
-.hd-name { margin: 0; font: 700 19px/1.15 var(--font-serif); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hd-name em { font-style: italic; color: var(--acc); padding: 0 1px; }
-.hd-sub { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--mut); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.hd-name { margin: 0; font: 700 22px/1.15 var(--font-serif); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hd-name em { font-style: italic; color: var(--acc); padding: 0 2px; }
+.hd-sub { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--mut); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
 .hd-sub b { color: var(--acc); font-weight: 800; }
-.thin-hd .ib { width: 38px; height: 38px; }
+.thin-hd .ib { width: 42px; height: 42px; }
 .hd-acts { display: flex; gap: 8px; flex: none; }
+@media(max-width:380px){ .hd-name { font-size: 19px; } .thin-hd .ib { width: 38px; height: 38px; } .hd-acts { gap: 6px; } }
 
-/* DOCK: icons only, + in the middle */
-.dock-bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 40; width: calc(100% - 40px); max-width: 420px; background: var(--card); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 10px; box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.85); display: flex; align-items: center; justify-content: space-around; gap: 4px; transition: transform .3s ease; }
+/* DOCK: one pill, round buttons concentric with its ends, + sits inside */
+.dock-bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 40; width: calc(100% - 40px); max-width: 400px; height: 64px; padding: 8px; background: var(--card); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--line-strong); border-radius: 32px; box-shadow: 0 20px 44px -12px rgba(0, 0, 0, 0.26), inset 0 1px 1px rgba(255, 255, 255, 0.85); display: flex; align-items: center; justify-content: space-between; transition: transform .3s ease; }
 .dock-bar.hide { transform: translate(-50%, 150px); }
-.dock-bar > button { width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: var(--mut); display: grid; place-items: center; cursor: pointer; flex: none; transition: all .25s cubic-bezier(.2,.9,.2,1); }
+.dock-bar > button { width: 46px; height: 46px; border: 0; border-radius: 50%; background: transparent; color: var(--mut); display: grid; place-items: center; cursor: pointer; flex: none; padding: 0; transition: background .25s ease, color .25s ease, transform .15s ease; }
 .dock-bar > button svg { width: 21px; height: 21px; }
 .dock-bar > button:hover { color: var(--ink); }
-.dock-bar > button.on { background: #111; color: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .2); }
+.dock-bar > button:active { transform: scale(.92); }
+.dock-bar > button.on { background: #111; color: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, .22); }
 :root[data-theme="dark"] .dock-bar > button.on { background: #F3F1ED; color: #111; }
-.dock-bar > .dock-add { width: 58px; height: 58px; margin-top: -26px; background: var(--acc-grad); color: #fff; border: 4px solid var(--bg); box-shadow: 0 10px 24px rgba(232, 67, 12, 0.45); }
+.dock-bar > .dock-add { background: var(--acc-grad); color: #fff; box-shadow: 0 6px 16px rgba(232, 67, 12, 0.42); }
 .dock-bar > .dock-add:hover { color: #fff; }
-.dock-bar > .dock-add svg { width: 24px; height: 24px; stroke-width: 2.7; }
-.dock-bar > .dock-add:active { transform: scale(.92); }
-body.ro .dock-bar { justify-content: space-around; }
+.dock-bar > .dock-add svg { width: 22px; height: 22px; stroke-width: 2.7; }
 
 /* LAYOUT + CARDS */
 .w { max-width: 1140px; margin: 0 auto; padding: calc(12px + env(safe-area-inset-top, 0px)) 20px 125px; }
