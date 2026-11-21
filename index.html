@@ -98,19 +98,26 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 @keyframes up { from { transform: translateY(40px); opacity: 0; } }
 @keyframes fade { from { opacity: 0; } }
 
-/* HEADER: medium card, same width as every box */
-.thin-hd { display: flex; align-items: center; gap: 14px; padding: 14px 16px 14px 14px; margin: 0 0 16px; background: var(--card); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border: 1px solid var(--line-strong); border-radius: 26px; box-shadow: var(--rim-shadow); }
-.hd-crest { position: relative; width: 54px; height: 54px; border-radius: 18px; background: radial-gradient(circle at 30% 20%, #2e2e33, #0b0b0d); border: 1px solid rgba(245, 208, 122, 0.6); display: grid; place-items: center; flex: none; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22); }
-.hd-crest svg { width: 40px; height: 27px; }
-.sy-tag { position: absolute; right: -3px; top: -3px; width: 12px; height: 12px; border-radius: 50%; background: var(--ok); border: 2px solid var(--card-solid); font-size: 0; line-height: 0; overflow: hidden; }
-.hd-t { min-width: 0; flex: 1; }
-.hd-name { margin: 0; font: 700 22px/1.15 var(--font-serif); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hd-name em { font-style: italic; color: var(--acc); padding: 0 2px; }
-.hd-sub { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--mut); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
-.hd-sub b { color: var(--acc); font-weight: 800; }
-.thin-hd .ib { width: 42px; height: 42px; }
-.hd-acts { display: flex; gap: 8px; flex: none; }
-@media(max-width:380px){ .hd-name { font-size: 19px; } .thin-hd .ib { width: 38px; height: 38px; } .hd-acts { gap: 6px; } }
+/* HEADER: orange banner, same width as every box */
+.hd2 { position: relative; overflow: hidden; margin: 0 0 16px; padding: 14px 62px 14px; border-radius: 28px; text-align: center; color: #fff; background: linear-gradient(135deg, #F4905F 0%, #EC6A33 52%, #D9532A 100%); box-shadow: 0 14px 32px rgba(236, 106, 51, 0.28); }
+.hd2 > * { position: relative; }
+.hd2 i { position: absolute; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.22); pointer-events: none; }
+.r1 { width: 220px; height: 220px; top: -95px; right: -60px; }
+.r2 { width: 140px; height: 140px; bottom: -70px; left: -40px; }
+.live { position: absolute; left: 18px; top: 14px; font: 700 12px var(--font-sans); color: rgba(255, 255, 255, 0.92); }
+.hd-btns { position: absolute; right: 12px; top: 12px; display: flex; flex-direction: column; gap: 8px; z-index: 2; }
+.ib2 { width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.22); color: #fff; display: grid; place-items: center; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+.ib2 svg { width: 18px; height: 18px; }
+.ib2:hover { background: rgba(255, 255, 255, 0.34); }
+.ib2:active { transform: scale(0.92); }
+.ey2 { font: 800 10px/1.3 var(--font-sans); letter-spacing: 0.32em; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; margin: 0 0 3px; }
+.nm2 { margin: 0; font: 700 clamp(22px, 6.2vw, 36px)/1.1 var(--font-serif); color: #fff; white-space: nowrap; }
+.nm2 em { font-style: italic; color: #FFE2A8; padding: 0 3px; }
+.orn { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 6px 0 7px; }
+.orn u { width: 42px; height: 1px; background: rgba(255, 255, 255, 0.55); }
+.orn svg { width: 16px; height: 16px; fill: #FFE2A8; stroke: none; }
+.hd-meta { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-weight: 700; font-size: 13px; }
+.cdp2 { background: #fff; color: #D9532A; border-radius: 99px; padding: 5px 13px; font-weight: 800; font-size: 12.5px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); white-space: nowrap; }
 
 /* DOCK: one pill, round buttons concentric with its ends, + sits inside */
 .dock-bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 40; width: calc(100% - 40px); max-width: 400px; height: 64px; padding: 8px; background: var(--card); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--line-strong); border-radius: 32px; box-shadow: 0 20px 44px -12px rgba(0, 0, 0, 0.26), inset 0 1px 1px rgba(255, 255, 255, 0.85); display: flex; align-items: center; justify-content: space-between; transition: transform .3s ease; }
@@ -305,6 +312,23 @@ body.ro .wr { display: none !important; }
 .chipd.warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
 .grp .more { display: block; text-align: center; padding: 13px; margin: 0 -18px; border-top: 1px solid var(--line); font-weight: 800; color: var(--acc); text-decoration: none; }
 .c2 .sh2:first-child { margin-top: 4px; }
+/* DUE: stacked cards */
+.dstack { display: flex; flex-direction: column; gap: 10px; }
+.dcard { background: var(--card); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border: 1px solid var(--line); border-radius: 22px; padding: 14px; box-shadow: var(--rim-shadow); cursor: pointer; transition: transform .15s ease; }
+.dcard:active { transform: scale(.985); }
+.dtop { display: flex; align-items: center; gap: 12px; }
+.dlogo { width: 48px; height: 48px; border-radius: 16px; background: var(--soft); display: grid; place-items: center; font-size: 23px; flex: none; }
+.dmain { min-width: 0; flex: 1; }
+.dmain b { display: block; font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dright { text-align: right; flex: none; }
+.dright b { display: block; font-size: 17px; font-weight: 800; letter-spacing: -.02em; }
+.dbar { height: 6px; border-radius: 99px; background: rgba(120,120,120,.16); overflow: hidden; margin: 12px 0 8px; }
+.dbar b { display: block; height: 100%; background: var(--acc); border-radius: 99px; }
+.dfoot { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; color: var(--mut); font-weight: 600; }
+.dfoot b { color: var(--ink); font-weight: 800; }
+.dmore { display: block; text-align: center; padding: 13px; border-radius: 18px; border: 1.5px dashed var(--line-strong); color: var(--acc); font-weight: 800; text-decoration: none; }
+@media(max-width:979px){ .ic2 { margin-top: 24px; } }
+#insL { margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -312,24 +336,17 @@ body.ro .wr { display: none !important; }
 
 
 <div class="w">
-  <header class="thin-hd">
-    <div class="hd-crest">
-      <svg viewBox="0 0 60 40" aria-label="S and K monogram">
-        <circle cx="18" cy="22" r="14" fill="none" stroke="#FFE9B0" stroke-width="2.4"/>
-        <circle cx="42" cy="22" r="14" fill="none" stroke="#FFE9B0" stroke-width="2.4"/>
-        <text x="18" y="27" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#FFE9B0;stroke:none">S</text>
-        <text x="42" y="27" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#FFE9B0;stroke:none">K</text>
-      </svg>
-      <span class="sy-tag" id="sy">…</span>
+  <header class="hd2">
+    <i class="r1"></i><i class="r2"></i>
+    <span class="live" id="sy">…</span>
+    <div class="hd-btns">
+      <button class="ib2" onclick="openS()" aria-label="Settings" data-i="sliders"></button>
+      <button class="ib2" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button>
     </div>
-    <div class="hd-t">
-      <h1 class="hd-name">Swetha <em>&amp;</em> Kalyan</h1>
-      <div class="hd-sub"><span id="wd">Set wedding date</span><span>·</span><b id="cd">Wedding ledger</b></div>
-    </div>
-    <div class="hd-acts">
-      <button class="ib" onclick="openS()" aria-label="Settings" data-i="sliders"></button>
-      <button class="ib" id="thB" onclick="toggleTheme()" aria-label="Switch theme"></button>
-    </div>
+    <div class="ey2">The wedding of</div>
+    <h1 class="nm2">Swetha <em>&amp;</em> Kalyan</h1>
+    <div class="orn"><u></u><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg><u></u></div>
+    <div class="hd-meta"><span id="wd">Set wedding date</span><span class="cdp2" id="cd">Wedding ledger</span></div>
   </header>
 <section id="v-home">
   <div class="c1">
@@ -347,6 +364,8 @@ body.ro .wr { display: none !important; }
     <div id="due"></div>
   </div>
   <div class="c2">
+    <div class="sh2" style="margin-top:4px"><b>Where the money went</b></div>
+    <div id="hc"></div>
     <div class="sh2"><b>Recent payments</b><a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc);font-weight:700">See all →</a></div>
     <div id="rec"></div>
   </div>
@@ -371,7 +390,7 @@ body.ro .wr { display: none !important; }
 <section id="v-ins" hidden>
   <div class="sh2"><b style="font-size:22px">Financial Insights</b></div>
   <div class="ic1"><div class="mon" id="mon"></div><div id="insX"></div></div>
-  <div class="ic2"><div class="sg" id="insS" style="margin-top:0"></div><div id="insL"></div></div>
+  <div class="ic2"><div class="sh2" style="margin-top:0"><b>Breakdown</b></div><div class="sg" id="insS" style="margin-top:0"></div><div id="insL"></div></div>
 </section>
 </div>
 
@@ -495,7 +514,7 @@ const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
 const svg=n=>`<svg viewBox="0 0 24 24">${IC[n]||''}</svg>`;
 const icons=()=>document.querySelectorAll('[data-i]').forEach(e=>e.innerHTML=svg(e.dataset.i)+(e.dataset.t?`<span>${e.dataset.t}</span>`:''));
 const got=x=>Array.isArray(x.pays)?x.pays.reduce((s,p)=>s+(+p.a||0),0):(x.status==='Pending'?0:x.amount),rem=x=>Math.max(0,x.amount-got(x)),paid=x=>rem(x)<=0,stt=x=>paid(x)?'Paid':got(x)>0?'Part':'Pending',spent=()=>S.exp.reduce((s,x)=>s+got(x),0),owed=()=>S.exp.reduce((s,x)=>s+rem(x),0),pays0=x=>Array.isArray(x.pays)?x.pays:(got(x)>0?[{a:got(x),iso:x.iso,mode:x.mode}]:[]),lastPay=x=>pays0(x).map(p=>p.iso).filter(Boolean).sort().pop()||x.iso,sum=a=>a.reduce((s,x)=>s+x.amount,0),byD=(a,b)=>(b.iso||'').localeCompare(a.iso||'')||(b.ts||0)-(a.ts||0);
-const ov=i=>$(i).classList.add('on'),cl=i=>$(i).classList.remove('on'),hide=cl,ss=t=>{const e=$('sy');if(e){e.textContent=t;e.title=t;e.style.background=(t=='Live')?'var(--ok)':'var(--warn)'}};
+const ov=i=>$(i).classList.add('on'),cl=i=>$(i).classList.remove('on'),hide=cl,ss=t=>{const e=$('sy');if(e){e.textContent=t;e.title=t}};
 const who=()=>{const u=typeof AUTH!=='undefined'&&AUTH&&AUTH.currentUser;return u?(u.displayName||u.email||''):''};
 
 function toast(m){const e=$('ts');e.textContent=m;e.classList.remove('act');e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2400)}
@@ -520,7 +539,7 @@ function render(){
   $('cd').textContent=d===null?'Wedding ledger':d>0?d+' days to go':d==0?'Today is the day! 🎉':'Happily married 💍';
   const u=f=>[...new Set(S.exp.map(f).filter(Boolean))].map(v=>`<option value="${esc(v)}">`).join('');
   $('dlV').innerHTML=u(x=>x.givenTo);$('dlP').innerHTML=u(x=>x.paidBy);
-  if(tab=='home')home();
+  if(tab=='home'){home();homeX()}
   if(tab=='pay'){pay();sideP()}
   if(tab=='ins'){ins();sideI()}
   if(tab=='acc')acc();
@@ -533,8 +552,9 @@ const rw=x=>{const g=got(x),pt=stt(x)=='Part';return `<div class="rw" onclick="d
 function home(){
   const t=today(),du=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
   $('dueSum').textContent=du.length?inr(owed())+' pending':'';
-  const dayTxt=x=>{if(!x.due)return '';const d=Math.round((new Date(x.due+'T00:00:00')-new Date(t+'T00:00:00'))/864e5);return d<0?`<span class="chipd bad">${-d}d overdue</span>`:d==0?'<span class="chipd warn">Due today</span>':`<span class="chipd">in ${d} days</span>`};
-  $('due').innerHTML=du.length?`<div class="grp">${du.slice(0,4).map(x=>`<div class="rw" onclick="det('${x.id}')"><div class="av">${esc((x.givenTo||'?').trim().charAt(0).toUpperCase())}</div><div class="mn"><b class="t" style="font-size:14.5px;display:block">${esc(x.givenTo)}</b><div class="m t">${x.due?'Due '+fd(x.due):'No due date'}</div></div><div style="text-align:right"><b style="font-size:15px">${inr(rem(x))}</b><div>${dayTxt(x)}</div></div></div>`).join('')}${du.length>4?`<a class="more" href="#" onclick="stF='Pending';go('pay');return false">View all ${du.length} dues →</a>`:''}</div>`:'<div class="grp" style="padding:22px;text-align:center"><div class="m">All clear — nothing pending 🎉</div></div>';
+  const chip=x=>{if(!x.due)return '<span class="chipd">No due date</span>';const d=Math.round((new Date(x.due+'T00:00:00')-new Date(t+'T00:00:00'))/864e5);return d<0?`<span class="chipd bad">${-d}d overdue</span>`:d==0?'<span class="chipd warn">Due today</span>':`<span class="chipd">in ${d} days</span>`};
+  const card=x=>{const g=got(x),pc=Math.min(100,Math.round(g/x.amount*100));return `<div class="dcard" onclick="det('${x.id}')"><div class="dtop"><div class="dlogo">${CATS[x.cat]||'📦'}</div><div class="dmain"><b>${esc(x.givenTo)}</b><div class="m t">${esc(x.cat)}${x.fn&&x.fn!='General'?' · '+esc(x.fn):''}</div></div><div class="dright"><b>${inr(rem(x))}</b><div class="m">to pay</div></div></div><div class="dbar"><b style="width:${pc}%"></b></div><div class="dfoot"><span>${inr(g)} paid of ${inr(x.amount)}</span><span>${x.due?'<b>'+fd(x.due)+'</b> ':''}${chip(x)}</span></div></div>`};
+  $('due').innerHTML=du.length?`<div class="dstack">${du.slice(0,4).map(card).join('')}${du.length>4?`<a class="dmore" href="#" onclick="stF='Pending';go('pay');return false">View all ${du.length} dues →</a>`:''}</div>`:'<div class="grp" style="padding:22px;text-align:center"><div class="m">All clear — nothing pending 🎉</div></div>';
   const e=[...S.exp].sort(byD).slice(0,4);
   $('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>';
 }
@@ -617,6 +637,18 @@ function sideI(){const s=stats(),dues=S.exp.filter(x=>rem(x)>0).sort((a,b)=>(a.d
  $('insX').innerHTML=`<div class="ir" style="margin-top:12px"><div class="row"><div class="l">Due &amp; pending</div><b style="color:var(--acc);font-size:17px">${inr(owed())}</b></div>${dues.length?dues.map(x=>`<div class="kl" style="cursor:pointer" onclick="det('${x.id}')"><span class="t" style="min-width:0">${esc(x.givenTo)} · ${x.due?(x.due<td?'<b style="color:var(--bad)">overdue</b> ':'')+fd(x.due):'no due date'}</span><b>${inr(rem(x))}</b></div>`).join(''):'<div class="m" style="margin-top:6px">Nothing pending 🎉</div>'}</div>
  <div class="sx" style="margin-top:12px"><div><small>Total spent</small><b>${inr(s.tp)}</b></div><div><small>Average</small><b>${inr(s.avg)}</b></div><div><small>Largest</small><b>${s.mx?inr(s.mx.amount):'—'}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div></div>
  <div class="ir"><div class="l">Payment modes</div>${tl(topn(x=>x.mode||'Not set',5))}</div>`}
+const PAL=['#FF5B1F','#3B82F6','#D97706','#8B5CF6','#1F9D63','#82827A','#EC4899','#E5383B','#14B8A6','#C98A2B','#6366F1'];
+function homeX(){const s=stats(),c=topn(x=>x.cat,8),tot=s.tp,col=k=>PAL[Math.max(0,CK.indexOf(k))%PAL.length];
+ if(!c.length||!tot){$('hc').innerHTML='<div class="grp" style="padding:20px;text-align:center"><div class="m">Spending by category will show here.</div></div>';return}
+ let off=25;const segs=c.map(([k,v])=>{const p=v/tot*100,o=`<circle class="sg-circ" cx="21" cy="21" r="16" fill="none" stroke="${col(k)}" stroke-width="4.5" pathLength="100" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"/>`;off-=p;return o}).join('');
+ $('hc').innerHTML=`<div class="grp" style="padding:18px"><div class="dr"><div class="ringc"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="var(--line)" stroke-width="4.5"/>${segs}</svg><div class="rc"><b>${cp(tot)}</b><small>spent</small></div></div><div class="lg2">${c.slice(0,5).map(([k,v])=>{const q=v/tot*100;return `<div class="lr"><i style="background:${col(k)}"></i><span class="t">${esc(k)}</span><b>${q>0&&q<1?'<1':Math.round(q)}%</b></div>`}).join('')}</div></div></div>`;
+ const R=$('hc').querySelector('.ringc'),sgArr=R.querySelectorAll('.sg-circ'),rows=$('hc').querySelectorAll('.lr'),rcEl=R.querySelector('.rc'),info=c.map(([k,v])=>({k,v,q:v/tot*100}));let pin=-1;
+ const hon=i=>{R.classList.add('hv');sgArr.forEach((e,j)=>e.classList.toggle('on',j==i));rows.forEach((e,j)=>e.classList.toggle('on',j==i));const x=info[i];if(!x)return;rcEl.innerHTML=`<span class="e">${CATS[x.k]||''}</span><span class="n">${esc(x.k)}</span><b class="p">${x.q<1?'<1':Math.round(x.q)}%</b>`};
+ const hoff=()=>{if(pin>=0)return hon(pin);R.classList.remove('hv');sgArr.forEach(e=>e.classList.remove('on'));rows.forEach(e=>e.classList.remove('on'));rcEl.innerHTML=`<b>${cp(tot)}</b><small>spent</small>`};
+ const tg=i=>{pin=pin==i?-1:i;pin>=0?hon(i):hoff()};
+ sgArr.forEach((e,i)=>{e.onmouseenter=()=>hon(i);e.onmouseleave=hoff;e.onclick=()=>tg(i)});rows.forEach((e,i)=>{e.onmouseenter=()=>hon(i);e.onmouseleave=hoff;e.onclick=()=>tg(i)});
+ R.onclick=e=>{if(!e.target.classList.contains('sg-circ')){pin=-1;hoff()}}
+}
 function acc(){const u=AUTH&&AUTH.currentUser;if(!u){$('accB').innerHTML='';return}
  const pid=(u.providerData[0]&&u.providerData[0].providerId)||'',nm=u.displayName||(u.email||'User').split('@')[0],f=t=>t?new Date(t).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}):'—';
  $('accB').innerHTML=`<div class="ir" style="text-align:center;padding:26px"><div style="width:72px;height:72px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font:800 28px var(--font-sans);margin:auto">${esc(nm.charAt(0).toUpperCase())}</div><div class="big2" style="font-size:22px;margin-top:12px">${esc(nm)}</div><div class="m">${esc(u.email||'')}</div></div>
