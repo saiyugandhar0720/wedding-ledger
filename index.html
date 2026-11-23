@@ -1458,8 +1458,247 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media(max-width:480px){.budget-secondary{gap:8px}.budget-secondary b{font-size:14px}.category-budget-grid{grid-template-columns:1fr}}
 @media print{body>*{display:none!important}#printable-report{display:block!important;position:static!important;width:100%!important;max-width:none!important;background:white!important;color:#171829!important}#printable-report table{width:100%;border-collapse:collapse}#printable-report td,#printable-report th{border-bottom:1px solid #ddd;padding:7px;text-align:left}}
 
+
+/* Auth recovery: never masquerade a database permission error as a failed Google login. */
+.auth-problem { margin-top:16px; padding:15px; text-align:left; background:#fff8f2; border:1px solid #f0d7cc; color:#423b54; border-radius:19px; box-shadow:0 4px 18px rgba(62,57,106,.06); }
+.auth-problem[hidden] { display:none !important; }
+.auth-problem strong { display:block; font-size:13px; color:#3a3369; line-height:1.45; }
+.auth-problem p { margin:7px 0 0; font-size:12px; line-height:1.55; color:#655d72; overflow-wrap:anywhere; }
+.auth-problem-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.auth-problem-actions button { flex:1 1 140px; min-height:42px; border-radius:13px; border:1px solid #d9d5ec; background:#fff; color:#514ec9; font:700 12px inherit; cursor:pointer; padding:8px 10px; }
+.auth-problem-actions button:first-child { background:#5755cf; color:white; border-color:#5755cf; }
+.auth-problem-actions button:focus-visible { outline:3px solid #ffb99e; outline-offset:2px; }
+
 </style>
-</head>
+<style id="calm-premium-overrides">
+
+/* === Calm Premium dashboard system — consolidated final overrides ===
+   The original login is intentionally untouched. These visual rules alter no financial logic. */
+:root:not([data-theme="dark"]){
+  --bg:#EDF0F6;--bg-mesh:linear-gradient(145deg,#EDF0F7 0%,#F1F2F6 59%,#F4EFF1 100%);
+  --bg-elev:#E8ECF4;--card:#FAFBFD;--card-solid:#FAFBFD;
+  --ink:#20253F;--ink-soft:#535B76;--mut:#7B839B;
+  --line:#E0E5EF;--line-strong:#D5DAE7;
+  --acc:#5856D6;--acc-hover:#4947B9;--soft:#EDEBFD;
+  --rim-shadow:0 9px 25px rgba(38,48,90,.045),0 1px 3px rgba(40,42,80,.025);
+}
+:root:not([data-theme="dark"]) body{background:#EDF0F6;background-image:linear-gradient(140deg,#EDEFF7 0%,#EEF1F6 63%,#F6EFF0 100%);background-attachment:fixed}
+:root:not([data-theme="dark"]) .w{color:#20253F}
+.w{max-width:1640px!important}
+.hd2{overflow:hidden;isolation:isolate;border-radius:27px!important;box-shadow:0 16px 40px rgba(47,51,120,.13)!important}
+:root:not([data-theme="dark"]) .hd2{background:linear-gradient(112deg,#343C86,#5351B9 58%,#6965DD)!important}
+.hd2 .nm2{text-align:center;letter-spacing:-.022em}
+.hd2 .ey2{letter-spacing:.22em}
+.hd2 .hd-meta{justify-content:center}
+.hd2 .live{z-index:2}
+:root:not([data-theme="dark"]) #v-home .hero{
+  background:#FFE9DD!important;border:1px solid #F3CEC2!important;
+  color:#26294B;box-shadow:0 10px 28px rgba(125,75,72,.075)!important;
+}
+/* Clip former oversized pseudo ornament (it used to cover desktop cards). */
+#v-home .hero{position:relative;isolation:isolate;overflow:hidden!important;min-height:0!important;height:auto!important;padding:29px 30px!important;border-radius:26px!important}
+#v-home .hero::after{content:none!important;display:none!important}
+#v-home .hero .l{color:#8B5F6C!important;letter-spacing:.13em;font-size:11px;font-weight:800}
+#v-home .hero .big{font-size:clamp(32px,3.3vw,51px)!important;line-height:1.15!important;margin:12px 0 18px!important;letter-spacing:-.044em}
+#v-home .hero .hs{padding-top:17px!important;margin-top:16px!important}
+#v-home .hero .hs b{font-size:clamp(16px,1.6vw,21px)!important;color:#303453!important}
+#v-home .hero .hs small{color:#796B79!important}
+#v-home .budget-secondary{margin-top:16px;border-color:#E5C9C5!important}
+#v-home .budget-secondary small{color:#806E82!important}
+#v-home .budget-secondary b{color:#4E49A2!important}
+#v-home .hero .bar{height:9px;background:#E5D6E0!important;border-radius:100px}
+#v-home .hero .bar b{border-radius:100px;background:#6861DE!important}
+#v-home .hero-share{position:relative;z-index:2;background:#FFF6F1!important;border:1px solid #EDC9BD!important;color:#6355BD!important;box-shadow:none!important}
+/* The visual language: fewer gradients, purposeful tinted section surfaces, consistent radii. */
+:root:not([data-theme="dark"]) #v-home .due-panel{background:#E6EDF9;border:1px solid #D3DFF1;box-shadow:0 8px 22px rgba(67,81,126,.045)}
+:root:not([data-theme="dark"]) #v-home .category-panel{background:#E9E7F6;border:1px solid #DBD8EC;box-shadow:0 8px 22px rgba(60,56,114,.045)}
+:root:not([data-theme="dark"]) #v-home .home-aside{background:#E4F0F2;border:1px solid #D5E5E8;box-shadow:0 8px 22px rgba(53,93,99,.04)}
+#v-home .due-panel,#v-home .category-panel,#v-home .home-aside{min-width:0;border-radius:26px;padding:18px 20px 20px}
+#v-home .home-layout .sh2,#v-home .home-layout .sh2.due-heading,#v-home .home-layout .sh2.activity-heading,#v-home .home-layout .sh2.recent-heading{margin:0 0 16px!important;min-height:26px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+#v-home .home-layout .sh2 b{font-size:17px!important;font-weight:800;letter-spacing:-.025em;color:#292F51!important}
+#v-home .home-layout .text-link{font-size:11px;font-weight:800;color:#5F5ABE}
+#v-home .reminders{margin:0 0 17px!important}
+#v-home .reminder-note{background:#FFF2E9!important;border-color:#EED4C8!important;box-shadow:none!important;border-radius:16px!important}
+#v-home .reminder-note button{background:#FFFFFF!important;border-color:#E9D7D2!important}
+#v-home #due .pile{height:209px!important}
+#v-home #due .pcard{height:178px!important;padding:21px!important;border-radius:21px!important;box-shadow:0 7px 20px rgba(47,61,114,.08)!important;overflow:hidden!important}
+:root:not([data-theme="dark"]) #v-home #due .pcard{background:#FAFBFF!important;border:1px solid #D6E0F2!important}
+:root:not([data-theme="dark"]) #v-home #due .pcard[data-k="1"]{background:#EAF0FC!important}
+:root:not([data-theme="dark"]) #v-home #due .pcard[data-k="2"]{background:#DDE7F7!important}
+#v-home #due .pcard .dtop{margin-bottom:15px!important}
+#v-home #due .pcard .dfoot{margin-top:12px!important;font-size:11px!important}
+#v-home #due .dlogo{width:49px!important;height:49px!important}
+#v-home #due .dmain>b{font-size:14px!important}
+#v-home #due .dright>b{font-size:18px!important}
+#v-home .due-summary{color:#747F9D!important;font-weight:700;font-size:11px;margin:8px 0 0!important}
+#v-home .category-panel .category-home-card{background:transparent!important;border:none!important;box-shadow:none!important;padding:0!important;min-height:0!important;border-radius:0!important}
+#v-home .category-panel .category-home-card::before{display:none!important}
+#v-home .category-panel .glance-heading h2{font-size:19px!important;letter-spacing:-.035em!important;color:#323052!important}
+#v-home .category-panel .glance-heading .l{font-size:10px!important;color:#77749A!important}
+#v-home .category-panel .glance-total{color:#5952BB!important}
+#v-home .category-panel .home-cat-bars{gap:8px}
+#v-home .category-panel .home-cat-row{border-radius:15px!important;border:1px solid rgba(131,127,182,.15)!important;background:rgba(255,255,255,.6)!important;box-shadow:none!important;padding:10px 12px!important;transform:none!important}
+#v-home .category-panel .home-cat-row:hover{background:#FCFBFF!important}
+#v-home .category-panel .home-cat-row.selected{background:#FFFFFF!important;border-color:#9A91DB!important;box-shadow:inset 3px 0 #6C65D7!important}
+#v-home .category-panel .home-cat-track{height:7px;background:#DEDDEA}
+#v-home .category-panel .home-cat-paid{background:#6A64DA}
+#v-home .category-panel .home-cat-pending{background:#F0AB8A}
+#v-home .category-panel .glance-foot{margin-top:13px!important;padding-top:12px!important}
+#v-home #rec .grp{background:transparent!important;border:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+#v-home #rec .rw{background:rgba(255,255,255,.65);border:1px solid rgba(171,203,208,.45);border-radius:17px;margin-bottom:9px;padding:12px 14px!important;transition:background .16s ease,transform .16s ease}
+#v-home #rec .rw:hover{background:#FFFFFF;transform:translateY(-1px)}
+#v-home #rec .rw:last-child{margin-bottom:0}
+#v-home #rec .ei{background:#D9E7EC!important;border-color:#CFE0E4!important;width:45px!important;height:45px!important}
+/* Shared application cards and interactive controls, login intentionally excluded. */
+#v-pay .grp,#v-ins .ir,#v-ins .mon,#v-ins .sg,#v-ins #insX>.ir,#v-acc .ir,#v-acc .kv,#v-pay .sx>div,#v-ins .sx>div,#v-pay .pc2 .ir{
+ border-radius:20px!important;box-shadow:0 6px 22px rgba(51,58,99,.045)!important;
+}
+:root:not([data-theme="dark"]) #v-pay .grp{background:#FAFBFE!important;border:1px solid #E0E5EF!important}
+:root:not([data-theme="dark"]) #v-pay .sx>div:nth-child(n){background:#E8ECF8!important;border-color:#D9DFEE!important}
+:root:not([data-theme="dark"]) #v-pay .sx>div:nth-child(2n){background:#F9EEE7!important;border-color:#EEDFD5!important}
+:root:not([data-theme="dark"]) #v-pay #pSide .ir{background:#F8F9FD!important;border-color:#E1E6F0!important}
+:root:not([data-theme="dark"]) #v-ins .mon{background:#E7ECF9!important;border:1px solid #D6E0F2!important}
+:root:not([data-theme="dark"]) #v-ins #insL .ir:nth-child(3n+1){background:#F4F5FD!important;border-color:#E2E3F3!important}
+:root:not([data-theme="dark"]) #v-ins #insL .ir:nth-child(3n+2){background:#F8EFEA!important;border-color:#ECDED4!important}
+:root:not([data-theme="dark"]) #v-ins #insL .ir:nth-child(3n){background:#EAF2F2!important;border-color:#D8E7E6!important}
+:root:not([data-theme="dark"]) #v-ins .sg{background:#E5E8F3!important;border:1px solid #D6DAE8!important}
+:root:not([data-theme="dark"]) #v-acc .ir,:root:not([data-theme="dark"]) #v-acc .kv{background:#F7F8FC!important;border-color:#DDE2EE!important}
+.page-heading p{font-size:12px!important;font-weight:500;color:#79839A;margin:6px 0 0;line-height:1.5;max-width:430px}
+.page-heading b{font-size:25px!important;letter-spacing:-.035em}
+#v-pay>.pc1>.sh2,#v-ins>.sh2,#v-acc>.sh2{margin-bottom:16px!important}
+#v-pay .sr input{background:#FAFBFE!important;border:1px solid #D7DDEB!important;border-radius:16px!important;box-shadow:none!important}
+#v-pay .chs{gap:8px}
+#v-pay .ch{border-radius:12px!important;font-size:12px;font-weight:750;min-height:37px}
+#v-pay .ch.on{background:#5A55C6!important;color:#fff!important;border-color:#5A55C6!important}
+#v-pay .cf{border-radius:15px!important;box-shadow:none!important;background:#FAFBFE!important;border:1px solid #DDE3EF!important}
+#v-pay .mh{margin-top:24px!important}
+#v-pay .rw{padding:17px 0!important}
+#v-pay .rw .ei{background:#EEF0F7!important;border:1px solid #E2E5F0!important}
+#v-ins .mon{height:auto!important;min-height:215px}
+#v-ins .trend-svg{max-height:155px}
+#v-ins .sg button.on{background:#5855C3!important;color:white!important}
+#v-ins .bar b{background:#615BCE}
+#v-acc{max-width:1100px!important}
+/* Less dense labels; strong figures. */
+.l{font-weight:800;letter-spacing:.105em}
+#v-home .sh2 b,#v-pay .sh2 b,#v-ins .sh2 b{line-height:1.25}
+#v-pay .sx b,#v-ins .sx b{letter-spacing:-.035em}
+button,.bt,.rw,.ch,.home-cat-row{-webkit-tap-highlight-color:transparent}
+button:focus-visible,.rw:focus-visible,.home-cat-row:focus-visible{outline:3px solid #7169DC!important;outline-offset:3px}
+/* Desktop: structured two-column overview that fills available space evenly. */
+@media(min-width:980px){
+ .w{padding-left:112px!important;padding-right:42px!important}
+ body:has(#dock.expanded) .w{padding-left:252px!important}
+ .hd2{min-height:144px!important;padding:23px 140px!important}
+ #v-home .home-layout{display:grid!important;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr)!important;gap:20px!important;align-items:start!important}
+ #v-home .home-main{display:contents!important}
+ #v-home .hero{grid-column:1;grid-row:1}
+ #v-home .home-aside{grid-column:2;grid-row:1 / span 1;margin:0!important;min-height:344px}
+ #v-home .due-panel{grid-column:1;grid-row:2}
+ #v-home .category-panel{grid-column:2;grid-row:2}
+ #v-home #due .pile{height:202px!important}
+ #v-home #due .pcard{height:170px!important}
+ #v-home .category-panel .glance-chart{min-height:0!important}
+ #v-home .home-aside #rec .rw{padding:13px 14px!important}
+ #v-home .hero .hs{margin-bottom:0}
+ .dock-bar{border-radius:22px!important;box-shadow:0 12px 30px rgba(47,49,87,.1)!important}
+ :root:not([data-theme="dark"]) .dock-bar{background:#F9FAFC!important;border-color:#DEE2ED!important}
+ .dock-bar>button[data-i].on{background:#E9E7FB!important;box-shadow:inset 3px 0 #6761D4!important}
+ .dock-bar>button[data-i].dock-add{background:#FBEDE5!important;color:#B57255!important}
+ #v-pay{grid-template-columns:minmax(0,1.13fr) minmax(320px,.87fr)!important;gap:23px!important}
+ #v-pay .pc2{top:20px!important}
+ #v-ins{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:23px!important}
+}
+@media(min-width:1550px){
+ .w{padding-left:130px!important;padding-right:48px!important}
+ body:has(#dock.expanded) .w{padding-left:260px!important}
+ #v-home .home-layout{gap:24px!important}
+}
+/* Mobile: one neat vertical rhythm; icon-only dock stays in a single true capsule. */
+@media(max-width:979px){
+ .w{padding-left:16px!important;padding-right:16px!important;padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))!important}
+ .hd2{border-radius:25px!important;margin-bottom:19px!important}
+ #v-home .home-layout{display:block!important}
+ #v-home .home-main{display:block!important}
+ #v-home .hero{padding:24px 23px!important}
+ #v-home .hero .big{font-size:clamp(31px,8.1vw,43px)!important}
+ #v-home .due-panel,#v-home .category-panel,#v-home .home-aside{padding:16px!important;border-radius:23px!important;margin-top:15px!important}
+ #v-home .due-panel{margin-top:16px!important}
+ #v-home .home-aside{margin-top:16px!important}
+ #v-home .home-layout .sh2 b{font-size:16px!important}
+ #v-home #due .pile{height:194px!important}
+ #v-home #due .pcard{height:165px!important;padding:17px!important}
+ #v-home #due .dlogo{width:43px!important;height:43px!important}
+ #v-home #due .dright>b{font-size:16px!important}
+ #v-home .category-panel .home-cat-row{padding:9px 10px!important}
+ #v-home .category-panel .glance-heading h2{font-size:17px!important}
+ #v-home #rec .rw{margin-bottom:9px;padding:12px!important}
+ .dock-bar{box-sizing:border-box!important;width:calc(100% - 38px)!important;max-width:425px!important;height:68px!important;bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;padding:7px 9px!important;gap:4px!important;border-radius:100px!important;overflow:visible!important;background:#323B81!important;border:1px solid rgba(118,120,199,.32)!important;box-shadow:0 12px 32px rgba(33,42,99,.28)!important}
+ .dock-bar>button[data-i]{height:51px!important;max-width:none!important;min-width:0!important;flex:1 1 0!important;border-radius:100px!important}
+ .dock-bar>button[data-i].on{background:#E7E6FA!important;color:#4F50AE!important;border:1px solid #E3E1F6!important;box-shadow:0 1px 4px rgba(15,20,56,.11)!important}
+ .dock-bar>button[data-i].dock-add{height:52px!important;flex:0 0 52px!important;max-width:52px!important;border-radius:100px!important;background:#FFBD9F!important;border-color:#FFCFB7!important;box-shadow:0 3px 8px rgba(17,18,70,.18)!important}
+ .dock-bar>button[data-i] svg{width:23px!important;height:23px!important}
+ .dock-bar>button[data-i].dock-add svg{width:25px!important;height:25px!important}
+ #v-pay>.pc1>.sh2,#v-ins>.sh2,#v-acc>.sh2{margin-top:0!important}
+ .page-heading b{font-size:23px!important}
+ .page-heading p{font-size:11px!important}
+ .pc1,.ic1,.ic2{min-width:0}
+}
+@media(max-width:370px){
+ #v-home .hero{padding:20px 19px!important}
+ #v-home .due-panel,#v-home .category-panel,#v-home .home-aside{padding:13px!important}
+ .dock-bar{width:calc(100% - 24px)!important;padding:6px 7px!important;gap:2px!important;height:64px!important}
+ .dock-bar>button[data-i]{height:49px!important}
+ .dock-bar>button[data-i].dock-add{height:49px!important;flex-basis:49px!important;max-width:49px!important}
+}
+/* Dark mode clarity and component depth. */
+:root[data-theme="dark"] body{background:#181C31;background-image:linear-gradient(140deg,#181C31,#20223C)}
+:root[data-theme="dark"] #v-home .hero{background:#3B304B!important;border:1px solid #664861!important}
+:root[data-theme="dark"] #v-home .hero .l,:root[data-theme="dark"] #v-home .hero .hs small{color:#DBB9C7!important}
+:root[data-theme="dark"] #v-home .hero .big,:root[data-theme="dark"] #v-home .hero .hs b{color:#FAEAF1!important}
+:root[data-theme="dark"] #v-home .budget-secondary b{color:#CAC5FF!important}
+:root[data-theme="dark"] #v-home .due-panel{background:#292F4A;border:1px solid #3C466C}
+:root[data-theme="dark"] #v-home .category-panel{background:#31304D;border:1px solid #4D496D}
+:root[data-theme="dark"] #v-home .home-aside{background:#243C48;border:1px solid #355362}
+:root[data-theme="dark"] #v-home .home-layout .sh2 b{color:#F1F1FC!important}
+:root[data-theme="dark"] #v-home .category-panel .category-home-card{background:transparent!important;border:0!important}
+:root[data-theme="dark"] #v-home .category-panel .home-cat-row{background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.13)!important}
+:root[data-theme="dark"] #v-home .category-panel .home-cat-row.selected{background:#434164!important;border-color:#8681D5!important}
+:root[data-theme="dark"] #v-home #rec .grp{background:transparent!important;border:0!important}
+:root[data-theme="dark"] #v-home #rec .rw{background:rgba(255,255,255,.045)!important;border-color:#416070!important}
+:root[data-theme="dark"] #v-home #due .pcard{background:#343A60!important;border-color:#4D5481!important}
+:root[data-theme="dark"] #v-pay .sr input{background:#272B46!important;border-color:#3F4865!important}
+@media(prefers-reduced-motion:reduce){#v-home #rec .rw{transform:none!important}}
+
+
+/* Final rendering corrections and masonry-like balanced columns */
+@media(min-width:980px){.w{transition:none!important}}
+#v-home .hero-share{position:absolute!important;right:19px!important;top:19px!important;left:auto!important;z-index:3}
+#v-home .home-aside{border:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}
+#v-home .recent-panel{border-radius:26px;min-width:0;padding:18px 20px 20px;}
+:root:not([data-theme="dark"]) #v-home .recent-panel{background:#E4F0F2;border:1px solid #D5E5E8;box-shadow:0 8px 22px rgba(53,93,99,.04)}
+:root:not([data-theme="dark"]) #v-home .category-panel .category-home-card{background:transparent!important;border:none!important;box-shadow:none!important}
+:root:not([data-theme="dark"]) #v-home .category-panel .home-cat-row{background:rgba(255,255,255,.64)!important;border-color:rgba(131,127,182,.16)!important}
+:root:not([data-theme="dark"]) #v-home .category-panel .home-cat-row.selected{background:#FFFFFF!important;border-color:#9890DC!important}
+:root:not([data-theme="dark"]) #v-home .category-panel .home-cat-row:nth-child(n){background:rgba(255,255,255,.64)!important}
+:root:not([data-theme="dark"]) #v-home .category-panel .home-cat-row.selected{background:#FFFFFF!important}
+@media(min-width:980px){
+ #v-home .home-layout{display:grid!important;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr)!important;gap:20px!important;align-items:start!important}
+ #v-home .home-main{display:flex!important;flex-direction:column;gap:20px;min-width:0}
+ #v-home .home-aside{display:flex!important;flex-direction:column;gap:20px;min-width:0;margin:0!important;min-height:0!important}
+ #v-home .hero,#v-home .due-panel,#v-home .category-panel{grid-column:auto!important;grid-row:auto!important;margin:0!important}
+ #v-home .hero{height:auto!important}
+ #v-home .recent-panel{margin:0!important}
+ #dock{transition:none!important;animation:none!important;will-change:auto!important;transform:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
+@media(max-width:979px){
+ #v-home .recent-panel{border-radius:23px;padding:16px}
+ #v-home .home-aside{margin-top:0!important}
+ #v-home .category-panel{margin-bottom:16px!important}
+}
+:root[data-theme="dark"] #v-home .recent-panel{background:#243C48;border:1px solid #355362}
+
+</style></head>
 <body>
 
 
@@ -1494,28 +1733,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
           <div><small>Committed to vendors</small><b id="hCommitted">₹0</b></div>
         </div>
       </div>
-      <div class="reminders" id="dueAlerts" role="status" aria-live="polite"></div>
+      <div class="due-panel"><div class="reminders" id="dueAlerts" role="status" aria-live="polite"></div>
       <div class="sh2 due-heading"><b>Due soon</b><span class="dnav" id="dueNav"><button onclick="dueNext(-1)" aria-label="Previous due">‹</button><span class="m" id="dueCt" style="font-weight:700;min-width:34px;text-align:center"></span><button onclick="dueNext(1)" aria-label="Next due">›</button></span></div>
       <div id="due"></div>
-      <div class="m due-summary" id="dueSum"></div>
-      <div class="sh2 activity-heading"><b>Category overview</b><button class="text-link" onclick="go('ins')">Explore insights ↗</button></div>
+      <div class="m due-summary" id="dueSum"></div></div>
+      <div class="category-panel"><div class="sh2 activity-heading"><b>Category overview</b><button class="text-link" onclick="go('ins')">Explore insights ↗</button></div>
       <div class="glance-card category-home-card">
         <div class="glance-heading"><div><div class="l">CATEGORY SPENDING</div><h2>Where your money goes</h2></div><div class="home-cat-total"><small>Total paid</small><b class="glance-total" id="glanceTotal">₹0</b></div></div>
         <div class="home-cat-legend"><span><i class="legend-paid"></i> Paid</span><span><i class="legend-pending"></i> Pending</span><span class="home-cat-hint">Tap a category for details</span></div>
         <div id="glanceChart" class="glance-chart" aria-live="polite"></div>
         <div class="glance-foot"><div id="homeCatDetail" class="home-cat-detail" aria-live="polite"></div><button class="text-link" onclick="go('ins')">View all ↗</button></div>
       </div>
+      </div>
     </div>
     <div class="home-aside">
+      <div class="recent-panel">
       <div class="sh2 recent-heading"><b>Recent payments</b><a class="text-link" href="#" onclick="go('pay');return false">See all ↗</a></div>
       <div id="rec"></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="v-pay" hidden>
   <div class="pc1">
-    <div class="sh2" style="margin-top:0"><b style="font-size:22px">Payments</b></div>
+    <div class="sh2" style="margin-top:0"><div class="page-heading"><b style="font-size:22px">Payments</b><p>Every vendor, installment and outstanding balance in one place.</p></div></div>
     <div class="sr"><span data-i="search"></span><input id="qi" placeholder="Search vendor, item, phone…" oninput="qs=this.value.toLowerCase();pay()"></div>
     <div class="chs" id="stc"></div>
     <div class="chs" id="cc"></div>
@@ -1525,12 +1767,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </section>
 
 <section id="v-acc" hidden style="max-width:520px;margin:auto">
-  <div class="sh2" style="margin-top:0"><b style="font-size:22px">Account</b></div>
+  <div class="sh2" style="margin-top:0"><div class="page-heading"><b style="font-size:22px">Account</b><p>Family access, budgets, records and reporting.</p></div></div>
   <div id="accB"></div>
 </section>
 
 <section id="v-ins" hidden>
-  <div class="sh2"><b style="font-size:22px">Financial Insights</b></div>
+  <div class="sh2"><div class="page-heading"><b style="font-size:22px">Financial Insights</b><p>Understand what has been paid, what is committed and what comes next.</p></div></div>
   <div class="ic1"><div class="mon" id="mon"></div><div id="insX"></div></div>
   <div class="ic2"><div class="sh2" style="margin-top:0"><b>Breakdown</b></div><div class="sg" id="insS" style="margin-top:0"></div><div id="categoryBudgetSummary"></div><div id="insL"></div></div>
 </section>
@@ -1633,7 +1875,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       <span>Continue with Google</span>
     </button>
-    <div id="lM" class="m" style="margin-top:14px;color:var(--bad)"></div>
+    <div id="lM" class="m" style="margin-top:14px;color:var(--bad)" role="status" aria-live="polite"></div>
+    <section id="authProblem" class="auth-problem" hidden role="alert" aria-live="assertive">
+      <strong id="authProblemTitle">Google sign-in succeeded, but access needs attention</strong>
+      <p id="authProblemDetails"></p>
+      <div class="auth-problem-actions">
+        <button type="button" onclick="retryLedgerAccess()">Retry ledger access</button>
+        <button type="button" onclick="switchGoogleAccount()">Use another Google account</button>
+      </div>
+    </section>
     <div class="lg-sec">
       <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       <span>Private family space · approved accounts only</span>
@@ -1765,7 +2015,7 @@ function dueNext(dir){
 function home(){
   dueList=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
   renderPile();homeActivity();
-  const wide=typeof matchMedia==='function'&&matchMedia('(min-width:980px)').matches,e=[...S.exp].sort(byD).slice(0,wide?12:4);
+  const wide=typeof matchMedia==='function'&&matchMedia('(min-width:980px)').matches,e=[...S.exp].sort(byD).slice(0,wide?5:4);
   $('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>';
 }
 function catSheet(){
@@ -2049,8 +2299,16 @@ const APPROVED_EMAILS=new Set(['saiyugandhar0720@gmail.com','saiyugandhar2007@gm
 let role='viewer',isAdmin=false,connectionReady=false,lastSyncAt=0;
 async function resolveRole(){
  const u=AUTH&&AUTH.currentUser,email=(u&&u.email||'').toLowerCase();
- if(!u||!u.emailVerified||!APPROVED_EMAILS.has(email))throw new Error('This account is not approved or its email is not verified.');
- let explicit=null;try{explicit=await storage.accessRole()}catch(err){throw new Error('Could not verify access permissions. Please reconnect.')} 
+ if(!u)throw new Error('Google authentication has not completed. Try signing in again.');
+ if(!APPROVED_EMAILS.has(email))throw new Error('This Google account is not on the approved family access list.');
+ if(!u.emailVerified)throw new Error('Google account email verification is missing. Please verify the account and try again.');
+ let explicit=null;
+ try{explicit=await storage.accessRole()}
+ catch(err){
+   const detail=String(err&&err.message||'').slice(0,180);
+   const denied=/\b(401|403)\b|permission denied|unauthoriz/i.test(detail);
+   throw new Error(denied?'Firebase blocked the account-role read. Check the published Realtime Database rules at wedding-ledger-access/roles and your approved account. ('+detail+')':'Could not read your Firebase access role. Check your connection and database configuration. ('+detail+')');
+ } 
  role=email===OWNER_EMAIL?'admin':(['admin','editor','viewer'].includes(explicit)?explicit:'editor');
  isAdmin=role==='admin';canW=role!=='viewer';
  document.body.classList.toggle('not-admin',!isAdmin);document.body.classList.toggle('read-only',!canW);
@@ -2062,19 +2320,52 @@ async function roleConnectivity(){
  addEventListener('offline',()=>setConnectivity(false));addEventListener('online',()=>syncLabel());
  try{firebase.database().ref('.info/connected').on('value',s=>setConnectivity(!!s.val()),()=>setConnectivity(false))}catch(e){setConnectivity(navigator.onLine)}
 }
+function showAuthProblem(message){
+ const u=AUTH&&AUTH.currentUser;
+ if(!u){$('authProblem').hidden=true;$('lM').textContent=message||'Please sign in with an approved Google account.';return}
+ $('lg').style.display='flex';
+ $('authProblem').hidden=false;
+ $('lM').textContent='';
+ $('authProblemTitle').textContent='Signed in to Google, but the ledger could not open';
+ $('authProblemDetails').textContent='Account: '+(u.email||'unknown')+'. '+(message||'Database access could not be confirmed.');
+ ss('Access check failed');
+}
+async function retryLedgerAccess(){
+ if(!AUTH||!AUTH.currentUser)return showAuthProblem('Please sign in again.');
+ $('authProblem').hidden=true;$('lM').textContent='Checking access…';
+ try{await AUTH.currentUser.getIdToken(true);await startApp()}catch(e){showAuthProblem(e.message||'Could not refresh authentication.')} 
+}
+async function switchGoogleAccount(){
+ try{await AUTH.signOut();started=false;db=null;$('authProblem').hidden=true;$('lg').style.display='flex';$('lM').textContent='Choose another approved Google account.'}
+ catch(e){showAuthProblem('Could not sign out: '+(e.message||'Unknown error'))}
+}
 window.startApp=async()=>{
  if(started)return;started=true;
- try{await resolveRole();db=storageDb();await roleConnectivity()}catch(e){started=false;$('lg').style.display='flex';$('lM').textContent=e.message||'Access denied';ss('Access denied');return}
+ try{await resolveRole();db=storageDb();await roleConnectivity()}catch(e){started=false;db=null;showAuthProblem(e.message||'Access denied');return}
+ $('authProblem').hidden=true;$('lg').style.display='none';$('lM').textContent='';
  db.doc('meta/budget').onSnapshot(s=>{const d=s.exists?s.data():{};S.total=Number(d.total)||0;S.cat=d.cat||{};S.date=d.date||'';lastSyncAt=Date.now();render();syncLabel()});
  db.collection('exp').onSnapshot(s=>{S.exp=s.docs.map(d=>({id:d.id,...d.data()})).map(x=>({...x,amount:Number(x.amount)||0,rev:Number(x.rev)||0,pays:Array.isArray(x.pays)?x.pays.map(p=>({...p,a:Number(p.a)||0})):x.pays,cat:x.cat==='Venue, Decor & Lighting'?'Venue':x.cat}));lastSyncAt=Date.now();render();syncLabel();notifyDueOnce()});
 };
-const em={'auth/popup-closed-by-user':'','auth/cancelled-popup-request':'','auth/network-request-failed':'No internet connection.','auth/unauthorized-domain':'This website address is not authorised in Firebase.','auth/operation-not-allowed':'Google sign-in is turned off in Firebase.'};
+const em={'auth/popup-closed-by-user':'The Google sign-in window was closed. Please try again.','auth/cancelled-popup-request':'A newer sign-in attempt replaced this one.','auth/network-request-failed':'No internet connection.','auth/unauthorized-domain':'This website domain is not authorized in Firebase Authentication. Add the domain under Settings → Authorized domains.','auth/operation-not-allowed':'Google sign-in is turned off in Firebase Authentication.'};
+let signingIn=false;
 async function doProv(){
-  $('lM').textContent='';const p=new firebase.auth.GoogleAuthProvider();
-  try{await AUTH.signInWithPopup(p)}catch(e){
-    if(e.code=='auth/popup-blocked'||e.code=='auth/operation-not-supported-in-this-environment'){try{await AUTH.signInWithRedirect(p)}catch(x){$('lM').textContent=em[x.code]!==undefined?em[x.code]:(x.message||'Sign-in failed.')}}
-    else $('lM').textContent=em[e.code]!==undefined?em[e.code]:(e.message||'Sign-in failed.');
-  }
+ if(signingIn)return;
+ if(!AUTH){$('lM').textContent='Firebase Authentication failed to load. Reload the page on a supported HTTPS website.';return}
+ if(location.protocol==='file:'){$('lM').textContent='Open the application from its authorized HTTPS website, not a downloaded file:// address.';return}
+ signingIn=true;$('lM').textContent='Opening Google sign-in…';$('authProblem').hidden=true;
+ const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
+ try{
+   try{await AUTH.setPersistence(firebase.auth.Auth.Persistence.LOCAL)}
+   catch(persistenceError){
+     try{await AUTH.setPersistence(firebase.auth.Auth.Persistence.SESSION)}catch(_){}
+   }
+   await AUTH.signInWithPopup(p);
+   $('lM').textContent='Google sign-in completed. Checking family access…';
+ }catch(e){
+   if(e.code==='auth/popup-blocked'||e.code==='auth/operation-not-supported-in-this-environment'){
+      try{await AUTH.signInWithRedirect(p)}catch(x){$('lM').textContent=em[x.code]!==undefined?em[x.code]:(x.message||'Sign-in failed.')}
+   } else $('lM').textContent=em[e.code]!==undefined?em[e.code]:(e.message||'Sign-in failed.');
+ }finally{signingIn=false}
 }
 
 
@@ -2165,11 +2456,28 @@ icons();reset();go('home');
 
 if(AUTH){
   AUTH.onAuthStateChanged(u=>{
-    if(u){$('lg').style.display='none';startApp()}
-    else{if(started)return location.reload();$('lg').style.display='flex'}
+    if(u){$('lM').textContent='Checking ledger access…';startApp().catch(e=>{started=false;showAuthProblem(e.message||'Could not open ledger.')})}
+    else{if(started)return location.reload();$('authProblem').hidden=true;$('lg').style.display='flex';$('lM').textContent=location.protocol==='file:'?'Open this app using an authorized HTTPS website instead of a file:// address.':''}
   });
+  AUTH.getRedirectResult().catch(e=>{$('lM').textContent=em[e.code]||e.message||'Google redirect sign-in could not complete.'});
 }else{$('lM').textContent='Sign-in is unavailable right now. Please check your connection and reload.'}
 if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+
+<script>
+/* Place the same interactive category chart in the optimal column without duplicating data. */
+(function(){
+  function arrangeOverview(){
+    const main=document.querySelector('#v-home .home-main'),
+      aside=document.querySelector('#v-home .home-aside'),
+      chart=document.querySelector('#v-home .category-panel');
+    if(!main||!aside||!chart)return;
+    const host=matchMedia('(min-width:980px)').matches?aside:main;
+    if(chart.parentElement!==host)host.appendChild(chart);
+  }
+  addEventListener('resize',arrangeOverview,{passive:true});
+  arrangeOverview();
+})();
 </script>
 </body>
 </html>
