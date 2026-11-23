@@ -794,6 +794,258 @@ input[type="checkbox"],input[type="radio"],input[type="file"] { min-height: 0; }
  .lg-btn, .dcard { transition: none; }
 }
 
+
+/* ===== Focused desktop + mobile refinement, based on the user's screenshots ===== */
+:root{--hero-ink:#303153;}
+:root[data-theme="dark"]{--hero-ink:#292D52;}
+.w{max-width:1360px}
+/* Wedding identity keeps the sapphire look; budget becomes soft peach/white. */
+.hd2{background:linear-gradient(114deg,#353D8E 0%,#5C58C9 61%,#7770EA 100%)}
+.hero,:root[data-theme="dark"] .hero{
+  background:linear-gradient(114deg,#FFFFFF 0%,#FFF9F5 54%,#FFEAE2 100%);
+  color:var(--hero-ink); border:1px solid #F5E6E5;
+  box-shadow:0 12px 34px rgba(79,64,131,.065); overflow:hidden;
+}
+.hero::after{content:"";position:absolute;right:-70px;top:-110px;width:275px;height:275px;border-radius:50%;border:42px solid rgba(255,188,157,.14);pointer-events:none}
+.hero .l,.hero .hs small,:root[data-theme="dark"] .hero .l,:root[data-theme="dark"] .hero .hs small{color:#797B99}
+.hero .bar,:root[data-theme="dark"] .hero .bar{background:#E7E7F4}
+.hero .bar b,:root[data-theme="dark"] .hero .bar b{background:linear-gradient(90deg,#6660DC,#8D87F5)}
+.hero .hs{border-color:#EAE5EA}
+.hero .hs b{color:#343655}
+.hero-share,.hero .hero-share{background:#F0EEFF;color:#5755D9;border:1px solid #E5E3FC}
+.hero-share:hover{background:#E2DFFF}
+.big{position:relative;z-index:1;letter-spacing:-.035em}
+/* Home dashboard gains its own desktop-first overview row. */
+#v-home{display:block}
+.home-top,.home-cols{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:stretch}
+.home-cols{margin-top:18px;align-items:start}
+.home-top .hero{margin:0}
+.home-top .glance-card{display:none}
+.c1,.c2{min-width:0}
+.home-cols .sh2{margin:22px 4px 12px}
+.home-cols .c1>.sh2:first-child,.home-cols .c2>.sh2:first-child{margin-top:2px}
+.text-link,.glance-link{border:0;background:none;color:var(--acc);font:800 12px var(--font-sans);cursor:pointer;text-decoration:none;white-space:nowrap}
+.text-link:hover,.glance-link:hover{text-decoration:underline}
+.glance-card,.category-chart,.due-list{
+  background:var(--card);border:1px solid var(--ios-card-outline);
+  border-radius:26px;box-shadow:var(--rim-shadow)
+}
+.glance-card{padding:25px 27px;display:flex;flex-direction:column;min-width:0}
+.glance-heading,.glance-foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.glance-heading h2{font:800 21px/1.3 var(--font-sans);letter-spacing:-.04em;margin:5px 0 0}
+.glance-foot{font-size:12px;color:var(--mut);margin-top:auto;padding-top:8px}
+.glance-foot span{display:flex;align-items:center;gap:7px}
+.glance-foot span i{display:block;width:9px;height:9px;border-radius:50%;background:#716AE5}
+.glance-foot b{color:var(--ink);font-size:14px;white-space:nowrap}
+.glance-chart{min-height:148px;margin:9px 0 3px}
+.trend-wrap{width:100%;height:100%}
+.trend-svg{display:block;width:100%;height:166px;overflow:visible}
+.trend-svg .trend-grid{stroke:var(--line);stroke-width:1;fill:none;stroke-dasharray:4 7}
+.trend-svg .trend-stroke{stroke:#6962DF;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.trend-svg .trend-point{fill:#6962DF;stroke:var(--card);stroke-width:2.5;vector-effect:non-scaling-stroke}
+.trend-svg .trend-month{font:700 11px var(--font-sans);fill:var(--mut)}
+.category-chart{padding:20px 22px 15px}
+.category-chart.empty{padding:24px}
+.cat-row+.cat-row{margin-top:18px}
+.cat-top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:9px;font-size:12.5px}
+.cat-name{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.cat-name b{font-weight:750;min-width:0}
+.cat-emoji{width:31px;height:31px;border-radius:11px;background:#F3F2FF;display:grid;place-items:center;flex:none;font-size:17px}
+.cat-values{display:flex;align-items:baseline;gap:9px;white-space:nowrap}
+.cat-values b{font-size:12.5px;color:var(--ink)}
+.cat-values small{color:var(--mut);min-width:31px;text-align:right;font-size:11px;font-weight:700}
+.cat-track{height:9px;border-radius:99px;background:var(--bg-elev);overflow:hidden}
+.cat-fill{height:100%;border-radius:99px;min-width:3px}
+.cat-caption{padding-top:14px;margin-top:17px;border-top:1px solid var(--line);font-size:11px;font-weight:600;color:var(--mut)}
+.due-list{padding:6px 20px}
+.due-row{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;display:flex;align-items:center;text-align:left;gap:14px;padding:16px 0;color:var(--ink);cursor:pointer}
+.due-row:last-child{border-bottom:0}
+.due-row:hover{background:var(--bg-elev);border-radius:13px;padding-left:8px;padding-right:8px}
+.due-emoji{width:46px;height:46px;border-radius:15px;background:var(--bg-elev);display:grid;place-items:center;font-size:22px;flex:none}
+.due-info{min-width:0;flex:1;display:flex;flex-direction:column;gap:4px}
+.due-info strong{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.due-info small{color:var(--mut);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.due-amount{text-align:right;display:flex;align-items:flex-end;flex-direction:column;gap:3px;flex:none}
+.due-amount>b{font-size:15px}
+.due-more{border:0;background:transparent;width:100%;color:var(--acc);font:800 12px var(--font-sans);padding:14px;cursor:pointer}
+/* Insights: line chart replaces tiny unlabelled vertical columns */
+.mon{display:block;height:auto;min-height:246px;padding:22px 23px}
+.mon-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mon-heading h3{font-size:19px;line-height:1.25;margin:5px 0 7px}
+.mon-heading>b{font-size:17px;color:var(--acc)}
+.mon .trend-svg{height:175px}
+#insL{margin-top:14px}
+#insL .ir{margin-top:12px}
+/* Keep app dark mode, but make balance distinct rather than near identical to header */
+:root[data-theme="dark"] .hero{background:linear-gradient(125deg,#E9E8FF,#FFE9DD);border-color:#DFD4EB}
+:root[data-theme="dark"] .hero .hs{border-color:rgba(54,57,100,.13)}
+:root[data-theme="dark"] .hero .bar{background:#D9D6EE}
+:root[data-theme="dark"] .hero .hs b{color:#303052}
+:root[data-theme="dark"] .cat-emoji{background:#302D57}
+/* Approachable, floating iPhone dock: circular icons inside one pill, no square tabs */
+@media(max-width:979px){
+  .w{padding-left:16px;padding-right:16px;padding-bottom:126px}
+  .home-top,.home-cols{gap:0}
+  .home-cols{margin-top:12px}
+  .hero{border-radius:29px;padding:25px 25px 23px}
+  .hero .big{font-size:clamp(33px,9vw,49px);padding-right:8px}
+  .hero .hs b{font-size:clamp(15px,4.5vw,20px)}
+  .dock-bar{width:calc(100% - 28px);max-width:460px;bottom:calc(13px + env(safe-area-inset-bottom,0px));height:76px; padding:6px 10px;gap:2px;border-radius:999px;box-shadow:0 14px 38px rgba(47,50,116,.17),0 2px 9px rgba(47,50,116,.055)}
+  .dock-bar>button{min-width:0;height:64px;border-radius:999px!important;flex:1;gap:3px;background:transparent!important;box-shadow:none!important;color:var(--mut);font-size:10px}
+  .dock-bar>button svg{width:38px;height:38px;box-sizing:border-box;padding:9px;border-radius:50%;background:transparent;stroke-width:2.2;flex:none}
+  .dock-bar>button.on{background:transparent!important;color:#5755D9!important}
+  .dock-bar>button.on svg{background:#5E59DD;color:#fff}
+  .dock-bar>.dock-add{background:transparent!important;color:#4F3761!important}
+  .dock-bar>.dock-add svg{background:#FFBF9F;color:#4B3150}
+  .dock-bar>button::after{line-height:1.15}
+  :root[data-theme="dark"] .dock-bar>button.on{color:#B1ABFF!important}
+  :root[data-theme="dark"] .dock-bar>button.on svg{background:#817AF4;color:#fff}
+  .category-chart{border-radius:24px;padding:19px 18px 15px}
+  .cat-top{gap:8px}
+  .cat-values{gap:6px}
+  .cat-name b{font-size:12px}
+  .cat-emoji{width:30px;height:30px}
+  .mon{min-height:224px}
+}
+@media(min-width:980px){
+  .w{max-width:none;width:100%;margin:0;padding:24px 34px 64px 122px}
+  .hd2{min-height:135px;padding:23px 132px 23px 37px;text-align:left;border-radius:28px;margin:0 0 24px}
+  .hd2 .ey2{margin:0 0 4px}
+  .hd2 .nm2{font-size:34px}
+  .hd2 .orn{display:none}
+  .hd2 .hd-meta{justify-content:flex-start;gap:12px;margin-top:9px}
+  .hd2 .hd-btns{right:20px;top:20px;gap:10px}
+  .hd2 .live{left:auto;right:77px;top:18px;font-size:11px}
+  .dock-bar{left:25px;width:72px;border-radius:999px;gap:8px;padding:11px 10px}
+  .dock-bar>button{width:50px;height:50px;border-radius:50%!important}
+  .dock-bar>button.on{border-radius:50%}
+  .dock-bar>.dock-add{border-radius:50%}
+  #v-home{display:block}
+  .home-top{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:24px}
+  .home-top .hero,.home-top .glance-card{height:257px}
+  .home-top .glance-card{display:flex}
+  .hero{padding:30px 36px}
+  .hero .big{font-size:clamp(40px,4vw,58px);margin:13px 0 22px}
+  .hero .hs{padding-top:20px;margin-top:19px}
+  .hero .hs b{font-size:clamp(18px,1.5vw,24px)}
+  .home-cols{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px;margin-top:23px}
+  .home-cols .sh2{margin:20px 4px 11px}
+  .home-cols .c1>.sh2:first-child,.home-cols .c2>.sh2:first-child{margin-top:0}
+  .home-cols .grp{padding:9px 22px}
+  .home-cols .rw{padding:18px 0}
+  .home-cols .ei{width:48px;height:48px}
+  #v-pay{grid-template-columns:minmax(0,1fr) minmax(330px,.42fr);gap:24px}
+  #v-ins{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);gap:26px}
+  #v-ins .sh2{margin-top:0}
+  #v-acc{max-width:1100px!important;margin:0!important}
+  #accB{display:grid;grid-template-columns:minmax(0,350px) minmax(0,1fr);gap:20px;align-items:start}
+  #accB>.ir{margin:0}
+  #accB>.kv{margin:0}
+  #accB>.bt{grid-column:1/-1;justify-self:start;max-width:350px}
+}
+@media(min-width:1550px){
+  .w{padding-left:132px;padding-right:52px}
+  .home-top{gap:30px}
+  .home-cols{gap:30px}
+  .home-top .hero,.home-top .glance-card{height:280px}
+  .glance-card{padding:29px 32px}
+}
+@media(max-width:400px){
+  .dock-bar{width:calc(100% - 16px);padding:5px 7px}
+  .dock-bar>button{font-size:9px}
+  .dock-bar>button svg{width:35px;height:35px;padding:8px}
+  .hd2{padding-left:52px;padding-right:52px}
+}
+
+/* Desktop dock uses clear icon actions without persistent pop-out labels. */
+@media(min-width:980px){.dock-bar>button::after{display:none!important}}
+/* ===== Final layout refinement: balanced wide desktop, consistent card pile, iOS dock ===== */
+#v-home .home-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+#v-home .home-main,#v-home .home-aside{min-width:0}
+#v-home .hero{margin:0}
+#v-home .home-layout .sh2{margin:27px 4px 12px}
+#v-home .home-layout .recent-heading{margin-top:8px}
+#v-home .due-summary{text-align:center;margin:8px 0 0;font-weight:750;font-size:12px}
+#v-home .activity-heading{margin-top:29px}
+#v-home .glance-card{display:flex;min-height:238px;padding:22px 24px 18px}
+#v-home .glance-heading{align-items:center}
+#v-home .glance-heading h2{font-size:18px;margin:4px 0 0}
+#v-home .glance-total{font-weight:850;font-size:17px;color:var(--acc);white-space:nowrap}
+#v-home .glance-chart{margin:4px 0 0;min-height:139px}
+#v-home .glance-chart svg{height:152px}
+#v-home .glance-foot{padding-top:0;margin-top:auto}
+#v-home #due .pile{height:209px;max-width:100%}
+#v-home #due .pcard{height:180px;padding:20px 22px;border-radius:26px;box-shadow:0 12px 30px rgba(66,61,130,.09)}
+#v-home #due .pcard[data-k="1"]{transform:translateY(13px) scale(.978)}
+#v-home #due .pcard[data-k="2"]{transform:translateY(25px) scale(.958)}
+#v-home #due .pdots{margin-top:10px}
+#v-home #due .dtop{margin-bottom:15px}
+#v-home #due .dfoot{margin-top:14px}
+/* Center the couple, date and decorative flower on ALL screen sizes. */
+@media(min-width:980px){
+  .hd2{padding:23px 150px 23px;min-height:148px;text-align:center}
+  .hd2 .ey2{margin:0 auto 3px}
+  .hd2 .nm2{font-size:35px;margin:0 auto}
+  .hd2 .orn{display:flex;margin:8px auto 5px;justify-content:center}
+  .hd2 .hd-meta{justify-content:center;margin-top:5px}
+  .hd2 .live{left:22px;right:auto;top:19px}
+  .hd2 .hd-btns{right:20px;top:18px}
+  #v-home .home-layout{grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);gap:26px}
+  #v-home .home-main .hero{height:256px;padding:29px 34px}
+  #v-home .hero .big{font-size:clamp(39px,3.5vw,55px);margin:14px 0 24px}
+  #v-home .home-layout .recent-heading{margin-top:3px}
+  #v-home #rec .grp{padding:8px 24px}
+  #v-home #rec .rw{padding:20px 0}
+  #v-home #rec .ei{width:50px;height:50px}
+  #v-home .home-layout .due-heading{margin-top:24px}
+  #v-home #due .pile{height:240px}
+  #v-home #due .pcard{height:211px;padding:26px 30px}
+  #v-home #due .dtop{margin-bottom:22px}
+  #v-home #due .dlogo{width:55px;height:55px}
+  #v-home #due .dmain>b{font-size:17px}
+  #v-home #due .dright>b{font-size:20px}
+  #v-home #due .dfoot{font-size:12px;margin-top:19px}
+  #v-home .glance-card{min-height:245px}
+}
+/* One-piece capsule dock on iPhone with legible icons and labels. */
+@media(max-width:979px){
+  .hd2{text-align:center}
+  .hd2 .hd-meta{justify-content:center}
+  #v-home .home-layout{gap:22px}
+  #v-home .home-layout .due-heading{margin-top:25px}
+  #v-home .home-layout .recent-heading{margin-top:0}
+  #v-home #due .pile{height:203px}
+  #v-home #due .pcard{height:175px;padding:19px 17px}
+  #v-home #due .dfoot{font-size:11px}
+  #v-home .glance-card{min-height:218px;padding:18px 18px 14px;border-radius:25px}
+  #v-home .glance-heading h2{font-size:16px}
+  #v-home .glance-total{font-size:15px}
+  #v-home .glance-chart{min-height:128px}
+  #v-home .glance-chart svg{height:142px}
+  #v-home .glance-foot{font-size:11px}
+  .dock-bar{left:50%;right:auto;top:auto;transform:translateX(-50%);height:82px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:470px;padding:7px 8px;gap:1px;border-radius:35px;background:rgba(255,255,255,.94);border:1px solid rgba(219,221,242,.94);box-shadow:0 14px 40px rgba(54,52,125,.14),0 3px 9px rgba(54,52,125,.05);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px)}
+  .dock-bar.hide{transform:translate(-50%,145px)}
+  .dock-bar>button{height:66px;width:auto;min-width:0;flex:1;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;padding:3px 0;border-radius:21px!important;background:transparent!important;box-shadow:none!important;font-weight:750;font-size:10px;letter-spacing:.005em;color:#7C819F}
+  .dock-bar>button::after{position:static!important;display:block;opacity:1;transform:none;line-height:1.15;color:inherit;background:transparent;padding:0}
+  .dock-bar>button svg{width:38px;height:38px;border-radius:50%;padding:9px;box-sizing:border-box;stroke-width:2.15;background:transparent;color:inherit;flex:none}
+  .dock-bar>button.on{color:#5550D3!important}
+  .dock-bar>button.on svg{background:#ECEAFF;color:#5752DA;box-shadow:inset 0 0 0 1px rgba(100,89,221,.06)}
+  .dock-bar>.dock-add{color:#6A4A57!important;background:transparent!important}
+  .dock-bar>.dock-add svg{background:#FFBF9F;color:#633849;width:43px;height:43px;padding:10px;box-shadow:0 4px 9px rgba(240,151,115,.16)}
+  :root[data-theme="dark"] .dock-bar{background:rgba(39,40,68,.94);border-color:rgba(167,161,226,.22)}
+  :root[data-theme="dark"] .dock-bar>button.on{color:#C9C4FF!important}
+  :root[data-theme="dark"] .dock-bar>button.on svg{background:#494679;color:#DAD7FF}
+  :root[data-theme="dark"] .dock-bar>.dock-add{color:#FFD4C2!important}
+}
+@media(max-width:370px){
+  .dock-bar{width:calc(100% - 16px);height:78px;padding:5px 5px}
+  .dock-bar>button{font-size:9px}
+  .dock-bar>button svg{width:35px;height:35px;padding:8px}
+  .dock-bar>.dock-add svg{width:40px;height:40px}
+  #v-home #due .pcard{padding:16px 13px}
+  #v-home .glance-heading h2{font-size:15px}
+}
+
 </style>
 </head>
 <body>
@@ -814,26 +1066,32 @@ input[type="checkbox"],input[type="radio"],input[type="file"] { min-height: 0; }
     <div class="hd-meta"><span id="wd">Set wedding date</span><span class="cdp2" id="cd">Wedding ledger</span></div>
   </header>
 <section id="v-home">
-  <div class="c1">
-    <div class="hero">
-      <button class="hero-share" onclick="shr()" aria-label="Share summary" data-i="chat"></button>
-      <div class="l">Remaining</div>
-      <div class="big" id="hR">₹0</div>
-      <div class="bar"><b id="hBar" style="width:0"></b></div>
-      <div class="hs">
-        <div><small>Budget</small><b id="hB">—</b></div>
-        <div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div>
+  <div class="home-layout">
+    <div class="home-main">
+      <div class="hero">
+        <button class="hero-share" onclick="shr()" aria-label="Share summary" data-i="chat"></button>
+        <div class="l">Remaining budget</div>
+        <div class="big" id="hR">₹0</div>
+        <div class="bar"><b id="hBar" style="width:0"></b></div>
+        <div class="hs">
+          <div><small>Total wedding budget</small><b id="hB">—</b></div>
+          <div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div>
+        </div>
+      </div>
+      <div class="sh2 due-heading"><b>Due soon</b><span class="dnav" id="dueNav"><button onclick="dueNext(-1)" aria-label="Previous due">‹</button><span class="m" id="dueCt" style="font-weight:700;min-width:34px;text-align:center"></span><button onclick="dueNext(1)" aria-label="Next due">›</button></span></div>
+      <div id="due"></div>
+      <div class="m due-summary" id="dueSum"></div>
+      <div class="sh2 activity-heading"><b>Payment activity</b><button class="text-link" onclick="go('ins')">Explore insights ↗</button></div>
+      <div class="glance-card">
+        <div class="glance-heading"><div><div class="l">PAST SIX MONTHS</div><h2>Money paid over time</h2></div><b class="glance-total" id="glanceTotal">₹0</b></div>
+        <div id="glanceChart" class="glance-chart" aria-live="polite"></div>
+        <div class="glance-foot"><span><i></i> Monthly payment trend</span><button class="text-link" onclick="go('ins')">Detailed report ↗</button></div>
       </div>
     </div>
-    <div class="sh2"><b>Due soon</b><span class="dnav" id="dueNav"><button onclick="dueNext(-1)" aria-label="Previous due">‹</button><span class="m" id="dueCt" style="font-weight:700;min-width:34px;text-align:center"></span><button onclick="dueNext(1)" aria-label="Next due">›</button></span></div>
-    <div id="due"></div>
-    <div class="m" id="dueSum" style="text-align:center;margin-top:6px;font-weight:700"></div>
-    <div class="sh2"><b>Where the money went</b></div>
-    <div id="hc"></div>
-  </div>
-  <div class="c2">
-    <div class="sh2" style="margin-top:4px"><b>Recent payments</b><a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc);font-weight:700">See all →</a></div>
-    <div id="rec"></div>
+    <div class="home-aside">
+      <div class="sh2 recent-heading"><b>Recent payments</b><a class="text-link" href="#" onclick="go('pay');return false">See all ↗</a></div>
+      <div id="rec"></div>
+    </div>
   </div>
 </section>
 
@@ -997,7 +1255,7 @@ function go(t){
 }
 function render(){
   const p=spent(),r=S.total-p,pc=S.total?Math.min(100,Math.round(p/S.total*100)):0;
-  cnt($('hR'),r);$('hR').style.color=r<0?'var(--bad)':'#fff';
+  cnt($('hR'),r);$('hR').style.color=r<0?'var(--bad)':'var(--hero-ink)';
   $('hB').textContent=S.total?inr(S.total):'Set in Settings';
   cnt($('hP'),p);$('hBar').style.width=pc+'%';$('hPc').textContent=pc+'%';
   const d=S.date?Math.ceil((new Date(S.date+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5):null;
@@ -1005,7 +1263,7 @@ function render(){
   $('cd').textContent=d===null?'Wedding ledger':d>0?d+' days to go':d==0?'Today is the day! 🎉':'Happily married 💍';
   const u=f=>[...new Set(S.exp.map(f).filter(Boolean))].map(v=>`<option value="${esc(v)}">`).join('');
   $('dlV').innerHTML=u(x=>x.givenTo);$('dlP').innerHTML=u(x=>x.paidBy);
-  if(tab=='home'){home();homeX()}
+  if(tab=='home'){home()}
   if(tab=='pay'){pay();sideP()}
   if(tab=='ins'){ins();sideI()}
   if(tab=='acc')acc();
@@ -1046,7 +1304,7 @@ function dueNext(dir){
 }
 function home(){
   dueList=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
-  renderPile();
+  renderPile();homeActivity();
   const wide=typeof matchMedia==='function'&&matchMedia('(min-width:980px)').matches,e=[...S.exp].sort(byD).slice(0,wide?12:4);
   $('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>';
 }
@@ -1067,7 +1325,7 @@ function ins(){
   const k=insK,f={cat:x=>x.cat,fn:x=>x.fn||'General',by:x=>x.paidBy||'Not set',ven:x=>x.givenTo.trim()},m={},pm={},mo={};
   S.exp.forEach(x=>{const g=f[k](x);m[g]=(m[g]||0)+got(x);pm[g]=(pm[g]||0)+rem(x);pays0(x).forEach(p=>{const z=(p.iso||'').slice(0,7);if(z)mo[z]=(mo[z]||0)+(+p.a||0)})});
   const tot=spent(),ks=Object.keys(m).filter(g=>m[g]+pm[g]>0).sort((a,b)=>(m[b]+pm[b])-(m[a]+pm[a])),ms=Object.keys(mo).sort().slice(-6),mx=Math.max(...ms.map(z=>mo[z]),1);
-  $('mon').hidden=!ms.length;$('mon').innerHTML=ms.map(z=>`<div class="col"><small>${cp(mo[z])}</small><div class="cb" style="height:${Math.max(6,mo[z]/mx*70)}px"></div><small>${new Date(z+'-01T00:00:00').toLocaleDateString('en-IN',{month:'short'})}</small></div>`).join('');
+  $('mon').hidden=false;$('mon').innerHTML=`<div class="mon-heading"><div><div class="l">PAYMENT TREND</div><h3>Spent over time</h3></div><b>${inr(monthlySeries().reduce((a,x)=>a+x.value,0))}</b></div>${trendChart('trendInsights')}`;
   $('insS').innerHTML=[['cat','Category'],['fn','Function'],['by','Paid by'],['ven','Vendors']].map(([a,b])=>`<button class="${k==a?'on':''}" onclick="insK='${a}';ins()">${b}</button>`).join('');
   $('insL').innerHTML=ks.length?ks.map(g=>{const p=m[g],q=pm[g],bk=p+q,pp=bk?p/bk*100:0,qq=bk?q/bk*100:0,pc=tot?Math.round(p/tot*100):0;return `<div class="ir"><div class="row"><b>${k=='cat'?(CATS[g]||'')+' ':''}${esc(g)}</b><b>${inr(p)}</b></div><div class="bar" style="display:flex"><b style="width:${pp}%"></b><b style="width:${qq}%;background:var(--warn)"></b></div><div class="row m"><span>${pc}% of spend</span><span style="${q>0?'color:var(--warn);font-weight:700':''}">${q>0?inr(q)+' pending':'No dues'}</span></div></div>`}).join(''):'<div class="m" style="padding:30px;text-align:center">Add payments to see insights.</div>';
 }
@@ -1130,17 +1388,26 @@ function sideI(){const s=stats(),dues=S.exp.filter(x=>rem(x)>0).sort((a,b)=>(a.d
  <div class="sx" style="margin-top:12px"><div><small>Total spent</small><b>${inr(s.tp)}</b></div><div><small>Average</small><b>${inr(s.avg)}</b></div><div><small>Largest</small><b>${s.mx?inr(s.mx.amount):'—'}</b></div><div><small>Pending</small><b>${inr(s.tc)}</b></div></div>
  <div class="ir"><div class="l">Payment modes</div>${tl(topn(x=>x.mode||'Not set',5))}</div>`}
 const PAL=['#7772F0','#FF9A79','#3AADD2','#B48BE7','#36BCA7','#E9B25E','#E477A7','#6B88E8','#69C5C0','#D38C79','#8E9EEB'];
-function homeX(){const s=stats(),c=topn(x=>x.cat,CK.length),tot=s.tp,col=k=>PAL[Math.max(0,CK.indexOf(k))%PAL.length];
- if(!c.length||!tot){$('hc').innerHTML='<div class="grp" style="padding:20px;text-align:center"><div class="m">Spending by category will show here.</div></div>';return}
- let off=25;const segs=c.map(([k,v])=>{const p=v/tot*100,o=`<circle class="sg-circ" cx="21" cy="21" r="16" fill="none" stroke="${col(k)}" stroke-width="4.5" pathLength="100" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"/>`;off-=p;return o}).join('');
- $('hc').innerHTML=`<div class="grp" style="padding:18px"><div class="dr"><div class="ringc"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="none" stroke="var(--line)" stroke-width="4.5"/>${segs}</svg><div class="rc"><b>${cp(tot)}</b><small>spent</small></div></div><div class="lg2">${c.map(([k,v])=>{const q=v/tot*100;return `<div class="lr"><i style="background:${col(k)}"></i><span class="t">${esc(k)}</span><b>${q>0&&q<1?'<1':Math.round(q)}%</b></div>`}).join('')}</div></div></div>`;
- const R=$('hc').querySelector('.ringc'),sgArr=R.querySelectorAll('.sg-circ'),rows=$('hc').querySelectorAll('.lr'),rcEl=R.querySelector('.rc'),info=c.map(([k,v])=>({k,v,q:v/tot*100}));let pin=-1;
- const hon=i=>{R.classList.add('hv');sgArr.forEach((e,j)=>e.classList.toggle('on',j==i));rows.forEach((e,j)=>e.classList.toggle('on',j==i));const x=info[i];if(!x)return;rcEl.innerHTML=`<span class="e">${CATS[x.k]||''}</span><span class="n">${esc(x.k)}</span><b class="p">${x.q<1?'<1':Math.round(x.q)}%</b>`};
- const hoff=()=>{if(pin>=0)return hon(pin);R.classList.remove('hv');sgArr.forEach(e=>e.classList.remove('on'));rows.forEach(e=>e.classList.remove('on'));rcEl.innerHTML=`<b>${cp(tot)}</b><small>spent</small>`};
- const tg=i=>{pin=pin==i?-1:i;pin>=0?hon(i):hoff()};
- sgArr.forEach((e,i)=>{e.onmouseenter=()=>hon(i);e.onmouseleave=hoff;e.onclick=()=>tg(i)});rows.forEach((e,i)=>{e.onmouseenter=()=>hon(i);e.onmouseleave=hoff;e.onclick=()=>tg(i)});
- R.onclick=e=>{if(!e.target.classList.contains('sg-circ')){pin=-1;hoff()}}
+function monthlySeries(){
+  const totals={};
+  S.exp.forEach(x=>pays0(x).forEach(p=>{const month=(p.iso||x.iso||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(month))totals[month]=(totals[month]||0)+(+p.a||0)}));
+  const now=new Date(),current=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0'),last=Object.keys(totals).sort().pop(),end=(last&&last>current)?last:current;
+  const [y,m]=end.split('-').map(Number);
+  return Array.from({length:6},(_,i)=>{const d=new Date(y,m-1-(5-i),1),k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');return {k,label:d.toLocaleDateString('en-IN',{month:'short'}),value:totals[k]||0}});
 }
+function trendChart(id,compact=false){
+  const vals=monthlySeries(),max=Math.max(1,...vals.map(x=>x.value)),x0=34,x1=496,y0=22,y1=114,dx=(x1-x0)/5;
+  const pts=vals.map((p,i)=>[x0+i*dx,y1-(p.value/max)*(y1-y0)]);
+  const path=pts.map(([x,y],i)=>(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)).join(' '),area=path+` L${x1} ${y1} L${x0} ${y1} Z`;
+  const sum=vals.reduce((a,x)=>a+x.value,0),gradient=id+'-fade';
+  return `<div class="trend-wrap"><svg class="trend-svg" viewBox="0 0 530 159" role="img" aria-label="Paid amount over six months: ${vals.map(v=>v.label+' '+inr(v.value)).join(', ')}" preserveAspectRatio="none"><defs><linearGradient id="${gradient}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7772F0" stop-opacity=".24"/><stop offset="100%" stop-color="#7772F0" stop-opacity=".015"/></linearGradient></defs><path d="M34 114 H496 M34 68 H496 M34 22 H496" class="trend-grid"/><path d="${area}" fill="url(#${gradient})" stroke="none"/><path d="${path}" class="trend-stroke"/>${pts.map(([x,y],i)=>`<circle class="trend-point" cx="${x}" cy="${y}" r="${compact?3.2:4}"><title>${vals[i].label}: ${inr(vals[i].value)}</title></circle>`).join('')}${vals.map((v,i)=>`<text class="trend-month" x="${x0+i*dx}" y="147" text-anchor="middle">${v.label}</text>`).join('')}</svg></div>`;
+}
+function homeActivity(){
+  const c=$('glanceChart'),t=$('glanceTotal');if(!c||!t)return;
+  c.innerHTML=trendChart('trendHome',true);
+  t.textContent=inr(monthlySeries().reduce((a,x)=>a+x.value,0));
+}
+
 function acc(){const u=AUTH&&AUTH.currentUser;if(!u){$('accB').innerHTML='';return}
  const pid=(u.providerData[0]&&u.providerData[0].providerId)||'',nm=u.displayName||(u.email||'User').split('@')[0],f=t=>t?new Date(t).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'}):'—';
  $('accB').innerHTML=`<div class="ir" style="text-align:center;padding:26px"><div style="width:72px;height:72px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font:800 28px var(--font-sans);margin:auto">${esc(nm.charAt(0).toUpperCase())}</div><div class="big2" style="font-size:22px;margin-top:12px">${esc(nm)}</div><div class="m">${esc(u.email||'')}</div></div>
