@@ -1046,6 +1046,120 @@ input[type="checkbox"],input[type="radio"],input[type="file"] { min-height: 0; }
   #v-home .glance-heading h2{font-size:15px}
 }
 
+
+/* ===== Navigation, payments and trend chart refinement / November 2026 ===== */
+@media(min-width:980px){
+ .w{padding-left:118px;padding-right:34px;transition:padding-left .22s ease}
+ body:has(#dock.expanded) .w{padding-left:248px}
+ .dock-bar{
+  position:fixed;left:18px;top:170px;bottom:auto;right:auto;transform:none!important;
+  width:82px;max-width:none;height:auto;min-height:355px;padding:13px 10px 16px;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+  gap:8px;z-index:45;overflow:visible;border-radius:25px;
+  background:rgba(255,255,255,.97);border:1px solid #E6E8F6;
+  box-shadow:0 16px 45px rgba(45,50,115,.10);transition:width .24s ease,border-radius .24s ease;
+ }
+ .dock-bar.expanded{width:216px;border-radius:23px}
+ .dock-bar.hide,.dock-bar.expanded.hide{transform:none!important}
+ .dock-bar .rail-brand{width:100%;display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;margin-bottom:2px;white-space:nowrap;overflow:hidden}
+ .rail-emblem{width:35px;min-width:35px;height:35px;display:grid;place-items:center;color:#6059DE;background:#EEECFE;border-radius:12px;font-size:23px}
+ .dock-bar .rail-brand-name{opacity:0;visibility:hidden;max-width:0;overflow:hidden;transition:opacity .2s;white-space:nowrap;font-weight:800;font-size:12px;color:#333759}
+ .dock-bar.expanded .rail-brand-name{opacity:1;visibility:visible;max-width:160px}
+ .dock-bar .rail-toggle{width:43px;height:30px;min-height:30px;flex:none;align-self:center;margin:0 0 7px;border-radius:13px!important;border:1px solid #E9E9F5;background:#F9F9FF!important;color:#726CE2!important;display:flex;align-items:center;justify-content:center;cursor:pointer}
+ .dock-bar .rail-toggle span{display:block;line-height:1;font-size:23px;transform:none;transition:transform .2s}
+ .dock-bar.expanded .rail-toggle{align-self:flex-end;margin-right:3px}
+ .dock-bar.expanded .rail-toggle span{transform:rotate(180deg)}
+ .dock-bar>button[data-i]{position:relative;width:60px;min-height:51px;height:51px;max-width:none;flex:none;margin:0;border:0;border-radius:15px!important;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:0 14px;background:transparent!important;color:#777C9B!important;transition:background .2s,color .2s,width .2s}
+ .dock-bar.expanded>button[data-i]{width:194px}
+ .dock-bar>button[data-i] svg{width:24px!important;height:24px!important;min-width:24px;flex:none;box-sizing:border-box;padding:0!important;color:inherit!important;background:transparent!important;box-shadow:none!important;stroke-width:2.05}
+ .dock-bar>button[data-i] span{display:none;white-space:nowrap;overflow:hidden;min-width:0;font-size:13px;font-weight:750;letter-spacing:-.01em}
+ .dock-bar.expanded>button[data-i] span{display:block}
+ .dock-bar>button[data-i]:hover{background:#F5F3FF!important;color:#6259DB!important}
+ .dock-bar>button[data-i].on{color:#5C53DA!important;background:#F0EEFF!important;box-shadow:inset 3px 0 #645BE2!important}
+ .dock-bar>button[data-i].on svg{color:#5C53DA!important}
+ .dock-bar>button[data-i].dock-add{color:#B26553!important;background:#FFF3EC!important;margin:4px 0}
+ .dock-bar>button[data-i].dock-add:hover{background:#FFE9DE!important}
+ .dock-bar>button[data-i].dock-add svg{color:#C16D54!important}
+ .dock-bar>button::after{display:none!important}
+ .dock-bar .rail-footer{display:flex;align-items:center;gap:10px;padding:12px 11px 0;margin-top:6px;border-top:1px solid #EEEFFA;color:#9796C7;white-space:nowrap;overflow:hidden}
+ .dock-bar .rail-footer span:first-child{font-size:20px;min-width:35px;text-align:center}
+ .dock-bar .rail-footer .rail-brand-name{font-size:10px;color:#9999B4}
+ /* Balanced payments split: list and summary should both feel like columns. */
+ #v-pay{grid-template-columns:minmax(0,1.12fr) minmax(360px,.9fr);gap:24px;align-items:start}
+ #v-pay .pc1,#v-pay .pc2{min-width:0}
+ #v-pay .pc1 .sr{max-width:none}
+ #v-pay .pc2{position:sticky;top:20px}
+ #v-pay .pc2 .sx{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #v-pay .pc2 .sx>div{min-width:0;padding:18px 16px;border-radius:23px}
+ #v-pay .pc2 .sx b{font-size:clamp(17px,1.6vw,22px);overflow-wrap:anywhere}
+ #v-pay .pc2 .ir{border-radius:24px}
+}
+@media(min-width:980px) and (max-width:1190px){
+  #v-pay{grid-template-columns:minmax(0,1.2fr) minmax(305px,.85fr);gap:18px}
+  .dock-bar.expanded{width:198px}
+  .dock-bar.expanded>button[data-i]{width:176px}
+  body:has(#dock.expanded) .w{padding-left:221px}
+}
+@media(min-width:1550px){
+  .w{padding-left:129px;padding-right:46px}
+  body:has(#dock.expanded) .w{padding-left:254px}
+  #v-pay{grid-template-columns:minmax(0,1.13fr) minmax(440px,.91fr);gap:30px}
+}
+@media(max-width:979px){
+ .dock-bar .rail-brand,.dock-bar .rail-toggle,.dock-bar .rail-footer{display:none!important}
+ .dock-bar{box-sizing:border-box!important;border-radius:32px!important;padding:6px!important;height:76px!important;gap:2px!important}
+ .dock-bar>button[data-i]{box-sizing:border-box;height:62px!important;min-width:0;width:auto!important;flex:1;gap:2px!important;padding:4px 0!important;border-radius:26px!important;overflow:hidden;background:transparent!important;box-shadow:none!important}
+ .dock-bar>button[data-i] span{display:none!important}
+ .dock-bar>button[data-i] svg{width:29px!important;height:29px!important;padding:4px!important;box-sizing:border-box;background:transparent!important;box-shadow:none!important;color:inherit!important;stroke-width:2.1}
+ .dock-bar>button[data-i]::after{display:block!important;position:static!important;background:transparent!important;line-height:1.15!important;font-size:10px!important;padding:0!important;border:0!important}
+ .dock-bar>button[data-i].on{background:#EFEDFF!important;color:#5A54D9!important}
+ .dock-bar>button[data-i].on svg{background:transparent!important;color:#5A54D9!important;box-shadow:none!important}
+ .dock-bar>button[data-i].dock-add{background:#FFD0B8!important;color:#633D4F!important;box-shadow:0 2px 6px rgba(228,139,112,.15)!important}
+ .dock-bar>button[data-i].dock-add svg{background:transparent!important;color:#633D4F!important;width:31px!important;height:31px!important;padding:4px!important;box-shadow:none!important}
+ :root[data-theme="dark"] .dock-bar>button[data-i].on{background:#494479!important;color:#E1DDFF!important}
+ :root[data-theme="dark"] .dock-bar>button[data-i].on svg{color:#E1DDFF!important}
+ :root[data-theme="dark"] .dock-bar>button[data-i].dock-add{background:#FFC9AD!important;color:#523648!important}
+ .dock-bar.hide{transform:translate(-50%,145px)!important}
+}
+@media(max-width:365px){
+ .dock-bar{height:72px!important;border-radius:29px!important;padding:5px!important}
+ .dock-bar>button[data-i]{height:60px!important;border-radius:24px!important}
+ .dock-bar>button[data-i]::after{font-size:9px!important}
+}
+/* Chart months are HTML text, not distorted SVG text. Touch, mouse and keyboard all work. */
+.trend-wrap.interactive-trend{display:flex;flex-direction:column;min-width:0;gap:0;position:relative;height:auto}
+.trend-plot{position:relative;min-width:0}
+.trend-svg,.mon .trend-svg,#v-home .glance-chart .trend-svg{display:block;height:146px;width:100%;overflow:visible}
+.trend-svg .trend-stroke{stroke:#6760E5;stroke-width:3.1;vector-effect:non-scaling-stroke}
+.trend-svg .trend-point{fill:#6A63E8;stroke:var(--card);stroke-width:2.5;vector-effect:non-scaling-stroke;transition:fill .15s}
+.trend-svg .trend-point.selected{fill:#FFAD8C;stroke:#4E4AC1;stroke-width:3.5}
+.trend-svg .trend-crosshair{stroke:#968FF0;stroke-width:1.5;stroke-dasharray:4 4;opacity:0;vector-effect:non-scaling-stroke}
+.trend-svg .trend-crosshair.selected{opacity:1}
+.trend-svg .trend-hit{fill:transparent!important;stroke:none!important;stroke-width:0!important;cursor:pointer;outline:none}
+.trend-svg .trend-hit:focus-visible{fill:rgba(108,100,230,.05)!important;stroke:none!important}
+.trend-month-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin:0;gap:3px;align-items:center}
+.trend-month-row .trend-month-btn{appearance:none;min-width:0;border:0;padding:8px 0 7px;border-radius:9px;background:transparent;cursor:pointer;font:750 12px/1.2 var(--font-sans);letter-spacing:0;color:var(--mut);text-align:center;white-space:nowrap}
+.trend-month-row .trend-month-btn:hover,.trend-month-row .trend-month-btn.selected{background:#EFEDFF;color:#6058DC}
+.trend-month-row .trend-month-btn:focus-visible{outline:2px solid #635DE0;outline-offset:2px}
+.trend-pop{position:absolute;z-index:2;top:1px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;min-width:116px;padding:8px 11px;background:#28264B;color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(31,31,90,.18);border-radius:13px;font-family:var(--font-sans);font-size:11px;white-space:nowrap;pointer-events:none}
+.trend-pop[hidden]{display:none!important}
+.trend-pop strong{font-size:13px;color:#FFF;font-weight:850}
+#v-home .glance-card{min-height:276px}
+#v-home .glance-chart{min-height:179px}
+#v-home .glance-chart svg{height:146px}
+.mon .trend-wrap{padding-top:3px}
+.mon{min-height:250px}
+:root[data-theme="dark"] .trend-month-btn:hover,:root[data-theme="dark"] .trend-month-btn.selected{background:#494479!important;color:#E1DDFF!important}
+@media(max-width:979px){
+ #v-home .glance-card{min-height:255px;padding-bottom:14px}
+ #v-home .glance-chart{min-height:165px}
+ #v-home .glance-chart svg,.mon .trend-svg{height:136px}
+ .trend-svg{height:136px}
+ .trend-month-row .trend-month-btn{font-size:11px;padding:7px 0}
+ .trend-pop{padding:7px 9px;min-width:104px}
+}
+@media(prefers-reduced-motion:reduce){.dock-bar,.dock-bar>button,.w{transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -1118,12 +1232,15 @@ input[type="checkbox"],input[type="radio"],input[type="file"] { min-height: 0; }
 </section>
 </div>
 
-<nav class="dock-bar" id="dock">
-  <button id="n-home" class="on" onclick="go('home')" data-i="home" aria-label="Home"></button>
-  <button id="n-pay" onclick="go('pay')" data-i="list" aria-label="Payments"></button>
-  <button class="dock-add wr" onclick="openAdd()" data-i="plus" aria-label="Add payment"></button>
-  <button id="n-ins" onclick="go('ins')" data-i="chart" aria-label="Insights"></button>
-  <button id="n-acc" onclick="go('acc')" data-i="user" aria-label="Account"></button>
+<nav class="dock-bar" id="dock" aria-label="Main navigation">
+<div class="rail-brand" aria-hidden="true"><span class="rail-emblem">✿</span><span class="rail-brand-name">Wedding Ledger</span></div>
+<button type="button" class="rail-toggle" onclick="toggleRail()" aria-label="Expand sidebar" title="Expand or collapse menu"><span aria-hidden="true">›</span></button>
+<button aria-label="Home" class="on" data-i="home" data-t="Home" id="n-home" onclick="activateNav('home')"></button>
+<button aria-label="Payments" data-i="list" data-t="Payments" id="n-pay" onclick="activateNav('pay')"></button>
+<button aria-label="Add payment" class="dock-add wr" data-i="plus" data-t="Add payment" onclick="setRailExpanded(true);openAdd()"></button>
+<button aria-label="Insights" data-i="chart" data-t="Insights" id="n-ins" onclick="activateNav('ins')"></button>
+<button aria-label="Account" data-i="user" data-t="Account" id="n-acc" onclick="activateNav('acc')"></button>
+<div class="rail-footer" aria-hidden="true"><span>✧</span><span class="rail-brand-name">Made for your day</span></div>
 </nav>
 
 <div class="ts" id="ts"></div><datalist id="dlV"></datalist><datalist id="dlP"></datalist>
@@ -1248,6 +1365,15 @@ async function doUndo(){const e=$('ts');e.classList.remove('on','act');const f=u
 async function w(p){try{await p;if(canW)ss('Live');return true}catch(e){toast('Could not save: '+((e&&(e.message||e.code))||'error'));return false}}
 const can=()=>db&&canW?true:(toast(db?'You have view-only access.':'Not connected.'),false);
 
+function setRailExpanded(open){
+  const rail=document.getElementById('dock');
+  if(!rail||!window.matchMedia('(min-width:980px)').matches)return;
+  rail.classList.toggle('expanded',Boolean(open));
+  const b=rail.querySelector('.rail-toggle');
+  if(b){b.setAttribute('aria-label',open?'Collapse sidebar':'Expand sidebar');b.setAttribute('aria-expanded',String(Boolean(open)));}
+}
+function toggleRail(){const r=document.getElementById('dock');setRailExpanded(!r.classList.contains('expanded'))}
+function activateNav(t){setRailExpanded(true);go(t)}
 function go(t){
   tab=t;
   ['home','pay','ins','acc'].forEach(v=>{$('v-'+v).hidden=v!=t;$('n-'+v).classList.toggle('on',v==t)});
@@ -1396,11 +1522,44 @@ function monthlySeries(){
   return Array.from({length:6},(_,i)=>{const d=new Date(y,m-1-(5-i),1),k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');return {k,label:d.toLocaleDateString('en-IN',{month:'short'}),value:totals[k]||0}});
 }
 function trendChart(id,compact=false){
-  const vals=monthlySeries(),max=Math.max(1,...vals.map(x=>x.value)),x0=34,x1=496,y0=22,y1=114,dx=(x1-x0)/5;
+  const vals=monthlySeries(),max=Math.max(1,...vals.map(x=>x.value));
+  const x0=28,x1=572,y0=24,y1=122,dx=(x1-x0)/5;
   const pts=vals.map((p,i)=>[x0+i*dx,y1-(p.value/max)*(y1-y0)]);
-  const path=pts.map(([x,y],i)=>(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)).join(' '),area=path+` L${x1} ${y1} L${x0} ${y1} Z`;
-  const sum=vals.reduce((a,x)=>a+x.value,0),gradient=id+'-fade';
-  return `<div class="trend-wrap"><svg class="trend-svg" viewBox="0 0 530 159" role="img" aria-label="Paid amount over six months: ${vals.map(v=>v.label+' '+inr(v.value)).join(', ')}" preserveAspectRatio="none"><defs><linearGradient id="${gradient}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7772F0" stop-opacity=".24"/><stop offset="100%" stop-color="#7772F0" stop-opacity=".015"/></linearGradient></defs><path d="M34 114 H496 M34 68 H496 M34 22 H496" class="trend-grid"/><path d="${area}" fill="url(#${gradient})" stroke="none"/><path d="${path}" class="trend-stroke"/>${pts.map(([x,y],i)=>`<circle class="trend-point" cx="${x}" cy="${y}" r="${compact?3.2:4}"><title>${vals[i].label}: ${inr(vals[i].value)}</title></circle>`).join('')}${vals.map((v,i)=>`<text class="trend-month" x="${x0+i*dx}" y="147" text-anchor="middle">${v.label}</text>`).join('')}</svg></div>`;
+  const line=pts.map(([x,y],i)=>(i?'L':'M')+x.toFixed(2)+' '+y.toFixed(2)).join(' ');
+  const area=line+` L${x1} ${y1} L${x0} ${y1} Z`,gradient=id+'-gradient';
+  const desc=vals.map(v=>`${v.label} ${inr(v.value)}`).join(', ');
+  return `<div class="trend-wrap interactive-trend" id="${id}-wrap">
+    <div class="trend-plot">
+      <svg class="trend-svg" viewBox="0 0 600 148" role="img" aria-label="Paid over six months: ${desc}" preserveAspectRatio="none">
+        <defs><linearGradient id="${gradient}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7772F0" stop-opacity=".20"/><stop offset="100%" stop-color="#7772F0" stop-opacity=".012"/></linearGradient></defs>
+        <path class="trend-grid" d="M28 24 H572 M28 73 H572 M28 122 H572"/>
+        <path d="${area}" fill="url(#${gradient})"/>
+        <path d="${line}" class="trend-stroke"/>
+        ${pts.map(([x,y],i)=>`<line class="trend-crosshair" data-trend-guide="${i}" x1="${x}" y1="${y}" x2="${x}" y2="122"/><circle class="trend-point" data-trend-dot="${i}" cx="${x}" cy="${y}" r="${compact?4.5:5.3}"/>`).join('')}
+        ${pts.map(([x,y],i)=>`<rect class="trend-hit" data-trend-index="${i}" x="${Math.max(0,x-dx/2)}" y="0" width="${i===0||i===5?dx/2:dx}" height="146" tabindex="0" role="button" aria-label="${vals[i].label} ${new Date(vals[i].k+'-01T00:00:00').getFullYear()}: ${inr(vals[i].value)} paid" onpointerenter="selectTrendPoint('${id}',${i})" onfocus="selectTrendPoint('${id}',${i})" onclick="selectTrendPoint('${id}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTrendPoint('${id}',${i})}"/>`).join('')}
+      </svg>
+      <div class="trend-pop" id="${id}-pop" hidden></div>
+    </div>
+    <div class="trend-month-row" role="group" aria-label="Select month">
+    ${vals.map((v,i)=>`<button type="button" class="trend-month-btn" data-trend-index="${i}" aria-label="${v.label} ${v.k.slice(0,4)} ${inr(v.value)}" onclick="selectTrendPoint('${id}',${i})" onpointerenter="selectTrendPoint('${id}',${i})" onfocus="selectTrendPoint('${id}',${i})">${v.label}</button>`).join('')}
+    </div>
+  </div>`;
+}
+function selectTrendPoint(id,index){
+  const root=document.getElementById(id+'-wrap'),pop=document.getElementById(id+'-pop');
+  if(!root||!pop)return;
+  const vals=monthlySeries(),v=vals[index];if(!v)return;
+  root.querySelectorAll('[data-trend-index]').forEach(el=>{
+    const active=+el.dataset.trendIndex===index;
+    el.classList.toggle('selected',active);
+    if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(active));
+  });
+  root.querySelectorAll('[data-trend-dot]').forEach(el=>el.classList.toggle('selected',+el.dataset.trendDot===index));
+  root.querySelectorAll('[data-trend-guide]').forEach(el=>el.classList.toggle('selected',+el.dataset.trendGuide===index));
+  const year=v.k.slice(0,4);
+  pop.innerHTML=`<span>${v.label} ${year}</span><strong>${inr(v.value)}</strong>`;
+  pop.style.left=`clamp(68px, ${4.7+index*18.1}%, calc(100% - 68px))`;
+  pop.hidden=false;
 }
 function homeActivity(){
   const c=$('glanceChart'),t=$('glanceTotal');if(!c||!t)return;
