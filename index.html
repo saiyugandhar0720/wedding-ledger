@@ -1276,6 +1276,157 @@ body::before{opacity:1}
  #v-home .home-cat-detail-money{font-size:9px}
 }
 
+
+/* ===== Mobile color refresh + truly icon-only floating dock ===== */
+/* Preserve desktop's expandable rail and the application's existing functionality. */
+:root:not([data-theme="dark"]){
+  --bg:#E8E9F8;
+  --bg-mesh:
+    radial-gradient(ellipse at 6% 6%, rgba(159,157,235,.26),transparent 49%),
+    radial-gradient(ellipse at 100% 32%,rgba(255,184,160,.29),transparent 52%),
+    linear-gradient(150deg,#E8EAFB 0%,#EEECFA 40%,#F7E7EB 100%);
+}
+:root:not([data-theme="dark"]) .category-home-card{
+  background:linear-gradient(135deg,#CECDF9 0%,#DCD9FC 54%,#F9D6D1 100%)!important;
+  border-color:#BFC0EE!important;
+}
+:root:not([data-theme="dark"]) #v-home .category-home-card{
+  background:linear-gradient(134deg,#CECFF9 0%,#E0DBFF 53%,#F7DBD1 100%)!important;
+  border-color:#C0BDF0!important;
+}
+:root:not([data-theme="dark"]) #v-home .home-cat-row{background:rgba(255,255,255,.56);border-color:rgba(160,156,223,.28)}
+:root:not([data-theme="dark"]) #v-home .home-cat-row.selected{background:#FEFCFF;border-color:#8E87EB}
+
+@media(max-width:979px){
+  /* Richer page canvas rather than stacked white cards. */
+  body{background:#E9EAF9}
+  .w{padding-bottom:calc(108px + env(safe-area-inset-bottom,0px))}
+  :root:not([data-theme="dark"]) .hd2{box-shadow:0 13px 28px rgba(57,58,146,.21)}
+  :root:not([data-theme="dark"]) #v-home .hero{
+    background:linear-gradient(125deg,#FFEBD9 0%,#FFD8CD 56%,#F6CFCF 100%)!important;
+    border-color:#EFC5C7;
+    box-shadow:0 13px 29px rgba(169,111,131,.15);
+  }
+  :root:not([data-theme="dark"]) #v-home #due .pcard{
+    background:linear-gradient(132deg,#E7E8FF 0%,#E3E9FC 55%,#F0E8FE 100%)!important;
+    border:1px solid #C9CCF1!important;
+    box-shadow:0 12px 27px rgba(71,66,148,.14)!important;
+  }
+  :root:not([data-theme="dark"]) #v-home #due .pcard[data-k="1"],
+  :root:not([data-theme="dark"]) #v-home #due .pcard[data-k="2"]{background:#DCDFF6!important}
+  :root:not([data-theme="dark"]) #v-home #rec .grp{
+    background:linear-gradient(147deg,#DFE9FD 0%,#E6E4F9 100%)!important;
+    border:1px solid #C5D1F0!important;
+    box-shadow:0 10px 25px rgba(62,75,159,.095)!important;
+  }
+  :root:not([data-theme="dark"]) #v-home #rec .ei{background:#CFD9FA;border-color:#CCD4F4}
+  :root:not([data-theme="dark"]) #v-home .category-home-card{
+    background:linear-gradient(136deg,#CDCCF8 0%,#DCD9FD 51%,#F9DBD0 100%)!important;
+    border-color:#C3BDEA!important;
+    box-shadow:0 13px 30px rgba(69,58,160,.13);
+  }
+  /* Other screens: don't allow the white-card-on-white-canvas effect. */
+  :root:not([data-theme="dark"]) #payL .grp,
+  :root:not([data-theme="dark"]) #payL .ir{background:linear-gradient(137deg,#E1E8FC,#EDE6FA);border:1px solid #CAD1F0}
+  :root:not([data-theme="dark"]) #v-pay .pc1 .sr input,
+  :root:not([data-theme="dark"]) #v-pay .cf{background:#F7F2FE;border-color:#CACBEE}
+  :root:not([data-theme="dark"]) #v-ins .mon{
+    background:linear-gradient(141deg,#D9E2FB,#E6DEFA);
+    border:1px solid #C6CCF0;
+    box-shadow:0 11px 27px rgba(73,73,163,.095);
+  }
+  :root:not([data-theme="dark"]) #insL .ir:nth-child(3n+1){background:#E5E5FD;border-color:#CFCCF5}
+  :root:not([data-theme="dark"]) #insL .ir:nth-child(3n+2){background:#FCE9E4;border-color:#F0D3CD}
+  :root:not([data-theme="dark"]) #insL .ir:nth-child(3n){background:#E0EDF7;border-color:#C9DDEB}
+  :root:not([data-theme="dark"]) #v-ins .sg{background:#E0E0F6;border-color:#C7C7EB}
+  :root:not([data-theme="dark"]) #insX>.ir{background:linear-gradient(135deg,#FAE4E0,#F3E7F4);border:1px solid #EACDDB;box-shadow:0 9px 23px rgba(156,91,125,.09)}
+  :root:not([data-theme="dark"]) #v-acc .ir,
+  :root:not([data-theme="dark"]) #v-acc .kv{background:linear-gradient(140deg,#E0E4FC,#EBE5F9);border:1px solid #CACCF0}
+  :root:not([data-theme="dark"]) #v-pay .sx>div:nth-child(4n+1),
+  :root:not([data-theme="dark"]) #v-ins .sx>div:nth-child(4n+1){background:#DEDFFC;border-color:#CACAF1}
+  :root:not([data-theme="dark"]) #v-pay .sx>div:nth-child(4n+2),
+  :root:not([data-theme="dark"]) #v-ins .sx>div:nth-child(4n+2){background:#F9E5E0;border-color:#EDD1CA}
+  :root:not([data-theme="dark"]) #v-pay .sx>div:nth-child(4n+3),
+  :root:not([data-theme="dark"]) #v-ins .sx>div:nth-child(4n+3){background:#DCECF6;border-color:#C5DAE8}
+  :root:not([data-theme="dark"]) #v-pay .sx>div:nth-child(4n),
+  :root:not([data-theme="dark"]) #v-ins .sx>div:nth-child(4n){background:#E9E1F8;border-color:#D6CAED}
+  /* The dock is a single sapphire capsule. Every selected button is concentric. */
+  .dock-bar{
+    box-sizing:border-box!important;
+    bottom:calc(15px + env(safe-area-inset-bottom,0px))!important;
+    left:50%!important;right:auto!important;
+    width:min(420px,calc(100% - 34px))!important;
+    max-width:420px!important;height:74px!important;
+    padding:8px 10px!important;gap:4px!important;
+    background:linear-gradient(120deg,rgba(44,49,117,.97),rgba(64,62,142,.96))!important;
+    border:1px solid rgba(151,147,239,.46)!important;
+    border-radius:999px!important;
+    box-shadow:0 17px 34px rgba(38,42,116,.30),0 3px 7px rgba(49,45,123,.15),inset 0 1px rgba(255,255,255,.14)!important;
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+    align-items:center!important;justify-content:space-around!important;
+  }
+  .dock-bar>button[data-i]{
+    box-sizing:border-box!important;
+    flex:1 1 0!important;
+    min-width:0!important;max-width:58px!important;
+    width:auto!important;height:54px!important;
+    padding:0!important;margin:0!important;
+    display:grid!important;place-items:center!important;
+    align-self:center!important;
+    border-radius:999px!important;
+    color:#C9C9F2!important;
+    background:transparent!important;
+    border:1px solid transparent!important;
+    box-shadow:none!important;
+    line-height:0!important;
+    overflow:hidden!important;
+    font-size:0!important;
+  }
+  .dock-bar>button[data-i]:hover{background:rgba(255,255,255,.1)!important;color:#FFF!important}
+  .dock-bar>button[data-i]:focus-visible{outline:2px solid #FFE0CC;outline-offset:2px}
+  .dock-bar>button[data-i].on{
+    color:#35368D!important;
+    background:#E9E7FF!important;
+    border-color:#D5D1FF!important;
+    box-shadow:0 3px 10px rgba(13,13,69,.14)!important;
+  }
+  .dock-bar>button[data-i] svg{
+    display:block!important;width:25px!important;height:25px!important;
+    box-sizing:border-box!important;
+    padding:0!important;margin:0!important;
+    color:inherit!important;background:none!important;
+    box-shadow:none!important;border-radius:0!important;
+    stroke-width:2.15!important;
+  }
+  /* Remove all generated captions, including earlier !important label rules. */
+  .dock-bar>button[data-i]::after,
+  .dock-bar>button[data-i]::before,
+  #n-home::after,#n-pay::after,#n-ins::after,#n-acc::after{
+    content:none!important;display:none!important;
+  }
+  .dock-bar>button[data-i] span{display:none!important}
+  .dock-bar>button[data-i].dock-add{
+    flex:0 0 55px!important;max-width:55px!important;height:55px!important;
+    color:#4E3154!important;
+    background:linear-gradient(142deg,#FFD5BD,#FFAE99)!important;
+    border:1px solid rgba(255,227,210,.75)!important;
+    box-shadow:0 5px 12px rgba(13,10,48,.20)!important;
+  }
+  .dock-bar>button[data-i].dock-add svg{width:28px!important;height:28px!important;stroke-width:2.5!important}
+  .dock-bar>button[data-i].dock-add:hover{background:#FFE0D0!important;color:#513A62!important}
+  .dock-bar .rail-brand,.dock-bar .rail-toggle,.dock-bar .rail-footer{display:none!important}
+  .dock-bar.hide{transform:translate(-50%,145px)!important}
+  :root[data-theme="dark"] .dock-bar{background:linear-gradient(120deg,#2C316A,#424285)!important;border-color:#5F60A1!important}
+  :root[data-theme="dark"] .dock-bar>button[data-i].on{background:#E5E3FF!important;color:#34358C!important}
+  :root[data-theme="dark"] .dock-bar>button[data-i].dock-add{background:#FFBDA7!important;color:#4E3154!important}
+}
+@media(max-width:365px){
+  .dock-bar{width:calc(100% - 22px)!important;height:68px!important;padding:7px 8px!important;gap:2px!important}
+  .dock-bar>button[data-i]{height:49px!important;max-width:51px!important}
+  .dock-bar>button[data-i].dock-add{flex-basis:50px!important;height:50px!important;max-width:50px!important}
+  .dock-bar>button[data-i] svg{width:23px!important;height:23px!important}
+}
+
 </style>
 </head>
 <body>
