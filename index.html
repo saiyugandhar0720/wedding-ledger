@@ -346,6 +346,17 @@ body.ro .wr { display: none !important; }
 .dnav { display: flex; align-items: center; gap: 8px; }
 .dnav button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--bg-elev); color: var(--ink); font: 700 17px/1 var(--font-sans); cursor: pointer; display: grid; place-items: center; padding: 0; }
 .dnav button:active { transform: scale(.9); }
+/* LARGE SCREENS: side dock on the left */
+@media(min-width:980px){
+  .w { max-width: 1240px; padding: 24px 36px 60px 124px; }
+  .dock-bar { left: 24px; right: auto; top: 50%; bottom: auto; transform: translateY(-50%); width: 68px; max-width: none; height: auto; flex-direction: column; justify-content: center; gap: 10px; padding: 10px 9px; border-radius: 34px; }
+  .dock-bar.hide { transform: translateY(-50%); }
+  .dock-bar > .dock-add { margin: 8px 0; }
+  .dock-bar > button { position: relative; }
+  .dock-bar > button::after { content: attr(aria-label); position: absolute; left: calc(100% + 16px); top: 50%; transform: translateY(-50%) translateX(-4px); background: #111; color: #fff; font: 700 12px var(--font-sans); padding: 6px 11px; border-radius: 10px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease; }
+  .dock-bar > button:hover::after { opacity: 1; transform: translateY(-50%); }
+  :root[data-theme="dark"] .dock-bar > button::after { background: #F3F1ED; color: #111; }
+}
 </style>
 </head>
 <body>
@@ -380,11 +391,11 @@ body.ro .wr { display: none !important; }
     <div class="sh2"><b>Due soon</b><span class="dnav" id="dueNav"><button onclick="dueNext(-1)" aria-label="Previous due">‹</button><span class="m" id="dueCt" style="font-weight:700;min-width:34px;text-align:center"></span><button onclick="dueNext(1)" aria-label="Next due">›</button></span></div>
     <div id="due"></div>
     <div class="m" id="dueSum" style="text-align:center;margin-top:6px;font-weight:700"></div>
+    <div class="sh2"><b>Where the money went</b></div>
+    <div id="hc"></div>
   </div>
   <div class="c2">
-    <div class="sh2" style="margin-top:4px"><b>Where the money went</b></div>
-    <div id="hc"></div>
-    <div class="sh2"><b>Recent payments</b><a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc);font-weight:700">See all →</a></div>
+    <div class="sh2" style="margin-top:4px"><b>Recent payments</b><a class="m" href="#" onclick="go('pay');return false" style="color:var(--acc);font-weight:700">See all →</a></div>
     <div id="rec"></div>
   </div>
 </section>
@@ -599,7 +610,7 @@ function dueNext(dir){
 function home(){
   dueList=S.exp.filter(x=>!paid(x)).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
   renderPile();
-  const e=[...S.exp].sort(byD).slice(0,4);
+  const wide=typeof matchMedia==='function'&&matchMedia('(min-width:980px)').matches,e=[...S.exp].sort(byD).slice(0,wide?12:4);
   $('rec').innerHTML=e.length?`<div class="grp">${e.map(rw).join('')}</div>`:'<div class="m" style="padding:20px 0;text-align:center">No payments yet. Tap + to add the first one.</div>';
 }
 function catSheet(){
@@ -742,6 +753,7 @@ $('fF').innerHTML=FN.map(x=>`<option>${x}</option>`).join('');$('fM').innerHTML=
 {let t='light';try{t=localStorage.getItem('wl-theme')||'light'}catch(e){}setTheme(t)}
 /* menu hides while scrolling down, returns on scroll up */
 (function(){const d=$('dock');if(!d)return;let ly=scrollY,tk=0;addEventListener('scroll',()=>{if(tk)return;tk=1;requestAnimationFrame(()=>{tk=0;const y=scrollY,dy=y-ly,end=innerHeight+y>=document.documentElement.scrollHeight-30;if(y<60||end){d.classList.remove('hide');ly=y}else if(dy>8){d.classList.add('hide');ly=y}else if(dy<-8){d.classList.remove('hide');ly=y}})},{passive:true})})();
+try{matchMedia('(min-width:980px)').addEventListener('change',()=>{if(tab=='home')home()})}catch(e){}
 icons();reset();go('home');
 
 if(AUTH){
