@@ -1367,18 +1367,6 @@ input::placeholder { color:var(--mut);opacity:.8; }
 }
 .lg-btn:hover { border-color: #1F3461; background: #F8FAFD; }
 .lg-btn svg { width: 20px; height: 20px; stroke: none; }
-.lg-demo-btn {
-  margin-top: 10px;
-  width: 100%;
-  height: 46px;
-  border-radius: 14px;
-  background: #F9ECEC;
-  border: 1px solid #E5C5C3;
-  font: 700 13px var(--font-sans);
-  color: #1A2744;
-  cursor: pointer;
-}
-.lg-demo-btn:hover { background: #F3DFDE; }
 .lg-sec {
   margin: 20px 0 0;
   font-size: 11.5px;
@@ -1423,8 +1411,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* ===== REFINEMENT SYSTEM · 2026-11 =====
-   Preserves the source layout, data IDs and original login design. */
+/* ===== REFINEMENT SYSTEM =====
+   Preserves the ledger page layout and data IDs. */
 :root {
  --bg:#F3F3F9; --bg-elev:#E9EAF4; --ink:#171D33; --ink-soft:#3F4A67;
  --mut:#707B96; --line:#DFE3EE; --line-strong:#D1D8E7;
@@ -1552,6 +1540,135 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
 }
 @media(prefers-reduced-motion:reduce){ .rw,.hero,.dock-bar,.pcard,.trend-point {transition:none!important;animation:none!important;} }
 
+
+/* ===== SECOND REFINEMENT · account + insights refresh ===== */
+.budget-mini-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.budget-mini-card {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px 18px;
+  box-shadow:var(--rim-shadow);
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  min-width:0;
+}
+.budget-mini-card small {
+  color:var(--mut);
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.budget-mini-card b {
+  font-size:24px;
+  line-height:1.1;
+  color:var(--ink);
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+  overflow-wrap:anywhere;
+}
+.budget-mini-card span {
+  color:var(--mut);
+  font-size:12px;
+  font-weight:500;
+}
+.budget-free-card {background:linear-gradient(135deg,#FFFFFF 0%,#F5F7FF 100%);}
+.budget-commit-card {background:linear-gradient(135deg,#FFF8F5 0%,#FCECEC 100%);}
+:root[data-theme=dark] .budget-free-card {background:linear-gradient(135deg,#1A2439 0%,#1D2A44 100%);}
+:root[data-theme=dark] .budget-commit-card {background:linear-gradient(135deg,#2B2230 0%,#34273A 100%);}
+
+.acc-layout { display:grid; grid-template-columns:minmax(280px,340px) minmax(0,1fr); gap:22px; align-items:start; }
+.acc-panel { background:var(--card); border:1px solid var(--line); border-radius:24px; box-shadow:var(--rim-shadow); padding:20px; }
+.acc-profile { position:sticky; top:94px; overflow:hidden; background:linear-gradient(155deg,#1C2851 0%,#3A4E99 64%,#B97C86 100%); color:#fff; }
+.acc-profile::after { content:''; position:absolute; right:-56px; bottom:-56px; width:180px; height:180px; border-radius:50%; border:26px solid rgba(255,255,255,.10); }
+.acc-profile > * { position:relative; z-index:1; }
+.acc-avatar { width:78px; height:78px; border-radius:24px; display:grid; place-items:center; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.22); font:800 28px var(--font-sans); margin-bottom:16px; }
+.acc-name { font:800 28px/1.05 var(--font-sans); letter-spacing:-.03em; }
+.acc-sub { margin-top:8px; color:rgba(255,255,255,.78); font-size:13px; line-height:1.45; }
+.acc-badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.acc-badge { background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:999px; padding:8px 12px; font:700 12px var(--font-sans); }
+.acc-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.acc-kpi-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.acc-kpi { border-radius:18px; padding:16px; border:1px solid var(--line); background:linear-gradient(135deg,#F7F8FD 0%,#FFFFFF 100%); }
+:root[data-theme=dark] .acc-kpi { background:linear-gradient(135deg,#202C47 0%,#1B253B 100%); }
+.acc-kpi small, .ins-kpi small { display:block; color:var(--mut); font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+.acc-kpi b, .ins-kpi b { display:block; margin-top:5px; font-size:22px; line-height:1.1; font-weight:800; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.acc-title, .ins-section-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+.acc-title b, .ins-section-title b { font-size:17px; letter-spacing:-.03em; }
+.acc-list { display:grid; gap:10px; }
+.acc-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border-radius:16px; background:var(--bg-elev); border:1px solid var(--line); }
+.acc-row span { color:var(--mut); font-size:12px; font-weight:700; }
+.acc-row b { text-align:right; font-size:13.5px; }
+.acc-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.acc-actions .bt { width:100%; }
+.acc-note { margin-top:10px; color:var(--mut); font-size:12px; line-height:1.5; }
+
+.ins-kpi-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:18px; }
+.ins-kpi { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; box-shadow:var(--rim-shadow); }
+.ins-dues-list { display:grid; gap:8px; margin-top:12px; }
+.ins-due-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 12px; border-radius:14px; background:var(--bg-elev); border:1px solid var(--line); cursor:pointer; width:100%; text-align:left; }
+.ins-due-item span { min-width:0; color:var(--ink-soft); font-size:12px; }
+.ins-due-item b { font-size:13px; }
+.ins-aux-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:14px; }
+#categoryBudgetSummary { margin:12px 0 14px; }
+#insL > .ir { margin-top:12px; }
+#insL .bar { margin:10px 0 8px; }
+#insX .ir { margin-top:0; }
+
+@media (max-width: 979px) {
+  .budget-mini-grid { grid-template-columns:1fr 1fr; }
+  .acc-layout { grid-template-columns:1fr; }
+  .acc-profile { position:relative; top:auto; }
+  .acc-grid, .acc-kpi-grid, .ins-kpi-grid, .acc-actions { grid-template-columns:1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .budget-mini-grid, .acc-grid, .acc-kpi-grid, .ins-kpi-grid, .acc-actions { grid-template-columns:1fr; }
+  .budget-mini-card b, .acc-kpi b, .ins-kpi b { font-size:20px; }
+}
+
+
+/* Simplified Google-only sign-in design. */
+.amount-hint {
+  margin: -6px 1px 10px;
+  color: var(--mut);
+  font-size:11px;
+  line-height:1.45;
+}
+.amount-error {
+  margin: -5px 1px 10px;
+  color:var(--bad);
+  font-size:12px;
+  line-height:1.5;
+  font-weight:700;
+}
+.amr:has(input[aria-invalid="true"]) {border-color:var(--bad);box-shadow:0 0 0 3px rgba(200,75,99,.10);}
+.amr input[type="text"] {outline:none;}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {-webkit-appearance:none;margin:0;}
+input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
+
+
+/* Sign-in refinement */
+.lg-card { padding-bottom:34px; }
+.lg-badge { letter-spacing:.19em; font-size:10px; }
+.lg-title { margin-bottom:11px; }
+.lg-lede { font:800 17px/1.4 var(--font-sans); color:#273656; margin:0 auto 8px; max-width:355px; }
+.lg-sub { max-width:350px; margin-bottom:24px; line-height:1.55; }
+.lg-auth-note { margin:13px auto 0; font-size:12px; color:#77849E; line-height:1.4; }
+.lg-btn { background:#1C2E58; color:#fff; border-color:#1C2E58; box-shadow:0 9px 20px rgba(28,46,88,.19); }
+.lg-btn:hover { background:#28437D; border-color:#28437D; }
+.lg-btn:disabled { opacity:.55; cursor:progress; }
+.lg-btn svg { width:21px; height:21px; fill:none; stroke:none; background:#fff; border-radius:50%; padding:3px; box-sizing:content-box; }
+.lg-sec { margin-top:20px; }
+#lM:not(:empty) { border-radius:12px; background:#FDF0EE; border:1px solid #F1D8D3; padding:10px 12px; color:#AD414B !important; font-weight:700; font-size:12px; }
+@media(max-width:420px){.lg-card{padding:32px 22px 26px}.lg-lede{font-size:15px}}
+
 </style>
 </head>
 <body>
@@ -1610,9 +1727,18 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
             <div><small>Total wedding budget</small><b id="hB">—</b></div>
             <div style="text-align:right"><small>Spent · <span id="hPc">0%</span></small><b id="hP">₹0</b></div>
           </div>
-          <div class="budget-secondary" aria-label="Additional budget balances">
-            <div><small>Unallocated budget</small><b id="hFree">₹0</b></div>
-            <div><small>Committed to vendors</small><b id="hCommitted">₹0</b></div>
+        </div>
+
+        <div class="budget-mini-grid" aria-label="Additional budget balances">
+          <div class="budget-mini-card budget-free-card">
+            <small>Unallocated budget</small>
+            <b id="hFree">₹0</b>
+            <span>Still available to assign</span>
+          </div>
+          <div class="budget-mini-card budget-commit-card">
+            <small>Committed to vendors</small>
+            <b id="hCommitted">₹0</b>
+            <span>Reserved across all vendor bookings</span>
           </div>
         </div>
 
@@ -1679,7 +1805,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
     <aside class="pc2" id="pSide"></aside>
   </section>
 
-  <section id="v-acc" hidden style="max-width:520px;margin:auto">
+  <section id="v-acc" hidden style="max-width:1180px;margin:auto">
     <div class="sh2" style="margin-top:0">
       <div class="page-heading"><b>Account</b><p>Family access, budgets, records and reporting.</p></div>
     </div>
@@ -1688,7 +1814,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
 
   <section id="v-ins" hidden>
     <div class="sh2">
-      <div class="page-heading"><b>Financial Insights</b><p>Understand what has been paid, what is committed and what comes next.</p></div>
+      <div class="page-heading"><b>Financial Insights</b><p>Track spending, commitments, dues and category performance in one cleaner workspace.</p></div>
     </div>
     <div class="ic1"><div class="mon" id="mon"></div><div id="insX"></div></div>
     <div class="ic2">
@@ -1716,15 +1842,17 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
   <div class="sh">
     <div class="shh"><b id="aT">New payment</b><button type="button" class="ib" onclick="cl('mA')" aria-label="Close new payment" data-i="x"></button></div>
     <div class="amr">
-      <div class="amr-inner"><span>₹</span><input id="fA" type="number" inputmode="numeric" placeholder="0"></div>
+      <div class="amr-inner"><span>₹</span><input id="fA" type="text" inputmode="numeric" pattern="[0-9,]*" maxlength="16" autocomplete="off" placeholder="0" aria-describedby="amountHint amountError" oninput="formatRupeeInput(this)" onblur="validateRupeeInput(this)"></div>
       <button class="dn" type="button" onclick="document.activeElement.blur()">Done</button>
     </div>
+    <p id="amountHint" class="amount-hint">Whole rupees · maximum ₹99,99,99,999</p>
+    <p id="amountError" class="amount-error" role="alert" hidden></p>
     <div class="sg" id="sg">
       <button type="button" data-v="Paid" onclick="stS('Paid')">Paid in full</button>
       <button type="button" data-v="Advance Paid" onclick="stS('Advance Paid')">Part paid</button>
       <button type="button" data-v="Pending" onclick="stS('Pending')">Not paid yet</button>
     </div>
-    <div id="partW" hidden><label for="fPd">Paid so far (₹)</label><input id="fPd" type="number" inputmode="numeric" placeholder="e.g. 20000"></div>
+    <div id="partW" hidden><label for="fPd">Paid so far (₹)</label><input id="fPd" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off" maxlength="16" placeholder="e.g. 20,000" oninput="formatRupeeInput(this)"></div>
     <div class="m" id="eN" hidden style="margin-top:8px">To change one payment's date or amount, open the entry and tap that payment under "Payments made".</div>
     <label for="fN">Paid to</label><input id="fN" list="dlV" placeholder="Vendor or person name" oninput="af()">
     <label for="fD">What for (optional)</label><input id="fD" placeholder="e.g. Venue advance">
@@ -1822,7 +1950,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
   <div class="sh">
     <div class="shh"><b id="rpT">Record a payment</b><button type="button" class="ib" onclick="cl('mP')" aria-label="Close installment editor" data-i="x"></button></div>
     <div class="m" id="rpI" style="margin-top:6px"></div>
-    <label for="rpA">Amount paid (₹)</label><input id="rpA" type="number" inputmode="numeric" placeholder="0">
+    <label for="rpA">Amount paid (₹)</label><input id="rpA" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off" maxlength="16" placeholder="0" oninput="formatRupeeInput(this)">
     <div class="g2">
       <div><label for="rpD">Date</label><input type="date" id="rpD"></div>
       <div><label for="rpM">Mode</label><select id="rpM"></select></div>
@@ -1844,7 +1972,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
 <!-- SIGN-IN OVERLAY (CLASSIC LUXURY) -->
 <div id="lg" class="lgn">
   <div class="lg-card">
-    <div class="lg-badge">Classic Luxury · Wedding Ledger</div>
+    <div class="lg-badge">PRIVATE FAMILY SPACE</div>
     <div class="lg-crest">
       <svg viewBox="0 0 60 40" aria-label="S and K monogram">
         <circle cx="18" cy="22" r="14" fill="none" stroke="#1F3461" stroke-width="2.2"/>
@@ -1854,15 +1982,16 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
       </svg>
     </div>
     <h1 class="lg-title">Swetha <em>&amp;</em> Kalyan</h1>
-    <p class="lg-sub">Sign in with your approved family Google account or open the interactive local preview.</p>
-    <button type="button" class="lg-btn" onclick="doProv('google')">
-      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+    <p class="lg-lede">Every detail of your special day, beautifully organized.</p>
+    <p class="lg-sub">Sign in to manage wedding expenses, vendor payments, budgets and upcoming dues together.</p>
+    <button type="button" class="lg-btn" onclick="doProv()" id="googleSignIn">
+      <svg viewBox="0 0 48 48" aria-hidden="true" style="stroke:none"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.27 5.48-4.8 7.18l7.73 6C44.38 38.03 46.98 31.9 46.98 24.55z"/><path fill="#FBBC05" d="M10.53 28.59a14.5 14.5 0 010-9.18l-7.97-6.2A24.04 24.04 0 000 24c0 3.87.93 7.51 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.92-2.13 15.88-5.8l-7.73-6C30 37.66 27.24 38.5 24 38.5c-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       <span>Continue with Google</span>
     </button>
-    <button type="button" class="lg-demo-btn" onclick="enterLocalPreview()">Open Interactive Ledger Preview</button>
+    <p class="lg-auth-note">Access is limited to approved family members.</p>
     <div id="lM" class="m" style="margin-top:12px;color:var(--bad)" role="status" aria-live="polite"></div>
     <section id="authProblem" class="auth-problem" hidden role="alert" aria-live="assertive">
-      <strong id="authProblemTitle">Google sign-in succeeded, but access needs attention</strong>
+      <strong id="authProblemTitle">We couldn’t open your Wedding Ledger</strong>
       <p id="authProblemDetails"></p>
       <div class="auth-problem-actions">
         <button type="button" onclick="retryLedgerAccess()">Retry ledger access</button>
@@ -1871,10 +2000,13 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:i
     </section>
     <div class="lg-sec">
       <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <span>Midnight Navy &amp; Rose Quartz · Classic Luxury</span>
+      <span>A private place for your wedding plans</span>
     </div>
   </div>
 </div>
+
+
+
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -1893,9 +2025,11 @@ const firebaseConfig = {
 
 let AUTH = null;
 try {
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-  AUTH = firebase.auth();
-} catch (e) {}
+  if (typeof firebase !== 'undefined') {
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    AUTH = firebase.auth();
+  }
+} catch (error) { console.error('Firebase initialization failed:', error); }
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -1917,40 +2051,63 @@ const SH = ['Jewelry', 'Clothing', 'Venue', 'Decor', 'Catering', 'Photo', 'Music
 const FN = ['General', 'Engagement', 'Engagement & Wedding', 'Haldi', 'Mehendi', 'Sangeet', 'Wedding', 'Reception'];
 const MO = ['UPI', 'Cash', 'Cheque', 'Bank transfer', 'Card'];
 
+
+// Payment amounts are kept as Indian-grouped whole rupees in the UI.
+// Limits prevent accidental astronomical values from appearing as expenses.
+const MAX_PAYMENT_RUPEES = 999999999;
+function parseRupees(value) {
+  const str = String(value ?? '').trim();
+  if (!str) return 0;
+  if (!/^[0-9,\s₹]+$/.test(str)) return NaN;
+  const digits = str.replace(/[\s,₹]/g, '');
+  if (!/^\d+$/.test(digits) || digits.length > 15) return NaN;
+  return Number(digits);
+}
+function groupedINR(value) {
+  const n = parseRupees(value);
+  return Number.isSafeInteger(n) && n >= 0 ? n.toLocaleString('en-IN') : String(value ?? '');
+}
+function formatRupeeInput(el) {
+  const old = el.value;
+  const cursor = el.selectionStart ?? old.length;
+  const before = old.slice(0,cursor).replace(/\D/g,'').length;
+  const digits = old.replace(/\D/g,'').replace(/^0+(?=\d)/,'');
+  const grouped = digits ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+  // Intl applies Indian grouping (3-2-2…) rather than international grouping.
+  const displayed = digits && digits.length <= 15 ? Number(digits).toLocaleString('en-IN') : grouped;
+  el.value = displayed;
+  const prefix = digits.slice(0,before);
+  const pos = prefix && prefix.length <= 15 ? Number(prefix).toLocaleString('en-IN').length : 0;
+  try {el.setSelectionRange(pos,pos);} catch(_){ }
+  if (el.id === 'fA') validateRupeeInput(el);
+}
+function validateRupeeInput(el, requirePositive=false) {
+  const n = parseRupees(el.value);
+  const err = document.getElementById('amountError');
+  const bad = !Number.isSafeInteger(n) || n > MAX_PAYMENT_RUPEES || n < 0 || (requirePositive && n === 0);
+  if (el.id === 'fA') {
+    if (err) {
+      err.textContent = n > MAX_PAYMENT_RUPEES
+        ? 'Amount is too large. Maximum allowed is ₹99,99,99,999.'
+        : (bad ? 'Enter a valid whole-rupee amount.' : '');
+      err.hidden = !bad;
+    }
+    el.setAttribute('aria-invalid',String(bad));
+  }
+  return !bad;
+}
+
 const inr = n => '₹' + Math.round(n || 0).toLocaleString('en-IN');
 const cp = n => '₹' + (n >= 1e7 ? (n / 1e7).toFixed(1).replace('.0', '') + 'Cr' : n >= 1e5 ? (n / 1e5).toFixed(1).replace('.0', '') + 'L' : n >= 1e3 ? Math.round(n / 1e3) + 'k' : Math.round(n));
 const fd = i => i ? new Date(i + 'T00:00:00').toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
 const today = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
 
-function seedSampleLedger() {
-  return {
-    total: 3500000,
-    cat: {
-      'Jewelry & Gold': 1500000,
-      'Catering & Sweets': 650000,
-      'Venue': 550000,
-      'Decor & Lighting': 350000,
-      'Clothing & Bridal Wear': 250000
-    },
-    date: '2027-02-12',
-    vend: {},
-    exp: [
-      { id: 's1', amount: 1400000, iso: '2026-10-18', givenTo: 'Kalyan Jewellers', phone: '9848011223', desc: 'Bridal Gold & Gifts', cat: 'Jewelry & Gold', fn: 'Wedding', mode: 'Bank transfer', paidBy: 'Father', status: 'Advance Paid', due: '2027-01-20', pays: [{ a: 950000, iso: '2026-10-18', mode: 'Bank transfer', by: 'Father' }], ts: 1792281600000, cby: 'Family' },
-      { id: 's2', amount: 520000, iso: '2026-10-12', givenTo: 'Royal Feast Catering', phone: '9989112233', desc: 'Wedding & Reception Menu', cat: 'Catering & Sweets', fn: 'Wedding', mode: 'UPI', paidBy: 'Kalyan', status: 'Advance Paid', due: '2027-01-28', pays: [{ a: 260000, iso: '2026-10-12', mode: 'UPI', by: 'Kalyan' }], ts: 1791763200000, cby: 'Kalyan' },
-      { id: 's3', amount: 480000, iso: '2026-09-24', givenTo: 'Deccan Palace Convention', phone: '9000111222', desc: 'Main Hall & Lawns Booking', cat: 'Venue', fn: 'Engagement & Wedding', mode: 'Bank transfer', paidBy: 'Swetha', status: 'Advance Paid', due: '2027-01-15', pays: [{ a: 280000, iso: '2026-09-24', mode: 'Bank transfer', by: 'Swetha' }], ts: 1790208000000, cby: 'Swetha' },
-      { id: 's4', amount: 240000, iso: '2026-09-10', givenTo: 'Artisan Floral & Lights', phone: '9848054321', desc: 'Mandap & Warm Lighting', cat: 'Decor & Lighting', fn: 'Sangeet', mode: 'UPI', paidBy: 'Kalyan', status: 'Advance Paid', due: '2027-02-02', pays: [{ a: 90000, iso: '2026-09-10', mode: 'UPI', by: 'Kalyan' }], ts: 1788998400000, cby: 'Kalyan' },
-      { id: 's5', amount: 165000, iso: '2026-08-29', givenTo: 'South India Silks', phone: '9849987654', desc: 'Muhurtham Saree & Sherwani', cat: 'Clothing & Bridal Wear', fn: 'Wedding', mode: 'Card', paidBy: 'Swetha', status: 'Paid', due: '', pays: [{ a: 165000, iso: '2026-08-29', mode: 'Card', by: 'Swetha' }], ts: 1787961600000, cby: 'Swetha' },
-      { id: 's6', amount: 145000, iso: '2026-08-14', givenTo: 'Studio Frames Cinema', phone: '9701234567', desc: 'Candid & Traditional Film', cat: 'Photography & Video', fn: 'Engagement & Wedding', mode: 'UPI', paidBy: 'Kalyan', status: 'Advance Paid', due: '2027-02-05', pays: [{ a: 55000, iso: '2026-08-14', mode: 'UPI', by: 'Kalyan' }], ts: 1786665600000, cby: 'Kalyan' },
-      { id: 's7', amount: 68000, iso: '2026-07-22', givenTo: 'Heritage Cards & Boxes', phone: '9849012345', desc: 'Invitations & Dry Fruit Hampers', cat: 'Invitations & Gifting', fn: 'General', mode: 'UPI', paidBy: 'Swetha', status: 'Paid', due: '', pays: [{ a: 68000, iso: '2026-07-22', mode: 'UPI', by: 'Swetha' }], ts: 1784678400000, cby: 'Swetha' }
-    ]
-  };
-}
+function emptyLedger() { return {total:0, cat:{}, date:'', vend:{}, exp:[]}; }
 
 let db = null;
-let S = seedSampleLedger();
-let localPreviewMode = false;
+let S = emptyLedger();
 let tab = 'home', editId = null, inv = null, cur = null, insK = 'cat', stF = '', catF = '', qs = '', stat = 'Paid';
-let canW = true, role = 'admin', isAdmin = true, connectionReady = true, lastSyncAt = 0, started = false;
+let canW = false, role = 'viewer', isAdmin = false, connectionReady = false, lastSyncAt = 0, started = false;
 let cat = CK[0];
 let tt, rt, dt;
 
@@ -2032,47 +2189,138 @@ async function doUndo() {
   const f = undoAct;
   undoAct = null;
   if (f) {
-    try { await f(); toast('Restored'); } catch (x) { toast('Could not undo.'); }
+    try { if (await f()) toast('Restored'); } catch (x) { toast('Could not undo.'); }
   }
 }
 
-function saveLocalPreview() {
-  try { localStorage.setItem('wl-classic-luxury-demo', JSON.stringify(S)); } catch (e) {}
-}
-function loadLocalPreview() {
+const LEDGER_ALLOWED = new Set([
+  'saiyugandhar0720@gmail.com','saiyugandhar2007@gmail.com','sudhakar0927@gmail.com',
+  'saiyugandhar2013@gmail.com','singarajunavya@gmail.com'
+]);
+const LEDGER_OWNER = 'saiyugandhar0720@gmail.com';
+let mutationBusy = false, reloadBusy = false, reloadAgain = false, revListener = null, openingLedger = null;
+const decodeRecord = raw => {
+  if (typeof raw === 'string') { try { return JSON.parse(raw); } catch (_) { return null; } }
+  return raw;
+};
+const revNumber = raw => Number((decodeRecord(raw) || {}).rev) || 0;
+const ledgerRoot = () => firebase.database().ref('wedding-ledger');
+
+async function loadCloudLedger() {
+  if (!db || !AUTH || !AUTH.currentUser) return;
+  if (mutationBusy) { reloadAgain = true; return; }
+  if (reloadBusy) { reloadAgain = true; return; }
+  reloadBusy = true;
   try {
-    const raw = localStorage.getItem('wl-classic-luxury-demo');
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (parsed && Array.isArray(parsed.exp)) S = parsed;
-    }
-  } catch (e) {}
+    const root = (await ledgerRoot().once('value')).val() || {};
+    const meta = decodeRecord(root['meta:budget']) || {};
+    const exp = Object.keys(root).filter(k => k.startsWith('exp:')).map(k => {
+      const obj = decodeRecord(root[k]);
+      return obj && typeof obj === 'object' && !Array.isArray(obj)
+        ? { ...obj, id:k.slice(4), amount:Number(obj.amount) || 0, rev:Number(obj.rev) || 0, pays:Array.isArray(obj.pays) ? obj.pays.map(p => ({...p, a:Number(p.a) || 0})) : obj.pays }
+        : null;
+    }).filter(Boolean);
+    S = {total:Number(meta.total)||0, date:meta.date||'', cat:meta.cat||{}, vend:{}, exp};
+    lastSyncAt = Date.now();
+    ss(canW ? 'Live' : 'View only');
+    render();
+  } catch(err) {
+    ss('Sync unavailable');
+    console.warn('Could not load wedding records',err);
+    if (!started) throw err;
+    toast('Could not refresh records. Check Firebase permissions and connection.');
+  } finally {
+    reloadBusy = false;
+    if (reloadAgain && !mutationBusy) { reloadAgain = false; queueMicrotask(() => loadCloudLedger()); }
+  }
 }
 
-function enterLocalPreview() {
-  localPreviewMode = true;
-  role = 'admin';
-  isAdmin = true;
-  canW = true;
-  connectionReady = true;
-  document.body.classList.remove('not-admin', 'read-only', 'disconnected');
-  loadLocalPreview();
+async function openCloudLedger() {
+  if (openingLedger) return openingLedger;
+  openingLedger = performOpenCloudLedger().finally(() => { openingLedger = null; });
+  return openingLedger;
+}
+async function performOpenCloudLedger() {
+  if (!AUTH || !AUTH.currentUser) throw new Error('Please sign in with Google.');
+  const u = AUTH.currentUser;
+  const email = (u.email || '').toLowerCase();
+  if (!LEDGER_ALLOWED.has(email)) throw new Error('This Google account has not been approved to access the wedding ledger.');
+  if (!u.emailVerified) throw new Error('Your Google email must be verified to access the wedding ledger.');
+  let assigned = null;
+  try { assigned = (await firebase.database().ref('wedding-ledger-access/roles/' + u.uid).once('value')).val(); }
+  catch(e) { throw new Error('Could not verify family access permissions. Check Realtime Database rules. ' + (e.code || e.message || '')); }
+  role = email === LEDGER_OWNER ? 'admin' : (['admin','editor','viewer'].includes(assigned) ? assigned : 'editor');
+  isAdmin = role === 'admin'; canW = role !== 'viewer';
+  document.body.classList.toggle('not-admin',!isAdmin);
+  document.body.classList.toggle('read-only',!canW);
+  db = firebase.database();
+  await loadCloudLedger();
+  if (!revListener) {
+    revListener = ledgerRoot().child('rev');
+    revListener.on('value', () => { if (started) loadCloudLedger(); }, e => { ss('Sync unavailable'); console.warn(e); });
+  }
+  started = true;
   $('lg').style.display = 'none';
   $('authProblem').hidden = true;
   $('lM').textContent = '';
-  ss('Preview');
-  ['sy','syDesk'].forEach(id => { const el=$(id); if(el) el.title='Local preview only — not connected to Firebase.'; });
-  render();
 }
 
-function signOutAction() {
-  if (localPreviewMode) {
-    localPreviewMode = false;
-    $('lg').style.display = 'flex';
-    return;
+async function cloudSaveExpense(id, next, previous) {
+  const ref = ledgerRoot().child('exp:' + id);
+  const expectedRev = previous ? Number(previous.rev)||0 : null;
+  const payload = next ? {...next, id, rev:(expectedRev === null ? 0 : expectedRev) + 1} : null;
+  const outcome = await ref.transaction(raw => {
+    const current = decodeRecord(raw);
+    if (expectedRev === null && current != null) return;
+    if (expectedRev !== null && (current == null || revNumber(raw) !== expectedRev)) return;
+    return payload;
+  }, undefined, false);
+  if (!outcome.committed) throw new Error('EDIT_CONFLICT: This payment was updated by another person. Reload and try again.');
+}
+
+async function cloudSaveMeta(next, previous) {
+  const ref = ledgerRoot().child('meta:budget');
+  const outcome = await ref.transaction(raw => {
+    const current = decodeRecord(raw) || {};
+    if ((Number(current.total)||0)!==(Number(previous.total)||0) || (current.date||'')!==(previous.date||'') || JSON.stringify(current.cat||{})!==JSON.stringify(previous.cat||{})) return;
+    return {total:Number(next.total)||0, cat:next.cat||{}, date:next.date||''};
+  }, undefined, false);
+  if (!outcome.committed) throw new Error('EDIT_CONFLICT: The wedding budget changed on another device. Reload and try again.');
+}
+
+async function commitMutation(fn) {
+  if (!db || !canW || !navigator.onLine) { toast(!db?'Sign in before editing.':!canW?'You have view-only access.':'Offline: reconnect before editing.'); return false; }
+  if (mutationBusy) { toast('A change is already being saved. Please try again.'); return false; }
+  const before = structuredClone(S);
+  mutationBusy = true;
+  try {
+    fn();
+    render();
+    const prevMap = new Map(before.exp.map(x => [x.id,x]));
+    const nextMap = new Map(S.exp.map(x => [x.id,x]));
+    const changed = [...new Set([...prevMap.keys(),...nextMap.keys()])].filter(id => JSON.stringify(prevMap.get(id)||null) !== JSON.stringify(nextMap.get(id)||null));
+    const budgetChanged = JSON.stringify([S.total,S.date,S.cat]) !== JSON.stringify([before.total,before.date,before.cat]);
+    if (changed.some(id => !nextMap.has(id)) && !isAdmin) throw new Error('Only the administrator can delete vendor records.');
+    if (budgetChanged && !isAdmin) throw new Error('Only the administrator can change wedding budgets.');
+    for (const id of changed) await cloudSaveExpense(id, nextMap.get(id)||null, prevMap.get(id)||null);
+    if (budgetChanged) await cloudSaveMeta(S, before);
+    if (changed.length || budgetChanged) await ledgerRoot().child('rev').set(String(Date.now())+'-'+Math.random().toString(36).slice(2,8));
+    return true;
+  } catch(e) {
+    console.error('Save was not completed',e);
+    toast(String(e.message||'Save failed').slice(0,160));
+    S = before;
+    return false;
+  } finally {
+    mutationBusy = false;
+    // Always read the authoritative server state (including partial saves or concurrent edits).
+    try { await loadCloudLedger(); } catch(e) { console.warn(e); }
   }
-  if (AUTH && AUTH.currentUser) AUTH.signOut();
-  else $('lg').style.display = 'flex';
+}
+
+async function signOutAction() {
+  try { if (AUTH) await AUTH.signOut(); }
+  catch (e) { toast('Could not sign out. Please try again.'); }
 }
 
 function go(t) {
@@ -2465,38 +2713,87 @@ function sideI() {
   const s = stats();
   const dues = S.exp.filter(x => rem(x) > 0).sort((a, b) => (a.due || '9').localeCompare(b.due || '9'));
   const td = today();
+  const committed = S.exp.reduce((sum, x) => sum + Number(x.amount || 0), 0);
+  const unallocated = Math.max(0, (Number(S.total) || 0) - committed);
   $('insX').innerHTML = `
-    <div class="ir" style="margin-top:12px">
-      <div class="row"><div class="l">Due &amp; pending</div><b style="color:var(--acc);font-size:17px">${inr(owed())}</b></div>
-      ${dues.length ? dues.map(x => `<div class="kl" style="cursor:pointer" onclick="det('${x.id}')"><span class="t" style="min-width:0">${esc(x.givenTo)} · ${x.due ? (x.due < td ? '<b style="color:var(--bad)">overdue</b> ' : '') + fd(x.due) : 'no due date'}</span><b>${inr(rem(x))}</b></div>`).join('') : '<div class="m" style="margin-top:6px">Nothing pending</div>'}
+    <div class="ins-kpi-grid">
+      <div class="ins-kpi"><small>Total spent</small><b>${inr(s.tp)}</b></div>
+      <div class="ins-kpi"><small>Pending now</small><b>${inr(s.tc)}</b></div>
+      <div class="ins-kpi"><small>Committed</small><b>${inr(committed)}</b></div>
+      <div class="ins-kpi"><small>Unallocated</small><b>${inr(unallocated)}</b></div>
     </div>
-    <div class="sx" style="margin-top:12px">
-      <div><small>Total spent</small><b>${inr(s.tp)}</b></div>
-      <div><small>Average</small><b>${inr(s.avg)}</b></div>
-      <div><small>Largest</small><b>${s.mx ? inr(s.mx.amount) : '—'}</b></div>
-      <div><small>Pending</small><b>${inr(s.tc)}</b></div>
-    </div>
-    <div class="ir"><div class="l">Payment modes</div>${tl(topn(x => x.mode || 'Not set', 5))}</div>`;
+    <div class="ins-aux-grid">
+      <div class="ir">
+        <div class="ins-section-title"><b>Upcoming dues</b><span class="m">${dues.length} open ${dues.length === 1 ? 'payment' : 'payments'}</span></div>
+        ${dues.length ? `<div class="ins-dues-list">${dues.map(x => `<button type="button" class="ins-due-item" onclick="det('${x.id}')"><span>${esc(x.givenTo)} · ${x.due ? (x.due < td ? '<b style=&quot;color:var(--bad)&quot;>overdue</b> ' : '') + fd(x.due) : 'no due date'}</span><b>${inr(rem(x))}</b></button>`).join('')}</div>` : '<div class="m">Nothing pending right now.</div>'}
+      </div>
+      <div class="ir">
+        <div class="ins-section-title"><b>Payment modes</b><span class="m">Most used</span></div>
+        ${tl(topn(x => x.mode || 'Not set', 5))}
+      </div>
+    </div>`;
 }
 
 function acc() {
   const u = AUTH && AUTH.currentUser;
   const nm = u ? (u.displayName || (u.email || 'Family').split('@')[0]) : 'Swetha & Kalyan';
-  const emAddr = localPreviewMode ? 'Sample or locally stored records only' : (u ? u.email || '' : 'Signed out');
-  const pid = localPreviewMode ? 'Local Preview — this device' : ((u && u.providerData && u.providerData[0] && u.providerData[0].providerId) || 'Google');
+  const emAddr = u ? u.email || '' : 'Signed out';
+  const pid = ((u && u.providerData && u.providerData[0] && u.providerData[0].providerId) || 'Google');
+  const initials = (nm || 'SK').split(/\s+/).slice(0, 2).map(x => x[0] || '').join('').toUpperCase();
+  const s = stats();
+  const committed = S.exp.reduce((sum, x) => sum + Number(x.amount || 0), 0);
+  const unallocated = Math.max(0, (Number(S.total) || 0) - committed);
   $('accB').innerHTML = `
-    <div class="ir" style="text-align:center;padding:24px">
-      <div style="width:68px;height:68px;border-radius:20px;background:var(--acc-grad);color:#fff;display:flex;align-items:center;justify-content:center;font:800 24px var(--font-sans);margin:auto">S&amp;K</div>
-      <div class="big2" style="font-size:21px;margin-top:12px">${esc(nm)}</div>
-      <div class="m">${esc(emAddr)}</div>
-    </div>
-    <div class="kv">
-      <span>Mode</span><b>${esc(pid.includes('google') ? 'Google Cloud Sync' : pid)}</b>
-      <span>Role</span><b>${esc(role)}</b>
-      <span>Wedding Date</span><b>${fd(S.date) || 'Not set'}</b>
-      <span>Entries</span><b>${S.exp.length} vendors</b>
-    </div>
-    <button type="button" class="bt s" style="width:100%" onclick="openS()">Open Budget &amp; Export Settings</button>`;
+    <div class="acc-layout">
+      <div class="acc-panel acc-profile">
+        <div class="acc-avatar">${esc(initials)}</div>
+        <div class="acc-name">${esc(nm)}</div>
+        <div class="acc-sub">${esc(emAddr)}</div>
+        <div class="acc-badges">
+          <span class="acc-badge">${esc(pid.includes('google') ? 'Google sync' : pid)}</span>
+          <span class="acc-badge">${esc(role)}</span>
+        </div>
+      </div>
+      <div class="acc-grid">
+        <div class="acc-panel" style="grid-column:1 / -1">
+          <div class="acc-title"><b>Wedding ledger snapshot</b><span class="m">Overview</span></div>
+          <div class="acc-kpi-grid">
+            <div class="acc-kpi"><small>Total budget</small><b>${inr(S.total || 0)}</b></div>
+            <div class="acc-kpi"><small>Total spent</small><b>${inr(s.tp)}</b></div>
+            <div class="acc-kpi"><small>Committed</small><b>${inr(committed)}</b></div>
+            <div class="acc-kpi"><small>Unallocated</small><b>${inr(unallocated)}</b></div>
+          </div>
+        </div>
+        <div class="acc-panel">
+          <div class="acc-title"><b>Account & access</b><span class="m">Identity</span></div>
+          <div class="acc-list">
+            <div class="acc-row"><span>Role</span><b>${esc(role)}</b></div>
+            <div class="acc-row"><span>Mode</span><b>${esc(pid.includes('google') ? 'Google Cloud Sync' : pid)}</b></div>
+            <div class="acc-row"><span>Wedding date</span><b>${fd(S.date) || 'Not set'}</b></div>
+            <div class="acc-row"><span>Signed in as</span><b>${esc(u ? (u.email || 'Active user') : 'Signed out')}</b></div>
+          </div>
+        </div>
+        <div class="acc-panel">
+          <div class="acc-title"><b>Records & planning</b><span class="m">Current data</span></div>
+          <div class="acc-list">
+            <div class="acc-row"><span>Vendors</span><b>${S.exp.length} entries</b></div>
+            <div class="acc-row"><span>Functions</span><b>${Object.keys(S.fns || {}).length || 0} planned</b></div>
+            <div class="acc-row"><span>Pending balance</span><b>${inr(s.tc)}</b></div>
+            <div class="acc-row"><span>Largest payment</span><b>${s.mx ? inr(s.mx.amount) : '—'}</b></div>
+          </div>
+        </div>
+        <div class="acc-panel" style="grid-column:1 / -1">
+          <div class="acc-title"><b>Quick actions</b><span class="m">Tools</span></div>
+          <div class="acc-actions">
+            <button type="button" class="bt a" onclick="openS()">Open Budget Settings</button>
+            <button type="button" class="bt s" onclick="xl()">Export Excel</button>
+            <button type="button" class="bt s" onclick="exportDueCalendar()">Export Due Calendar</button>
+            <button type="button" class="bt s" onclick="signOutAction()">Sign out</button>
+          </div>
+          <div class="acc-note">Use this section to manage access, review wedding totals, and export or back up records without hunting through multiple screens.</div>
+        </div>
+      </div>
+    </div>`;
 }
 
 function det(id) {
@@ -2536,12 +2833,6 @@ function det(id) {
   ov('mD');
 }
 
-function commitMutation(fn) {
-  fn();
-  if (localPreviewMode) saveLocalPreview();
-  render();
-}
-
 let rpId = null, rpIdx = null;
 function rp(id, amt) {
   const x = S.exp.find(e => e.id === id);
@@ -2550,7 +2841,7 @@ function rp(id, amt) {
   $('rpT').textContent = 'Record a payment';
   $('rpX').hidden = true;
   $('rpI').textContent = x.givenTo + ' · balance ' + inr(rem(x));
-  $('rpA').value = amt || rem(x) || '';
+  $('rpA').value = groupedINR(amt || rem(x) || '');
   $('rpD').value = today();
   $('rpM').value = x.mode || 'UPI';
   $('rpBy').value = x.paidBy || who();
@@ -2567,23 +2858,23 @@ function rpEdit(id, i) {
   $('rpX').dataset.a = '';
   $('rpX').textContent = 'Delete this payment';
   $('rpI').textContent = x.givenTo + ' · total ' + inr(x.amount);
-  $('rpA').value = p.a;
+  $('rpA').value = groupedINR(p.a);
   $('rpD').value = p.iso || today();
   $('rpM').value = p.mode || 'UPI';
   $('rpBy').value = p.by || x.paidBy || '';
   ov('mP');
 }
-function rpSave() {
+async function rpSave() {
   const x = S.exp.find(e => e.id === rpId);
-  const raw = Number($('rpA').value);
+  const raw = parseRupees($('rpA').value);
   const a = Math.round(raw);
-  if (!x || !Number.isSafeInteger(a) || a <= 0 || raw !== a) return toast('Enter a valid amount.');
+  if (!x || !Number.isSafeInteger(a) || a <= 0 || a > MAX_PAYMENT_RUPEES || raw !== a) return toast('Enter a valid amount up to ₹99,99,99,999.');
   const entry = { a, iso: $('rpD').value || today(), mode: $('rpM').value, by: $('rpBy').value.trim() };
   const L = [...pays0(x)];
   if (rpIdx === null) L.push(entry); else L[rpIdx] = entry;
   const g = L.reduce((s, p) => s + (+p.a || 0), 0);
   if (g > x.amount) return toast('Total installments cannot exceed the vendor commitment.');
-  commitMutation(() => {
+  const saved = await commitMutation(() => {
     x.pays = L;
     x.status = g >= x.amount ? 'Paid' : g > 0 ? 'Advance Paid' : 'Pending';
     if (g >= x.amount) {
@@ -2592,10 +2883,11 @@ function rpSave() {
     } else if (!x.due && x.dueBeforePaid) x.due = x.dueBeforePaid;
     x.ts = Date.now();
   });
+  if (!saved) return;
   cl('mP'); cl('mD');
   toast('Installment saved');
 }
-function rpDel() {
+async function rpDel() {
   const b = $('rpX');
   if (!b.dataset.a) {
     b.dataset.a = '1';
@@ -2609,12 +2901,13 @@ function rpDel() {
   const prevDue = x.due;
   const L = [...prevPays];
   L.splice(rpIdx, 1);
-  commitMutation(() => {
+  const saved = await commitMutation(() => {
     x.pays = L;
     const g = L.reduce((s, p) => s + (+p.a || 0), 0);
     x.status = g >= x.amount ? 'Paid' : g > 0 ? 'Advance Paid' : 'Pending';
     if (g < x.amount && !x.due && x.dueBeforePaid) x.due = x.dueBeforePaid;
   });
+  if (!saved) return;
   cl('mP'); cl('mD');
   undoAct = () => commitMutation(() => {
     x.pays = prevPays;
@@ -2624,7 +2917,7 @@ function rpDel() {
   });
   toastUndo('Installment removed');
 }
-function del() {
+async function del() {
   const b = $('delB');
   if (!b.dataset.a) {
     b.dataset.a = '1';
@@ -2635,7 +2928,8 @@ function del() {
   const idx = S.exp.findIndex(e => e.id === cur);
   if (idx < 0) return;
   const removed = S.exp[idx];
-  commitMutation(() => { S.exp.splice(idx, 1); });
+  const saved = await commitMutation(() => { S.exp.splice(idx, 1); });
+  if (!saved) return;
   cl('mD');
   undoAct = () => commitMutation(() => { S.exp.splice(idx, 0, removed); });
   toastUndo('Expense deleted');
@@ -2674,6 +2968,8 @@ function reset() {
   $('fF').selectedIndex = 0;
   $('fM').selectedIndex = 0;
   $('iS').textContent = '';
+  if ($('amountError')) $('amountError').hidden = true;
+  $('fA').removeAttribute('aria-invalid');
   $('aT').textContent = 'New payment';
   cs(0);
   document.querySelectorAll('#sg button').forEach(b => b.disabled = false);
@@ -2688,7 +2984,7 @@ function edit(id) {
   cl('mD'); reset();
   editId = id;
   $('aT').textContent = 'Edit payment';
-  $('fA').value = x.amount;
+  $('fA').value = groupedINR(x.amount);
   $('fDt').value = x.iso || today();
   $('fN').value = x.givenTo;
   $('fP').value = x.phone || '';
@@ -2700,7 +2996,7 @@ function edit(id) {
   $('fDue').value = x.due || '';
   const g = got(x);
   stS(g >= x.amount ? 'Paid' : g > 0 ? 'Advance Paid' : 'Pending');
-  $('fPd').value = g > 0 && g < x.amount ? g : '';
+  $('fPd').value = g > 0 && g < x.amount ? groupedINR(g) : '';
   $('eN').hidden = g <= 0;
   if (g > 0) {
     document.querySelectorAll('#sg button').forEach(b => b.disabled = true);
@@ -2709,14 +3005,19 @@ function edit(id) {
   $('iS').textContent = x.inv ? 'Receipt attached — choose a photo to replace.' : '';
   ov('mA');
 }
-function save() {
-  const raw = Number($('fA').value);
+async function save() {
+  const raw = parseRupees($('fA').value);
   const a = Math.round(raw);
   const n = $('fN').value.trim();
-  if (!Number.isSafeInteger(a) || a <= 0 || raw !== a || !n) return toast('Enter a valid amount and vendor name.');
-  const pdRaw = Number($('fPd').value || 0);
+  if (!Number.isSafeInteger(a) || a <= 0 || a > MAX_PAYMENT_RUPEES || raw !== a) {
+    validateRupeeInput($('fA'), true);
+    $('fA').focus();
+    return toast('Enter a valid amount up to ₹99,99,99,999.');
+  }
+  if (!n) { $('fN').focus(); return toast('Please enter a vendor or person name.'); }
+  const pdRaw = parseRupees($('fPd').value || 0);
   const pd = Math.round(pdRaw);
-  if (stat === 'Advance Paid' && (!Number.isSafeInteger(pd) || pdRaw !== pd || !(pd > 0 && pd < a))) {
+  if (stat === 'Advance Paid' && (!Number.isSafeInteger(pd) || pdRaw !== pd || pd > MAX_PAYMENT_RUPEES || !(pd > 0 && pd < a))) {
     return toast('Enter a valid part-paid amount below total.');
   }
   const want = stat === 'Paid' ? a : stat === 'Advance Paid' ? pd : 0;
@@ -2750,12 +3051,13 @@ function save() {
     cts: old.cts || old.ts || Date.now(),
     inv: inv || old.inv || ''
   };
-  commitMutation(() => {
+  const saved = await commitMutation(() => {
     if (oldIdx >= 0) S.exp[oldIdx] = item;
     else S.exp.unshift(item);
   });
+  if (!saved) return;
   cl('mA');
-  toast('Saved');
+  toast('Saved to Wedding Ledger');
 }
 
 function renderCategoryBudgetInputs() {
@@ -2776,19 +3078,20 @@ function openS() {
   renderCategoryBudgetInputs();
   ov('mS');
 }
-function setB() {
+async function setB() {
   const raw = Number($('sT').value);
   const v = Math.round(raw);
   if (!Number.isSafeInteger(v) || v < 0 || raw !== v) return toast('Enter a valid total budget.');
-  commitMutation(() => {
+  const saved = await commitMutation(() => {
     S.total = v;
     S.date = $('sD').value || S.date || '';
     S.cat = collectCategoryBudgets();
   });
+  if (!saved) return;
   cl('mS');
   toast('Settings saved');
 }
-function rsc() {
+async function rsc() {
   const b = $('rsB');
   if (!b.dataset.a) {
     b.dataset.a = '1';
@@ -2799,10 +3102,11 @@ function rsc() {
   clearTimeout(rt);
   b.dataset.a = '';
   b.textContent = 'Reset all';
-  commitMutation(() => { S = seedSampleLedger(); });
+  const saved = await commitMutation(() => { S = emptyLedger(); });
+  if (!saved) return;
   cl('mS');
   go('home');
-  toast('Demo ledger reset');
+  toast('Wedding ledger reset');
 }
 
 function shr() {
@@ -2868,9 +3172,10 @@ async function rs(e) {
   try {
     const d = JSON.parse(await f.text());
     if (!d || !Array.isArray(d.exp) || d.exp.length > 5000 || d.exp.some(x => !x || !Number.isSafeInteger(Number(x.amount)) || Number(x.amount) < 0 || typeof x.givenTo !== 'string')) throw new Error('Invalid format');
-    commitMutation(() => {
+    const saved = await commitMutation(() => {
       S = { total: Number(d.total) || 0, date: d.date || S.date || '', cat: d.cat || {}, vend: {}, exp: d.exp };
     });
+    if (!saved) return;
     cl('mS');
     toast('Backup restored');
   } catch (_) { toast('Invalid backup file.'); }
@@ -2911,10 +3216,30 @@ function enableReminders() {
   if (!('Notification' in window)) return toast('Browser notifications unsupported here.');
   Notification.requestPermission().then(p => toast(p === 'granted' ? 'Browser reminders enabled' : 'Reminders remained in-app'));
 }
-function loadRoleList() { $('roleList').textContent = 'Administrator access active in current session.'; }
-function saveFamilyRole() { toast('Role preference noted.'); }
-function loadAuditLog() {
-  $('auditList').innerHTML = S.exp.slice(0, 4).map(x => `<div class="audit-event"><b>${esc(x.givenTo)}</b> · ${inr(x.amount)} (${esc(stt(x))})</div>`).join('');
+async function loadRoleList() {
+  if (!isAdmin || !AUTH?.currentUser) return;
+  try {
+    const snap = await firebase.database().ref('wedding-ledger-access/roles').once('value');
+    const roles = snap.val() || {};
+    $('roleList').innerHTML = Object.keys(roles).length ? Object.entries(roles).map(([uid, r]) => `<div class="audit-event"><code>${esc(uid.slice(0,18))}…</code> — ${esc(r)}</div>`).join('') : 'No explicit roles assigned. Approved accounts default to editor.';
+  } catch(e) { $('roleList').textContent = 'Could not load family roles: '+(e.message||'Access denied'); }
+}
+async function saveFamilyRole() {
+  if (!isAdmin || !AUTH?.currentUser) return toast('Administrator access required.');
+  const uid = $('roleUid').value.trim(), value = $('roleValue').value;
+  if (!/^[A-Za-z0-9_-]{8,128}$/.test(uid)) return toast('Enter a valid family member UID.');
+  try {
+    await firebase.database().ref('wedding-ledger-access/roles/'+uid).set(value);
+    toast('Member access updated');
+    await loadRoleList();
+  } catch(e) { toast('Could not save role. '+(e.message||'Access denied')); }
+}
+async function loadAuditLog() {
+  try {
+    const root = (await ledgerRoot().once('value')).val() || {};
+    const entries = Object.keys(root).filter(k=>k.startsWith('audit:')).map(k=>decodeRecord(root[k])).filter(Boolean).sort((a,b)=>(b.at||0)-(a.at||0)).slice(0,15);
+    $('auditList').innerHTML = entries.length ? entries.map(x=>`<div class="audit-event"><b>${esc(x.action||'Updated')}</b> · ${esc(x.entity||'')}<div>${esc(x.actor||x.actorUid||'Family')} · ${new Date(x.at||0).toLocaleString('en-IN')}</div></div>`).join('') : 'No change history available.';
+  } catch(e) { $('auditList').textContent='Could not load change history.'; }
 }
 async function cpy() {
   const t = $('shT').value;
@@ -2937,36 +3262,60 @@ const toggleTheme = () => setTheme(document.documentElement.dataset.theme === 'd
 
 function showAuthProblem(message) {
   const u = AUTH && AUTH.currentUser;
-  if (!u) { $('authProblem').hidden = true; $('lM').textContent = message || ''; return; }
   $('lg').style.display = 'flex';
-  $('authProblem').hidden = false;
   $('lM').textContent = '';
-  $('authProblemTitle').textContent = 'Google sign-in completed, but database access needs attention';
-  $('authProblemDetails').textContent = 'Account: ' + (u.email || 'unknown') + '. ' + (message || '');
+  if (!u) { $('authProblem').hidden = true; $('lM').textContent = message || 'Please sign in with Google.'; return; }
+  $('authProblem').hidden = false;
+  $('authProblemTitle').textContent = 'Your Google account signed in, but the ledger could not open';
+  $('authProblemDetails').textContent = 'Account: ' + (u.email || 'unknown') + '. ' + (message || 'Please check your family access permissions.');
 }
 async function retryLedgerAccess() {
-  if (!AUTH || !AUTH.currentUser) return enterLocalPreview();
+  if (!AUTH?.currentUser) return doProv();
   $('authProblem').hidden = true;
-  try { await AUTH.currentUser.getIdToken(true); $('lM').textContent = 'Google authenticated, but this edition does not connect to the live ledger. Use the preview below.'; } catch (e) { showAuthProblem(e.message); }
+  $('lM').textContent = 'Checking your access…';
+  try { await AUTH.currentUser.getIdToken(true); await openCloudLedger(); }
+  catch(e) { showAuthProblem(e.message||'Could not open your ledger.'); }
 }
 async function switchGoogleAccount() {
-  try { if (AUTH && AUTH.currentUser) await AUTH.signOut(); } catch (_) {}
+  try { if (AUTH?.currentUser) await AUTH.signOut(); } catch (_) {}
   $('authProblem').hidden = true;
   $('lg').style.display = 'flex';
+  $('lM').textContent = 'Choose a different approved Google account.';
+  return doProv();
 }
+const googleErrors = {
+  'auth/popup-closed-by-user':'Google sign-in was cancelled. Please try again.',
+  'auth/network-request-failed':'No internet connection. Check your network and try again.',
+  'auth/unauthorized-domain':'This website has not been authorized in Firebase Authentication. Add it under Authorized domains.',
+  'auth/operation-not-allowed':'Google sign-in is not enabled for this Firebase project.'
+};
+let signInBusy = false;
 async function doProv() {
-  if (!AUTH || location.protocol === 'file:') {
-    $('lM').textContent = 'Google sign-in requires hosting on an authorized HTTPS domain. You can use the local preview below.';
-    return;
-  }
-  const p = new firebase.auth.GoogleAuthProvider();
-  p.setCustomParameters({ prompt: 'select_account' });
+  if (signInBusy) return;
+  if (!AUTH) { $('lM').textContent='Unable to load Google sign-in. Please refresh this page.'; return; }
+  if (location.protocol==='file:') { $('lM').textContent='Open the Wedding Ledger on its authorized HTTPS website to sign in. Downloaded HTML files cannot authenticate.'; return; }
+  signInBusy = true;
+  const button = $('googleSignIn');
+  button.disabled = true;
+  $('authProblem').hidden = true;
+  $('lM').textContent = 'Opening Google sign-in…';
+  const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({prompt:'select_account'});
   try {
-    await AUTH.signInWithPopup(p);
-    $('lM').textContent = 'Google sign-in succeeded. This provided file is a local-preview edition and is not connected to your live wedding records. Choose Interactive Ledger Preview to explore without changing cloud data.';
-  } catch (e) {
-    $('lM').textContent = (e && e.message) ? e.message : 'Sign-in interrupted — you can use the interactive preview below.';
-  }
+    try { await AUTH.setPersistence(firebase.auth.Auth.Persistence.LOCAL); }
+    catch(_) { try { await AUTH.setPersistence(firebase.auth.Auth.Persistence.SESSION); } catch(_) {} }
+    try { await AUTH.signInWithPopup(provider); }
+    catch(e) {
+      if (e.code==='auth/popup-blocked' || e.code==='auth/operation-not-supported-in-this-environment') {
+        await AUTH.signInWithRedirect(provider);
+        return;
+      }
+      throw e;
+    }
+    $('lM').textContent = 'Signed in. Verifying family access…';
+    await openCloudLedger();
+  } catch(e) { showAuthProblem(googleErrors[e.code] || e.message || 'Google sign-in failed.'); }
+  finally { signInBusy=false; button.disabled=false; }
 }
 
 document.addEventListener('keydown', e => {
@@ -2992,6 +3341,22 @@ setTheme(savedTheme);
 icons();
 reset();
 go('home');
+if (AUTH) {
+  AUTH.onAuthStateChanged(async user => {
+    if (!user) {
+      if (revListener) { revListener.off(); revListener = null; }
+      db = null; started = false; mutationBusy = false;
+      S = emptyLedger();
+      $('authProblem').hidden = true;
+      $('lg').style.display = 'flex';
+      render();
+      if (location.protocol==='file:') $('lM').textContent = 'Open this application from your authorized HTTPS website to sign in.';
+    } else if (!started) {
+      try { await openCloudLedger(); } catch(e) { showAuthProblem(e.message||'Could not open wedding records.'); }
+    }
+  });
+  AUTH.getRedirectResult().catch(e => showAuthProblem(googleErrors[e.code] || e.message || 'Google sign-in redirect failed.'));
+} else $('lM').textContent = 'Google sign-in is unavailable. Please check your internet connection and reload.';
 </script>
 </body>
 </html>
