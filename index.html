@@ -998,14 +998,6 @@ input::placeholder { color:var(--mut);opacity:.8; }
   }
   #v-ins > .sh2 { grid-column: 1 / -1; margin-bottom: 0; }
   #v-acc { max-width: 1120px !important; margin: 0 auto !important; }
-  #accB {
-    display: grid;
-    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-    gap: 20px;
-    align-items: start;
-  }
-  #accB > .ir, #accB > .kv { margin: 0; }
-  #accB > .bt { grid-column: 1 / -1; justify-self: start; max-width: 360px; }
 }
 
 /* MODALS & SHEETS */
@@ -1669,6 +1661,136 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
 #lM:not(:empty) { border-radius:12px; background:#FDF0EE; border:1px solid #F1D8D3; padding:10px 12px; color:#AD414B !important; font-weight:700; font-size:12px; }
 @media(max-width:420px){.lg-card{padding:32px 22px 26px}.lg-lede{font-size:15px}}
 
+
+/* ==== Account + Financial Insights 2026-11-24: responsive layout rewrite ==== */
+#v-acc {width:100%;max-width:1180px!important;margin:0 auto!important;}
+#v-acc #accB {display:block!important;width:100%;max-width:100%;min-width:0;grid-template-columns:none!important;gap:0!important;}
+#v-ins {display:block!important;min-width:0;}
+#v-ins[hidden],#v-acc[hidden]{display:none!important;}
+.ref-page-title {margin:0 0 24px;display:flex;align-items:end;justify-content:space-between;gap:16px;}
+.ref-eyebrow {font-size:10px;font-weight:800;letter-spacing:.14em;color:#7172A4;text-transform:uppercase;margin-bottom:8px;}
+.ref-page-title h2 {margin:0;font:800 clamp(26px,3vw,38px)/1.1 var(--font-sans);letter-spacing:-.05em;color:var(--ink);}
+.ref-page-title p {margin:9px 0 0;font-size:13px;color:var(--mut);line-height:1.5;}
+.ref-utility-button {border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 15px;min-height:44px;border-radius:14px;font:800 12px var(--font-sans);display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;white-space:nowrap;box-shadow:var(--rim-shadow);}
+.ref-utility-button:hover {background:var(--soft);}
+.ref-utility-button svg{width:16px;height:16px;}
+
+/* Account */
+.acct-shell {display:grid;grid-template-columns:minmax(275px,315px) minmax(0,1fr);gap:20px;align-items:start;width:100%;}
+.acct-shell > *,.acct-workspace,.acct-lower-grid > * {min-width:0;}
+.acct-profile-card {position:relative;isolation:isolate;overflow:hidden;border-radius:25px;background:linear-gradient(155deg,#202C52,#394D8C 64%,#725D91);color:#fff;padding:28px 24px;box-shadow:0 18px 38px rgba(28,39,88,.16);min-height:340px;}
+.acct-profile-card::before {content:'';position:absolute;width:240px;height:240px;right:-140px;top:-110px;border-radius:50%;border:42px solid rgba(255,255,255,.07);z-index:-1;}
+.acct-profile-mark {display:grid;place-items:center;width:66px;height:66px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);border-radius:20px;font:800 23px var(--font-sans);margin-bottom:24px;}
+.acct-profile-eyebrow {color:#C9D5F7;font:800 10px var(--font-sans);letter-spacing:.13em;margin-bottom:8px;}
+.acct-profile-card h3 {font:800 24px/1.15 var(--font-sans);overflow-wrap:anywhere;letter-spacing:-.04em;margin:0;}
+.acct-email {margin:9px 0 0;font-size:12px;color:#E1E6F7;overflow-wrap:anywhere;}
+.acct-tags {display:flex;flex-wrap:wrap;gap:7px;margin-top:20px;}
+.acct-tags span {border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.13);border-radius:999px;padding:6px 11px;font-size:11px;font-weight:800;text-transform:capitalize;}
+.acct-profile-divider {height:1px;background:rgba(255,255,255,.18);margin:23px 0 14px;}
+.acct-member-status {display:flex;align-items:center;gap:9px;font-size:11.5px;color:#E3E8F9;font-weight:700;}
+.acct-status-dot {width:8px;height:8px;border-radius:50%;background:#94E4C5;box-shadow:0 0 0 4px rgba(148,228,197,.15);}
+.acct-signout {margin-top:18px;width:100%;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.12);padding:11px 13px;border-radius:13px;font:700 12px var(--font-sans);cursor:pointer;}
+.acct-signout:hover {background:rgba(255,255,255,.22);}
+.acct-workspace {display:flex;flex-direction:column;gap:16px;}
+.acct-welcome {display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0;}
+.acct-welcome h3 {font:800 24px/1.2 var(--font-sans);letter-spacing:-.04em;margin:0;}
+.acct-welcome p {font-size:12px;color:var(--mut);margin:6px 0 0;line-height:1.45;}
+.acct-stats {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;}
+.acct-stat {display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 16px;min-width:0;box-shadow:var(--rim-shadow);}
+.acct-stat:nth-child(1){background:#E9ECFF;border-color:#DCDEF4;}
+.acct-stat:nth-child(2){background:#FFF0E9;border-color:#F5E3D9;}
+.acct-stat:nth-child(3){background:#E5F4F1;border-color:#D4E8E3;}
+:root[data-theme=dark] .acct-stat:nth-child(n){background:var(--card);border-color:var(--line);}
+.acct-stat > span {color:var(--ink-soft);font-size:11px;font-weight:800;}
+.acct-stat strong {font:800 clamp(18px,1.8vw,26px)/1.15 var(--font-sans);letter-spacing:-.045em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;}
+.acct-stat small {font-size:10.5px;color:var(--mut);line-height:1.4;}
+.acct-lower-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;}
+.acct-section {background:var(--card);border:1px solid var(--line);border-radius:21px;padding:20px;box-shadow:var(--rim-shadow);}
+.acct-heading {margin-bottom:13px;}
+.acct-heading h4 {font-size:16px;letter-spacing:-.025em;margin:0;}
+.acct-info-row {display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:13px 0;}
+.acct-info-row:last-child{border-bottom:0;}
+.acct-info-row span{color:var(--mut);font-size:11px;}
+.acct-info-row b{font-size:12px;overflow-wrap:anywhere;text-align:right;max-width:62%;}
+.acct-action {display:flex;align-items:center;text-align:left;gap:11px;width:100%;border:0;border-bottom:1px solid var(--line);padding:11px 0;background:transparent;color:var(--ink);cursor:pointer;font:inherit;}
+.acct-action:last-child{border-bottom:0;}
+.acct-action > span:nth-child(2){flex:1;min-width:0;}
+.acct-action b{font-size:12px;display:block;}
+.acct-action small{font-size:10.5px;color:var(--mut);display:block;margin-top:4px;}
+.acct-action-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;flex:none;}
+.acct-action-icon svg{width:17px;height:17px;}
+.tint-lilac{background:#EAE7FF;color:#514CB3}.tint-blue{background:#E4EDFF;color:#365DA7}.tint-peach{background:#FFECE5;color:#AA5F5C}.tint-mint{background:#E4F5EF;color:#257766}
+.acct-chevron{font-size:24px;color:var(--mut);}
+.acct-action:hover b{color:var(--acc);}
+
+/* Insights: primary metrics remain full-width above chart and breakdown */
+#v-ins .ins-kpi-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 20px;}
+#v-ins .ins-kpi {display:flex;flex-direction:column;gap:7px;min-width:0;padding:19px;border-radius:20px;border:1px solid var(--line);background:var(--card);box-shadow:var(--rim-shadow);}
+#v-ins .ins-kpi.tone-blue {background:#E7EEFF;border-color:#D6E2FC;}
+#v-ins .ins-kpi.tone-rose {background:#FDEAE5;border-color:#F5D9D1;}
+#v-ins .ins-kpi.tone-lilac {background:#EEEBFF;border-color:#DED8FA;}
+#v-ins .ins-kpi.tone-mint {background:#E7F4F1;border-color:#D8E8E3;}
+:root[data-theme=dark] #v-ins .ins-kpi.tone-blue,:root[data-theme=dark] #v-ins .ins-kpi.tone-rose,:root[data-theme=dark] #v-ins .ins-kpi.tone-lilac,:root[data-theme=dark] #v-ins .ins-kpi.tone-mint {background:var(--card);border-color:var(--line);}
+#v-ins .ins-kpi span{font:800 11px var(--font-sans);color:var(--ink-soft);}
+#v-ins .ins-kpi strong{font:800 clamp(17px,1.85vw,28px)/1.16 var(--font-sans);letter-spacing:-.045em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+#v-ins .ins-kpi strong.ins-over{color:var(--bad);}
+#v-ins .ins-kpi small{font-size:10.5px;color:var(--mut);line-height:1.35;}
+.ins-visual-grid {display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px;align-items:stretch;margin-bottom:20px;}
+#v-ins .mon {border:1px solid var(--line);border-radius:23px;padding:24px;background:var(--card);box-shadow:var(--rim-shadow);min-width:0;}
+#v-ins .mon-heading {align-items:flex-start;margin:0 0 16px;}
+#v-ins .mon-heading h3 {font-size:19px;margin:0;letter-spacing:-.025em;}
+#v-ins .mon-heading p{font-size:11px;color:var(--mut);margin:6px 0 0;}
+#v-ins .mon-heading > b{font-size:16px;white-space:nowrap;}
+#v-ins .trend-svg{height:180px;}
+.ins-budget-panel {min-width:0;border-radius:23px;padding:24px;background:linear-gradient(135deg,#1D2A52,#394D8E);color:#fff;box-shadow:0 14px 34px rgba(22,34,73,.17);}
+.ins-budget-top{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;}
+.ins-budget-top .ref-eyebrow{color:#C0C9F3;}
+.ins-budget-top h3{font-size:19px;margin:0;line-height:1.25;color:#fff;letter-spacing:-.025em;}
+.ins-budget-top p{font-size:11.5px;margin:7px 0 0;color:#CAD5F5;}
+.ins-budget-top strong{font-size:25px;white-space:nowrap;}
+.ins-budget-progress {display:flex;height:17px;border-radius:999px;background:rgba(255,255,255,.18);margin:26px 0 20px;overflow:hidden;}
+.ins-budget-progress > span {height:100%;display:block;}
+.ins-fill-paid{background:#A29AFF}.ins-fill-pending{background:#FFC2B1}.ins-fill-free{background:#A4DBCD}
+.ins-budget-legend{display:grid;grid-template-columns:1fr auto;gap:12px 8px;align-items:center;}
+.ins-budget-legend > span {display:flex;align-items:center;gap:8px;font-size:12px;color:#DCE4FA;}
+.ins-budget-legend > b {font-size:13px;font-variant-numeric:tabular-nums;text-align:right;}
+.ins-dot{display:inline-block;width:10px;height:10px;border-radius:50%;}.ins-dot.paid{background:#A29AFF}.ins-dot.pending{background:#FFC2B1}.ins-dot.free{background:#A4DBCD}
+.ins-budget-caption{border-top:1px solid rgba(255,255,255,.17);padding-top:15px;margin-top:20px;font-size:11px;color:#D1D8F3;line-height:1.45;}
+.ins-detail-grid {display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px;align-items:start;}
+.ins-breakdown-card,.ins-aside-card {background:var(--card);border:1px solid var(--line);box-shadow:var(--rim-shadow);border-radius:23px;padding:23px;min-width:0;}
+.ins-detail-aside{display:flex;flex-direction:column;gap:18px;min-width:0;}
+.ins-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
+.ins-section-head h3{font-size:19px;letter-spacing:-.025em;margin:0;}
+.ins-section-head > span{color:var(--mut);font-size:11px;font-weight:700;white-space:nowrap;}
+.ins-switcher {display:flex;gap:4px;margin:0 0 14px;background:var(--bg-elev);border-radius:14px;max-width:100%;overflow-x:auto;}
+.ins-switcher button {min-width:0;white-space:nowrap;font-size:11px;}
+#v-ins .ins-breakdown-item {padding:13px 0;border-bottom:1px solid var(--line);}
+#v-ins .ins-breakdown-item:last-child{border-bottom:0;}
+.ins-breakdown-top {display:flex;gap:14px;align-items:center;justify-content:space-between;}
+.ins-breakdown-top > div{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.ins-breakdown-top b {font-size:12px;overflow-wrap:anywhere;}
+.ins-breakdown-top span,.ins-breakdown-bottom{font-size:10.5px;color:var(--mut);}
+.ins-breakdown-top strong{font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.ins-breakdown-track {display:flex;height:8px;background:var(--bg-elev);border-radius:999px;overflow:hidden;margin:11px 0 8px;}
+.ins-breakdown-track i {height:100%;display:block;}
+.ins-paid-fill{background:#6F66D9}.ins-pending-fill{background:#F1AA91}
+.ins-breakdown-bottom{display:flex;justify-content:space-between;gap:12px;}
+.ins-empty {padding:16px 0;color:var(--mut);font-size:12px;line-height:1.5;}
+.ins-dues-list {display:flex;flex-direction:column;gap:7px;margin:0;}
+.ins-due-item {display:flex;align-items:center;gap:10px;min-width:0;border:1px solid var(--line);border-radius:14px;background:var(--bg-elev);padding:10px 11px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;}
+.ins-due-item:hover{border-color:var(--acc);}
+.ins-due-icon {display:grid;place-items:center;width:33px;height:33px;border-radius:10px;background:var(--card);flex:none;font-size:15px;}
+.ins-due-details {flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.ins-due-details b{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ins-due-details small{font-size:10.5px;color:var(--mut);}
+.ins-due-item strong{font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.ins-methods-list .kl{font-size:12px;}
+#v-ins #categoryBudgetSummary > .ir{box-shadow:none;background:var(--bg-elev);border-color:var(--line);margin-bottom:13px;}
+@media(max-width:1199px){.acct-shell{grid-template-columns:265px minmax(0,1fr)}.acct-lower-grid{grid-template-columns:1fr}.ins-visual-grid,.ins-detail-grid{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)} }
+@media(max-width:979px){.acct-shell{grid-template-columns:1fr}.acct-profile-card{min-height:0}.acct-lower-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ins-visual-grid,.ins-detail-grid{grid-template-columns:1fr} }
+@media(max-width:700px){.acct-lower-grid{grid-template-columns:1fr}.acct-stats{grid-template-columns:repeat(2,minmax(0,1fr))}#v-ins .ins-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ins-visual-grid,.ins-detail-grid{gap:14px;margin-bottom:14px}.ins-breakdown-card,.ins-aside-card,#v-ins .mon,.ins-budget-panel{padding:18px;border-radius:20px}.ref-page-title{align-items:start}.ref-title-actions .ref-utility-button{padding:9px;}.ref-title-actions .ref-utility-button span{display:none} }
+@media(max-width:390px){.acct-stats{grid-template-columns:1fr 1fr}.acct-stat{padding:13px 12px}.acct-stat:nth-child(1){grid-column:1/-1}.acct-stat strong{font-size:19px}#v-ins .ins-kpi{padding:13px}#v-ins .ins-kpi strong{font-size:16px}.ins-budget-legend > b{font-size:12px}.ins-breakdown-card,.ins-aside-card{padding:16px} }
+
 </style>
 </head>
 <body>
@@ -1805,23 +1927,34 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
     <aside class="pc2" id="pSide"></aside>
   </section>
 
-  <section id="v-acc" hidden style="max-width:1180px;margin:auto">
-    <div class="sh2" style="margin-top:0">
-      <div class="page-heading"><b>Account</b><p>Family access, budgets, records and reporting.</p></div>
+  <section id="v-acc" hidden>
+    <div class="ref-page-title">
+      <div><div class="ref-eyebrow">FAMILY WORKSPACE</div><h2>Account &amp; settings</h2><p>Everything you need to manage your shared wedding ledger.</p></div>
     </div>
-    <div id="accB"></div>
+    <div id="accB" aria-live="polite"></div>
   </section>
 
   <section id="v-ins" hidden>
-    <div class="sh2">
-      <div class="page-heading"><b>Financial Insights</b><p>Track spending, commitments, dues and category performance in one cleaner workspace.</p></div>
+    <div class="ref-page-title ref-title-actions">
+      <div><div class="ref-eyebrow">YOUR MONEY AT A GLANCE</div><h2>Financial insights</h2><p>See where the wedding budget is going and what's still to be paid.</p></div>
+      <button type="button" class="ref-utility-button" onclick="pdfReport()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Download report</span></button>
     </div>
-    <div class="ic1"><div class="mon" id="mon"></div><div id="insX"></div></div>
-    <div class="ic2">
-      <div class="sh2" style="margin-top:0"><b>Breakdown</b></div>
-      <div class="sg" id="insS" style="margin-top:0"></div>
-      <div id="categoryBudgetSummary"></div>
-      <div id="insL"></div>
+    <div id="insX" class="ins-kpi-grid"></div>
+    <div class="ins-visual-grid">
+      <div class="mon" id="mon"></div>
+      <div id="insBudget" class="ins-budget-panel"></div>
+    </div>
+    <div class="ins-detail-grid">
+      <div class="ins-breakdown-card">
+        <div class="ins-section-head"><div><div class="ref-eyebrow">EXPENSE ANALYSIS</div><h3>Spending breakdown</h3></div><span>Paid &amp; pending</span></div>
+        <div class="sg ins-switcher" id="insS"></div>
+        <div id="categoryBudgetSummary"></div>
+        <div id="insL"></div>
+      </div>
+      <div class="ins-detail-aside">
+        <div id="insDue" class="ins-aside-card"></div>
+        <div id="insModes" class="ins-aside-card"></div>
+      </div>
     </div>
   </section>
 </div>
@@ -2680,10 +2813,10 @@ function categoryBudgetOverview() {
 
 function ins() {
   const k = insK;
-  const f = { cat: x => x.cat, fn: x => x.fn || 'General', by: x => x.paidBy || 'Not set', ven: x => x.givenTo.trim() };
+  const f = { cat: x => x.cat, fn: x => x.fn || 'General', by: x => x.paidBy || 'Not set', ven: x => (x.givenTo || '').trim() };
   const m = {}, pm = {};
   S.exp.forEach(x => {
-    const g = f[k](x);
+    const g = f[k](x) || 'Not set';
     if (k !== 'by') m[g] = (m[g] || 0) + got(x);
     pm[g] = (pm[g] || 0) + rem(x);
     pays0(x).forEach(p => {
@@ -2694,103 +2827,94 @@ function ins() {
     });
   });
   const tot = spent();
-  const ks = Object.keys(m).filter(g => m[g] + pm[g] > 0).sort((a, b) => (m[b] + pm[b]) - (m[a] + pm[a]));
+  const ks = [...new Set([...Object.keys(m), ...Object.keys(pm)])]
+    .filter(g => (m[g] || 0) + (pm[g] || 0) > 0)
+    .sort((a,b) => ((m[b]||0)+(pm[b]||0))-((m[a]||0)+(pm[a]||0)));
   const series = monthlySeries();
   $('mon').hidden = false;
-  $('mon').innerHTML = `<div class="mon-heading"><div><div class="l">Payment trend</div><h3>Spent over 6 months</h3></div><b>${inr(series.reduce((a, x) => a + x.value, 0))}</b></div>${trendChart('trendInsights')}`;
+  $('mon').innerHTML = `<div class="mon-heading"><div><div class="ref-eyebrow">CASH FLOW</div><h3>Payments over time</h3><p>Last six months · tap a point for details</p></div><b>${inr(series.reduce((a,x) => a + x.value, 0))}</b></div>${trendChart('trendInsights')}`;
   selectTrendPoint('trendInsights', 5);
-  $('insS').innerHTML = [['cat', 'Category'], ['fn', 'Function'], ['by', 'Paid by'], ['ven', 'Vendors']].map(([a, b]) => `<button type="button" class="${k === a ? 'on' : ''}" onclick="insK='${a}';ins()">${b}</button>`).join('');
+  $('insS').innerHTML = [['cat','Categories'],['fn','Functions'],['by','Paid by'],['ven','Vendors']]
+    .map(([a,b]) => `<button type="button" class="${k===a?'on':''}" aria-pressed="${k===a}" onclick="insK='${a}';ins()">${b}</button>`).join('');
   $('categoryBudgetSummary').innerHTML = k === 'cat' ? categoryBudgetOverview() : '';
   $('insL').innerHTML = ks.length ? ks.map(g => {
-    const p = m[g], q = pm[g], bk = p + q;
-    const pp = bk ? p / bk * 100 : 0, qq = bk ? q / bk * 100 : 0;
-    const pc = tot ? Math.round(p / tot * 100) : 0;
-    return `<div class="ir"><div class="row"><b>${k === 'cat' ? (CATS[g] || '') + ' ' : ''}${esc(g)}</b><b>${inr(p)}</b></div><div class="bar" style="display:flex"><b style="width:${pp}%"></b><b style="width:${qq}%;background:var(--rose-accent)"></b></div><div class="row m"><span>${pc}% of spend</span><span style="${q > 0 ? 'color:var(--warn);font-weight:700' : ''}">${q > 0 ? inr(q) + ' pending' : 'No dues'}</span></div></div>`;
-  }).join('') : '<div class="m" style="padding:30px;text-align:center">Add payments to see insights.</div>';
+    const p = m[g] || 0, q = pm[g] || 0, total = p+q;
+    const pp = total ? 100*p/total : 0;
+    const qq = total ? 100*q/total : 0;
+    const percent = tot ? Math.round(p/tot*100) : 0;
+    return `<div class="ins-breakdown-item"><div class="ins-breakdown-top"><div><b>${k==='cat'?(CATS[g]||'📌')+' ':''}${esc(g)}</b><span>${percent}% of money paid</span></div><strong>${inr(p)}</strong></div><div class="ins-breakdown-track" role="img" aria-label="${esc(g)}: ${inr(p)} paid, ${inr(q)} pending"><i style="width:${pp}%" class="ins-paid-fill"></i><i style="width:${qq}%" class="ins-pending-fill"></i></div><div class="ins-breakdown-bottom"><span>${inr(p)} paid</span><span>${q>0?inr(q)+' pending':'Fully paid'}</span></div></div>`;
+  }).join('') : '<div class="ins-empty">No payment data yet. Add a vendor to start tracking your spending.</div>';
 }
 
 function sideI() {
-  const s = stats();
-  const dues = S.exp.filter(x => rem(x) > 0).sort((a, b) => (a.due || '9').localeCompare(b.due || '9'));
-  const td = today();
-  const committed = S.exp.reduce((sum, x) => sum + Number(x.amount || 0), 0);
-  const unallocated = Math.max(0, (Number(S.total) || 0) - committed);
-  $('insX').innerHTML = `
-    <div class="ins-kpi-grid">
-      <div class="ins-kpi"><small>Total spent</small><b>${inr(s.tp)}</b></div>
-      <div class="ins-kpi"><small>Pending now</small><b>${inr(s.tc)}</b></div>
-      <div class="ins-kpi"><small>Committed</small><b>${inr(committed)}</b></div>
-      <div class="ins-kpi"><small>Unallocated</small><b>${inr(unallocated)}</b></div>
-    </div>
-    <div class="ins-aux-grid">
-      <div class="ir">
-        <div class="ins-section-title"><b>Upcoming dues</b><span class="m">${dues.length} open ${dues.length === 1 ? 'payment' : 'payments'}</span></div>
-        ${dues.length ? `<div class="ins-dues-list">${dues.map(x => `<button type="button" class="ins-due-item" onclick="det('${x.id}')"><span>${esc(x.givenTo)} · ${x.due ? (x.due < td ? '<b style=&quot;color:var(--bad)&quot;>overdue</b> ' : '') + fd(x.due) : 'no due date'}</span><b>${inr(rem(x))}</b></button>`).join('')}</div>` : '<div class="m">Nothing pending right now.</div>'}
-      </div>
-      <div class="ir">
-        <div class="ins-section-title"><b>Payment modes</b><span class="m">Most used</span></div>
-        ${tl(topn(x => x.mode || 'Not set', 5))}
-      </div>
-    </div>`;
+  const s=stats();
+  const dues=S.exp.filter(x=>rem(x)>0).sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));
+  const td=today();
+  const committed=S.exp.reduce((sum,x)=>sum+(Number(x.amount)||0),0);
+  const unallocated=(Number(S.total)||0)-committed;
+  const budget=Math.max(0,Number(S.total)||0);
+  const spentPercent=budget?Math.min(100,100*s.tp/budget):0;
+  const owedPercent=budget?Math.min(100-spentPercent,100*s.tc/budget):0;
+  const freePercent=budget?Math.max(0,100-spentPercent-owedPercent):0;
+  $('insX').innerHTML=`
+    <div class="ins-kpi tone-blue"><span>Paid so far</span><strong>${inr(s.tp)}</strong><small>Actual money paid</small></div>
+    <div class="ins-kpi tone-rose"><span>Pending dues</span><strong>${inr(s.tc)}</strong><small>Still owed to vendors</small></div>
+    <div class="ins-kpi tone-lilac"><span>Committed</span><strong>${inr(committed)}</strong><small>Vendor booking totals</small></div>
+    <div class="ins-kpi tone-mint"><span>Unallocated</span><strong class="${unallocated<0?'ins-over':''}">${inr(unallocated)}</strong><small>${unallocated<0?'Over budget commitment':'Free to assign'}</small></div>`;
+  $('insBudget').innerHTML=`
+    <div class="ins-budget-top"><div><div class="ref-eyebrow">BUDGET HEALTH</div><h3>Where your budget stands</h3><p>Cash paid vs. planned commitments</p></div><strong>${budget?Math.round(100*committed/budget)+'%':'—'}</strong></div>
+    <div class="ins-budget-progress" role="img" aria-label="${inr(s.tp)} spent, ${inr(s.tc)} pending and ${inr(unallocated)} unallocated"><span class="ins-fill-paid" style="width:${spentPercent}%"></span><span class="ins-fill-pending" style="width:${owedPercent}%"></span><span class="ins-fill-free" style="width:${freePercent}%"></span></div>
+    <div class="ins-budget-legend"><span><i class="ins-dot paid"></i>Paid</span><b>${inr(s.tp)}</b><span><i class="ins-dot pending"></i>Pending</span><b>${inr(s.tc)}</b><span><i class="ins-dot free"></i>Unallocated</span><b>${inr(unallocated)}</b></div>
+    <div class="ins-budget-caption">${budget? (unallocated<0?'Vendor commitments exceed the total budget.':'Budget '+inr(budget)+' · '+Math.round(100*s.tp/budget)+'% paid to date'):'Set a wedding budget in Settings to compare your commitments.'}</div>`;
+  $('insDue').innerHTML=`
+    <div class="ins-section-head"><div><div class="ref-eyebrow">NEXT UP</div><h3>Upcoming dues</h3></div><span>${dues.length} open</span></div>
+    <div class="ins-dues-list">${dues.length?dues.slice(0,5).map(x=>`<button type="button" class="ins-due-item" onclick="det('${x.id}')"><span class="ins-due-icon">${CATS[x.cat]||'📌'}</span><span class="ins-due-details"><b>${esc(x.givenTo)}</b><small>${x.due?(x.due<td?'Overdue · ':'')+fd(x.due):'No due date'}</small></span><strong>${inr(rem(x))}</strong></button>`).join(''):'<p class="ins-empty">No upcoming payments.</p>'}</div>`;
+  $('insModes').innerHTML=`<div class="ins-section-head"><div><div class="ref-eyebrow">HOW YOU PAY</div><h3>Payment methods</h3></div></div><div class="ins-methods-list">${tl(topn(x=>x.mode||'Not set',5))}</div>`;
 }
 
 function acc() {
   const u = AUTH && AUTH.currentUser;
-  const nm = u ? (u.displayName || (u.email || 'Family').split('@')[0]) : 'Swetha & Kalyan';
-  const emAddr = u ? u.email || '' : 'Signed out';
-  const pid = ((u && u.providerData && u.providerData[0] && u.providerData[0].providerId) || 'Google');
-  const initials = (nm || 'SK').split(/\s+/).slice(0, 2).map(x => x[0] || '').join('').toUpperCase();
+  const nm = u ? (u.displayName || (u.email || 'Family').split('@')[0]) : 'Family member';
+  const emAddr = u ? (u.email || '') : 'Signed out';
+  const pid = u && u.providerData && u.providerData[0] && u.providerData[0].providerId || 'Google';
+  const initials = (nm || 'FM').trim().split(/\s+/).slice(0,2).map(x => x[0] || '').join('').toUpperCase();
   const s = stats();
-  const committed = S.exp.reduce((sum, x) => sum + Number(x.amount || 0), 0);
-  const unallocated = Math.max(0, (Number(S.total) || 0) - committed);
+  const commitment = S.exp.reduce((sum, x) => sum + (Number(x.amount) || 0), 0);
+  const unsettled = S.exp.filter(x => rem(x) > 0).length;
+  const receiptCount = S.exp.filter(x => !!x.inv).length;
   $('accB').innerHTML = `
-    <div class="acc-layout">
-      <div class="acc-panel acc-profile">
-        <div class="acc-avatar">${esc(initials)}</div>
-        <div class="acc-name">${esc(nm)}</div>
-        <div class="acc-sub">${esc(emAddr)}</div>
-        <div class="acc-badges">
-          <span class="acc-badge">${esc(pid.includes('google') ? 'Google sync' : pid)}</span>
-          <span class="acc-badge">${esc(role)}</span>
+    <div class="acct-shell">
+      <aside class="acct-profile-card">
+        <div class="acct-profile-mark">${esc(initials)}</div>
+        <div class="acct-profile-eyebrow">SIGNED IN AS</div>
+        <h3>${esc(nm)}</h3>
+        <p class="acct-email">${esc(emAddr)}</p>
+        <div class="acct-tags"><span>${esc(role)}</span><span>${esc(pid.includes('google') ? 'Google account' : pid)}</span></div>
+        <div class="acct-profile-divider"></div>
+        <div class="acct-member-status"><span class="acct-status-dot"></span><span>Private family workspace</span></div>
+        <button type="button" class="acct-signout" onclick="signOutAction()">Sign out of account <span aria-hidden="true">↗</span></button>
+      </aside>
+      <div class="acct-workspace">
+        <div class="acct-welcome"><div><div class="ref-eyebrow">WEDDING WORKSPACE</div><h3>Manage your ledger</h3><p>Your records, access details and exports in one place.</p></div><button type="button" onclick="openS()" class="ref-utility-button">${svg('sliders')}<span>Settings</span></button></div>
+        <div class="acct-stats">
+          <div class="acct-stat"><span>Wedding budget</span><strong>${inr(S.total || 0)}</strong><small>Planned for the celebration</small></div>
+          <div class="acct-stat"><span>Vendor bookings</span><strong>${S.exp.length}</strong><small>${unsettled} with a balance due</small></div>
+          <div class="acct-stat"><span>Recorded payments</span><strong>${S.exp.reduce((sum,x)=>sum + pays0(x).length,0)}</strong><small>${receiptCount} vendor records with receipts</small></div>
         </div>
-      </div>
-      <div class="acc-grid">
-        <div class="acc-panel" style="grid-column:1 / -1">
-          <div class="acc-title"><b>Wedding ledger snapshot</b><span class="m">Overview</span></div>
-          <div class="acc-kpi-grid">
-            <div class="acc-kpi"><small>Total budget</small><b>${inr(S.total || 0)}</b></div>
-            <div class="acc-kpi"><small>Total spent</small><b>${inr(s.tp)}</b></div>
-            <div class="acc-kpi"><small>Committed</small><b>${inr(committed)}</b></div>
-            <div class="acc-kpi"><small>Unallocated</small><b>${inr(unallocated)}</b></div>
-          </div>
-        </div>
-        <div class="acc-panel">
-          <div class="acc-title"><b>Account & access</b><span class="m">Identity</span></div>
-          <div class="acc-list">
-            <div class="acc-row"><span>Role</span><b>${esc(role)}</b></div>
-            <div class="acc-row"><span>Mode</span><b>${esc(pid.includes('google') ? 'Google Cloud Sync' : pid)}</b></div>
-            <div class="acc-row"><span>Wedding date</span><b>${fd(S.date) || 'Not set'}</b></div>
-            <div class="acc-row"><span>Signed in as</span><b>${esc(u ? (u.email || 'Active user') : 'Signed out')}</b></div>
-          </div>
-        </div>
-        <div class="acc-panel">
-          <div class="acc-title"><b>Records & planning</b><span class="m">Current data</span></div>
-          <div class="acc-list">
-            <div class="acc-row"><span>Vendors</span><b>${S.exp.length} entries</b></div>
-            <div class="acc-row"><span>Functions</span><b>${Object.keys(S.fns || {}).length || 0} planned</b></div>
-            <div class="acc-row"><span>Pending balance</span><b>${inr(s.tc)}</b></div>
-            <div class="acc-row"><span>Largest payment</span><b>${s.mx ? inr(s.mx.amount) : '—'}</b></div>
-          </div>
-        </div>
-        <div class="acc-panel" style="grid-column:1 / -1">
-          <div class="acc-title"><b>Quick actions</b><span class="m">Tools</span></div>
-          <div class="acc-actions">
-            <button type="button" class="bt a" onclick="openS()">Open Budget Settings</button>
-            <button type="button" class="bt s" onclick="xl()">Export Excel</button>
-            <button type="button" class="bt s" onclick="exportDueCalendar()">Export Due Calendar</button>
-            <button type="button" class="bt s" onclick="signOutAction()">Sign out</button>
-          </div>
-          <div class="acc-note">Use this section to manage access, review wedding totals, and export or back up records without hunting through multiple screens.</div>
+        <div class="acct-lower-grid">
+          <section class="acct-section"><div class="acct-heading"><div><div class="ref-eyebrow">DETAILS</div><h4>Workspace information</h4></div></div>
+            <div class="acct-info-row"><span>Wedding date</span><b>${fd(S.date) || 'Not set'}</b></div>
+            <div class="acct-info-row"><span>Your access</span><b>${esc(role)}</b></div>
+            <div class="acct-info-row"><span>Connection</span><b>${esc(pid.includes('google') ? 'Google / Firebase' : pid)}</b></div>
+            <div class="acct-info-row"><span>Total committed</span><b>${inr(commitment)}</b></div>
+            <div class="acct-info-row"><span>Pending to vendors</span><b>${inr(s.tc)}</b></div>
+          </section>
+          <section class="acct-section"><div class="acct-heading"><div><div class="ref-eyebrow">TOOLS</div><h4>Data &amp; reports</h4></div></div>
+            <button type="button" class="acct-action" onclick="openS()"><span class="acct-action-icon tint-lilac">${svg('sliders')}</span><span><b>Budget &amp; preferences</b><small>Change wedding budget and dates</small></span><span class="acct-chevron">›</span></button>
+            <button type="button" class="acct-action" onclick="xl()"><span class="acct-action-icon tint-blue">${svg('list')}</span><span><b>Export to Excel</b><small>Download your payment records</small></span><span class="acct-chevron">›</span></button>
+            <button type="button" class="acct-action" onclick="pdfReport()"><span class="acct-action-icon tint-peach">${svg('chart')}</span><span><b>Financial PDF report</b><small>Save or print a summary</small></span><span class="acct-chevron">›</span></button>
+            <button type="button" class="acct-action" onclick="bk()"><span class="acct-action-icon tint-mint">${svg('clip')}</span><span><b>Download backup</b><small>Keep a copy of your ledger</small></span><span class="acct-chevron">›</span></button>
+          </section>
         </div>
       </div>
     </div>`;
