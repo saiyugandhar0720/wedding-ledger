@@ -2207,36 +2207,148 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 }
 @media(max-width:420px){#mA .date-control {height:52px;}}
 
+
+/* ONE definitive responsive desktop masthead. Replaces conflicting earlier passes. */
+@media (min-width:980px) {
+  .w {max-width:1800px;}
+  .hd2 {display:none!important;}
+  .top-nav {
+    position:relative!important; inset:auto!important;
+    display:grid!important;
+    grid-template-columns:minmax(0, 1.02fr) minmax(0, 1.28fr) minmax(0, 1.16fr);
+    align-items:center;gap:clamp(12px,1.2vw,24px);
+    margin:0 auto 22px;padding:18px clamp(22px,2.3vw,40px);
+    min-height:clamp(112px,8.2vw,142px);
+    background:linear-gradient(108deg,#102C5D 0%,#23458B 48%,#593A8C 100%)!important;
+    border:1px solid rgba(255,255,255,.18);border-radius:30px;
+    box-shadow:0 16px 38px rgba(23,32,91,.18),0 6px 16px rgba(102,64,153,.1);
+    isolation:isolate;overflow:visible;backdrop-filter:none;-webkit-backdrop-filter:none;
+  }
+  .top-nav::before {content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:-1;background:radial-gradient(circle at -1% 120%,transparent 0 80px,rgba(255,255,255,.1) 81px 82px,transparent 83px),radial-gradient(circle at 103% -20%,transparent 0 95px,rgba(255,255,255,.09) 96px 97px,transparent 98px);}
+  .top-nav .tn-brand {width:100%;min-width:0;display:flex;align-items:center;gap:clamp(12px,1.4vw,23px);text-decoration:none;color:white;white-space:nowrap;}
+  .tn-rings {display:flex;align-items:center;flex:none;position:relative;width:clamp(64px,5.4vw,94px);height:clamp(60px,5.4vw,86px);padding-left:2px;}
+  .tn-rings span {display:grid;place-items:center;flex:none;width:clamp(45px,3.7vw,64px);height:clamp(45px,3.7vw,64px);border:3px solid #7ACDFF;border-radius:50%;color:#fff;background:rgba(9,32,73,.35);font:700 clamp(24px,2.05vw,35px)/1 Georgia,serif;box-shadow:0 0 0 2px rgba(128,205,255,.15),0 0 14px rgba(94,193,255,.21);}
+  .tn-rings .tn-ring-k {margin-left:clamp(-22px,-1.3vw,-14px);border-color:#FF9C9C;box-shadow:0 0 0 2px rgba(255,158,163,.12),0 0 13px rgba(255,145,152,.22);}
+  .top-nav .tn-title-wrap {display:flex;flex-direction:column;min-width:0;gap:5px;border-left:1px solid rgba(255,255,255,.26);padding-left:clamp(13px,1.45vw,24px);}
+  .top-nav .tn-overline {font:800 clamp(9px,.73vw,13px)/1.25 var(--font-sans);letter-spacing:.20em;text-transform:uppercase;color:#FFD1C5;}
+  .top-nav .tn-wedding-name {font:700 clamp(23px,2.15vw,39px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.035em;color:#fff;white-space:nowrap;}
+  .top-nav .tn-wedding-name em {color:#FFB7A9;font-style:italic;}
+  .top-nav .tn-pills {width:100%;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:4px;padding:7px 8px;border-radius:999px;background:#fff!important;border:1px solid rgba(226,231,253,.8);box-shadow:0 5px 16px rgba(12,24,63,.13);}
+  .top-nav .tn-pills button {display:flex;align-items:center;justify-content:center;flex:1 1 0;gap:8px;min-width:0;height:clamp(43px,3.2vw,54px);padding:0 7px;border:0;border-radius:999px;background:transparent;color:#162A57;font:750 clamp(12px,.95vw,16px)/1 var(--font-sans);white-space:nowrap;cursor:pointer;transition:background .16s,color .16s,box-shadow .16s;}
+  .top-nav .tn-pills button:hover {background:#EEF1FC;}
+  .top-nav .tn-pills button.on,.top-nav .tn-pills button.on:hover {background:linear-gradient(110deg,#173873,#3047A2);color:#fff;box-shadow:0 5px 12px rgba(28,57,141,.23);}
+  .top-nav .tn-pills button > svg {display:block!important;visibility:visible!important;opacity:1!important;flex:none;width:clamp(18px,1.27vw,23px);height:clamp(18px,1.27vw,23px);fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;}
+  .top-nav .tn-pills button > span {display:inline-block;white-space:nowrap;}
+  .top-nav .tn-actions {min-width:0;width:100%;display:flex;align-items:center;justify-content:flex-end;gap:clamp(8px,.75vw,14px);}
+  .top-nav .tn-status {position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  .top-nav .tn-event-date {display:inline-flex;align-items:center;gap:7px;color:#fff;white-space:nowrap;font:750 clamp(11px,.81vw,14px)/1 var(--font-sans);}
+  .top-nav .tn-event-date svg {width:18px;height:18px;flex:none;}
+  .top-nav .tn-countdown {display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:999px;background:#FFD6D3;color:#1B2B56;font:800 clamp(10px,.78vw,14px)/1 var(--font-sans);white-space:nowrap;}
+  .top-nav .tn-icon-btn {display:grid;place-items:center;width:clamp(37px,2.85vw,49px);height:clamp(37px,2.85vw,49px);padding:0;flex:none;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;}
+  .top-nav .tn-icon-btn svg {width:21px;height:21px;}
+  .top-nav .tn-new-btn,:root[data-theme="dark"] .top-nav .tn-new-btn {display:flex;align-items:center;justify-content:center;gap:8px;flex:none;height:clamp(43px,3.2vw,54px);padding:0 clamp(12px,1.1vw,22px);border-radius:999px;background:#fff;color:#192B59;font:800 clamp(11px,.82vw,14px)/1 var(--font-sans);white-space:nowrap;box-shadow:0 5px 19px rgba(255,255,255,.17);}
+  .top-nav .tn-new-btn svg {width:20px;height:20px;}
+}
+@media (min-width:980px) and (max-width:1599px) {
+  .top-nav {grid-template-columns:minmax(0,1.02fr) minmax(0,1.32fr) minmax(0,1.07fr);padding:16px clamp(16px,1.7vw,27px);gap:clamp(9px,.85vw,16px);}
+  .top-nav .tn-wedding-name {font-size:clamp(22px,2.0vw,32px);}
+  .top-nav .tn-pills button {font-size:clamp(12px,.92vw,14px);gap:6px;padding:0 4px;}
+  .top-nav .tn-actions {gap:7px;}
+  .top-nav .tn-countdown {padding:9px;}
+  .top-nav .tn-new-btn {padding:0 12px;}
+}
+@media (min-width:980px) and (max-width:1290px) {
+  .top-nav {grid-template-columns:minmax(0,.99fr) minmax(0,1.27fr) minmax(0,.72fr);}
+  .top-nav .tn-event-date {display:none;}
+  .top-nav .tn-wedding-name {font-size:clamp(19px,1.8vw,24px);}
+  .tn-rings {width:56px;height:55px;}
+  .tn-rings span {width:41px;height:41px;font-size:24px;}
+  .tn-rings .tn-ring-k {margin-left:-15px;}
+}
+@media (min-width:980px) and (max-width:1090px) {
+  .top-nav .tn-countdown {display:none;}
+  .top-nav .tn-wedding-name {font-size:19px;}
+  .top-nav .tn-overline {font-size:8px;letter-spacing:.14em;}
+  .top-nav .tn-pills button {font-size:11px;gap:4px;}
+  .top-nav .tn-pills button > svg {width:16px;height:16px;}
+  .top-nav .tn-icon-btn {width:34px;height:34px;}
+  .top-nav .tn-new-btn {font-size:11px;padding:0 9px;}
+}
+
+
+/* Final desktop alignment: reference-matched single header. */
+@media (min-width:980px) {
+  .top-nav {
+    grid-template-columns:minmax(0,1.08fr) minmax(0,1.34fr) minmax(0,1.47fr)!important;
+    gap:clamp(14px,1.15vw,24px)!important;
+    padding:clamp(15px,1.25vw,22px) clamp(19px,2.05vw,36px)!important;
+    min-height:118px!important;
+    border-radius:26px!important;
+  }
+  .top-nav .tn-brand {gap:clamp(12px,1.3vw,20px)!important;justify-self:start;}
+  .top-nav .tn-title-wrap {padding-left:clamp(15px,1.25vw,23px)!important;gap:6px;}
+  .top-nav .tn-overline {letter-spacing:.20em!important;}
+  .top-nav .tn-rings {width:clamp(68px,5.5vw,92px)!important;height:70px!important;}
+  .top-nav .tn-rings span {width:clamp(45px,3.7vw,62px)!important;height:clamp(45px,3.7vw,62px)!important;}
+  .top-nav .tn-pills {justify-self:stretch;min-height:62px;gap:3px!important;padding:7px!important;}
+  .top-nav .tn-pills button {height:48px!important;gap:7px!important;padding:0 5px!important;font-size:clamp(12px,.93vw,15px)!important;}
+  .top-nav .tn-pills button > svg {width:20px!important;height:20px!important;}
+  .top-nav .tn-actions {justify-self:end;gap:clamp(8px,.85vw,15px)!important;min-width:0;}
+  .top-nav .tn-event-date {position:relative;padding-left:clamp(15px,1.8vw,30px)!important;gap:9px!important;font-size:clamp(11px,.92vw,15px)!important;}
+  .top-nav .tn-event-date::before {content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);height:40px;width:1px;background:rgba(255,255,255,.28);}
+  .top-nav .tn-countdown {padding:11px 14px!important;font-size:clamp(11px,.82vw,14px)!important;}
+  .top-nav .tn-icon-btn {width:clamp(39px,3vw,48px)!important;height:clamp(39px,3vw,48px)!important;}
+  .top-nav .tn-new-btn {height:50px!important;padding:0 clamp(13px,1.1vw,20px)!important;font-size:clamp(12px,.86vw,15px)!important;}
+}
+@media (min-width:980px) and (max-width:1530px) {
+  .top-nav {grid-template-columns:minmax(0,1.01fr) minmax(0,1.29fr) minmax(0,1.40fr)!important;gap:11px!important;}
+  .top-nav .tn-wedding-name {font-size:clamp(23px,1.93vw,30px)!important;}
+  .top-nav .tn-actions {gap:7px!important;}
+  .top-nav .tn-countdown {padding:10px!important;}
+  .top-nav .tn-new-btn {padding:0 12px!important;}
+}
+@media (min-width:980px) and (max-width:1290px) {
+  .top-nav {grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,.83fr)!important;}
+  .top-nav .tn-event-date {display:none!important;}
+  .top-nav .tn-wedding-name {font-size:clamp(20px,1.85vw,25px)!important;}
+  .top-nav .tn-pills button {font-size:12px!important;gap:4px!important;}
+  .top-nav .tn-countdown {font-size:11px!important;}
+}
+@media (min-width:980px) and (max-width:1100px) {
+  .top-nav .tn-countdown {display:none!important;}
+  .top-nav .tn-pills button > svg {width:17px!important;height:17px!important;}
+  .top-nav .tn-pills {min-height:56px;}
+  .top-nav .tn-pills button {height:42px!important;}
+}
+
 </style>
 </head>
 <body>
 
 <div class="w">
   <nav class="top-nav" aria-label="Primary desktop navigation">
-    <a class="tn-brand" href="#" onclick="go('home');return false">
-      <div class="tn-logo" aria-hidden="true">
-        <span>S</span>
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3.2"/><circle cx="18.2" cy="8.5" r="3.2"/><circle cx="18.2" cy="15.5" r="3.2"/><circle cx="12" cy="19" r="3.2"/><circle cx="5.8" cy="15.5" r="3.2"/><circle cx="5.8" cy="8.5" r="3.2"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>
-        <span>K</span>
-      </div>
-      <div class="tn-title-wrap">
-        <span class="tn-title">wedding <em>ledger.</em></span>
-        <span class="tn-sub">SWETHA &amp; KALYAN</span>
-      </div>
+    <a class="tn-brand" href="#" onclick="go('home');return false" aria-label="Swetha and Kalyan Wedding Ledger, Home">
+      <span class="tn-rings" aria-hidden="true"><span class="tn-ring-s">S</span><span class="tn-ring-k">K</span></span>
+      <span class="tn-title-wrap">
+        <span class="tn-overline">The wedding of</span>
+        <span class="tn-wedding-name">Swetha <em>&amp;</em> Kalyan</span>
+      </span>
     </a>
 
     <div class="tn-pills" role="tablist" aria-label="Sections">
-      <button type="button" class="on" id="tn-home" data-i="home" data-t="Home" onclick="go('home')"></button>
-      <button type="button" id="tn-pay" data-i="list" data-t="Payments" onclick="go('pay')"></button>
-      <button type="button" id="tn-ins" data-i="chart" data-t="Insights" onclick="go('ins')"></button>
-      <button type="button" id="tn-acc" data-i="user" data-t="Profile" onclick="go('acc')"></button>
+      <button type="button" class="on" id="tn-home" data-i="home" data-t="Home" onclick="go('home')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></button>
+      <button type="button" id="tn-pay" data-i="list" data-t="Payments" onclick="go('pay')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Payments</span></button>
+      <button type="button" id="tn-ins" data-i="chart" data-t="Insights" onclick="go('ins')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Insights</span></button>
+      <button type="button" id="tn-acc" data-i="user" data-t="Profile" onclick="go('acc')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span></button>
     </div>
 
     <div class="tn-actions">
       <span class="tn-status" id="syDesk">Ready</span>
-      <button type="button" class="tn-icon-btn" id="thBDesk" onclick="toggleTheme()" aria-label="Switch theme"></button>
-      <button type="button" class="tn-icon-btn" onclick="openS()" aria-label="Settings" data-i="sliders"></button>
-      <button type="button" class="tn-new-btn wr" onclick="openAdd()" data-i="plus" data-t="New payment"></button>
+      <span class="tn-event-date" aria-label="Wedding date"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span id="wdDesk">12 Feb 2027</span></span>
+      <span class="tn-countdown" id="cdDesk">Wedding ledger</span>
+      <button type="button" class="tn-icon-btn" id="thBDesk" onclick="toggleTheme()" aria-label="Switch theme"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.5 13.2A8.5 8.5 0 0 1 10.8 3.5 8.5 8.5 0 1 0 20.5 13.2Z"/></svg></button>
+      <button type="button" class="tn-icon-btn" onclick="openS()" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 17h16M9 4v6M15 14v6"/></svg></button>
+      <button type="button" class="tn-new-btn wr" onclick="openAdd()"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg><span>New payment</span></button>
     </div>
   </nav>
 
@@ -2377,11 +2489,11 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 </div>
 
 <nav class="dock-bar" id="dock" aria-label="Main navigation">
-  <button type="button" aria-label="Home" class="on" data-i="home" id="n-home" onclick="go('home')"></button>
-  <button type="button" aria-label="Payments" data-i="list" id="n-pay" onclick="go('pay')"></button>
+  <button type="button" aria-label="Home" class="on" data-i="home" id="n-home" onclick="go('home')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></button>
+  <button type="button" aria-label="Payments" data-i="list" id="n-pay" onclick="go('pay')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
   <button type="button" aria-label="Add payment" class="dock-add wr" data-i="plus" onclick="openAdd()"></button>
-  <button type="button" aria-label="Insights" data-i="chart" id="n-ins" onclick="go('ins')"></button>
-  <button type="button" aria-label="Account" data-i="user" id="n-acc" onclick="go('acc')"></button>
+  <button type="button" aria-label="Insights" data-i="chart" id="n-ins" onclick="go('ins')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></button>
+  <button type="button" aria-label="Account" data-i="user" id="n-acc" onclick="go('acc')"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
 </nav>
 
 <div class="ts" id="ts" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -2688,7 +2800,7 @@ const IC = {
   moon: '<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>'
 };
 const svg = n => `<svg viewBox="0 0 24 24">${IC[n] || ''}</svg>`;
-const icons = () => document.querySelectorAll('[data-i]').forEach(e => { e.innerHTML = svg(e.dataset.i) + (e.dataset.t ? `<span>${e.dataset.t}</span>` : ''); });
+const icons = () => document.querySelectorAll('[data-i]').forEach(e => { if (e.querySelector('svg')) return; e.innerHTML = svg(e.dataset.i) + (e.dataset.t ? `<span>${e.dataset.t}</span>` : ''); });
 
 const got = x => Array.isArray(x.pays) ? x.pays.reduce((s, p) => s + (Number(p.a) || 0), 0) : (x.status === 'Pending' ? 0 : Number(x.amount) || 0);
 const rem = x => Math.max(0, (Number(x.amount) || 0) - got(x));
@@ -2990,6 +3102,8 @@ function render() {
   const d = S.date ? Math.ceil((new Date(S.date + 'T00:00:00') - new Date(today() + 'T00:00:00')) / 864e5) : null;
   $('wd').textContent = S.date ? new Date(S.date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Set wedding date in settings';
   $('cd').textContent = d === null ? 'Wedding ledger' : d > 0 ? d + ' days to go' : d === 0 ? 'Today is the day!' : 'Happily married';
+  if ($('wdDesk')) $('wdDesk').textContent = $('wd').textContent;
+  if ($('cdDesk')) $('cdDesk').textContent = $('cd').textContent;
 
   const u = f => [...new Set(S.exp.map(f).filter(Boolean))].map(v => `<option value="${esc(v)}">`).join('');
   const vendors = u(x => x.givenTo), payers = u(x => x.paidBy);
