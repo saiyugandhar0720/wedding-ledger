@@ -2029,6 +2029,82 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 /* Preserve visible focus indicators while hiding scrollbar tracks. */
 #rec .payment-row:focus-visible {outline:3px solid var(--rose-accent);outline-offset:3px;border-radius:12px;}
 
+
+/* Settings sheet layout: prevent iOS native date input overflow. */
+#mS .settings-sheet {
+  box-sizing:border-box;
+  min-width:0;
+  width:100%;
+  max-width:560px;
+  overflow-x:hidden;
+}
+#mS .settings-sheet > * { max-width:100%; min-width:0; box-sizing:border-box; }
+#mS .settings-sheet input:not([type=checkbox]):not([type=radio]):not([type=range]),
+#mS .settings-sheet select {
+  box-sizing:border-box !important;
+  display:block;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  font-size:16px !important;
+  line-height:1.3;
+}
+#mS input[type=date] {
+  -webkit-appearance:none;
+  appearance:none;
+  height:52px;
+  min-height:52px;
+  padding:12px 14px !important;
+  overflow:hidden;
+  text-align:left;
+  color:var(--ink);
+}
+#mS input[type=date]::-webkit-date-and-time-value {
+  min-width:0;
+  text-align:left;
+}
+#mS input[type=date]::-webkit-datetime-edit { min-width:0; padding:0; }
+#mS input[type=date]::-webkit-calendar-picker-indicator {
+  flex:0 0 auto;
+  margin-left:auto;
+  opacity:.72;
+}
+#mS #sT {
+  font-size:19px !important;
+  font-weight:800 !important;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.01em;
+}
+#mS .category-budget-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  width:100%;
+  min-width:0;
+}
+#mS .settings-category-item {
+  min-width:0;
+  padding:11px 12px 12px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--bg-elev);
+}
+#mS .settings-category-item label {
+  font-size:12px;
+  line-height:1.4;
+  margin:0 0 8px;
+  overflow-wrap:break-word;
+}
+#mS .settings-category-item input { background:var(--card) !important; min-height:44px; }
+#mS .settings-sheet .g2 { min-width:0; grid-template-columns:repeat(2,minmax(0,1fr)); }
+#mS .settings-sheet .g2 > * { min-width:0; white-space:normal; }
+@media(max-width:600px) {
+  #mS .settings-sheet { padding:20px 18px calc(28px + env(safe-area-inset-bottom,0px)); }
+  #mS .category-budget-grid { grid-template-columns:1fr; gap:9px; }
+  #mS .settings-category-item { padding:9px 12px; }
+  #mS .settings-sheet .g2 { grid-template-columns:1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -2253,9 +2329,9 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 
 <!-- SETTINGS MODAL -->
 <div class="ov" role="dialog" aria-modal="true" aria-label="Settings" id="mS" onclick="if(event.target==this)cl('mS')">
-  <div class="sh">
+  <div class="sh settings-sheet">
     <div class="shh"><b>Settings</b><button type="button" class="ib" onclick="cl('mS')" aria-label="Close settings" data-i="x"></button></div>
-    <label for="sT">Total wedding budget (₹)</label><input id="sT" type="number" inputmode="numeric">
+    <label for="sT">Total wedding budget (₹)</label><input id="sT" type="text" inputmode="numeric" pattern="[0-9,]*" maxlength="16" autocomplete="off" placeholder="e.g. 30,00,000" oninput="formatRupeeInput(this)">
     <label for="sD">Wedding date</label><input id="sD" type="date">
     <div class="l" style="margin-top:20px">Category budgets <span class="m">(optional)</span></div>
     <div class="category-budget-grid" id="catBudgetInputs"></div>
@@ -3500,7 +3576,7 @@ async function save() {
 }
 
 function renderCategoryBudgetInputs() {
-  $('catBudgetInputs').innerHTML = CK.map((name, i) => `<div><label for="cb${i}">${CATS[name]} ${esc(name)}</label><input type="number" id="cb${i}" min="0" step="1" inputmode="numeric" value="${Number(S.cat[name]) || ''}" placeholder="No limit"></div>`).join('');
+  $('catBudgetInputs').innerHTML = CK.map((name, i) => `<div class="settings-category-item"><label for="cb${i}">${CATS[name]} ${esc(name)}</label><input type="number" id="cb${i}" min="0" step="1" inputmode="numeric" value="${Number(S.cat[name]) || ''}" placeholder="No limit"></div>`).join('');
 }
 function collectCategoryBudgets() {
   const out = {};
@@ -3512,13 +3588,13 @@ function collectCategoryBudgets() {
   return out;
 }
 function openS() {
-  $('sT').value = S.total || '';
+  $('sT').value = S.total ? groupedINR(S.total) : '';
   $('sD').value = S.date || '';
   renderCategoryBudgetInputs();
   ov('mS');
 }
 async function setB() {
-  const raw = Number($('sT').value);
+  const raw = parseRupees($('sT').value);
   const v = Math.round(raw);
   if (!Number.isSafeInteger(v) || v < 0 || raw !== v) return toast('Enter a valid total budget.');
   const saved = await commitMutation(() => {
