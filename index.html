@@ -2595,67 +2595,79 @@ async function performOpenCloudLedger() {
   $('lM').textContent = '';
 }
 
-async function cloudSaveExpense(id, next, previous) {
-  const ref = ledgerRoot().child('exp:' + id);
-  const expectedRev = previous ? Number(previous.rev) || 0 : null;
-  const payload = next ? { ...next, id, rev: (expectedRev === null ? 0 : expectedRev) + 1 } : null;
+// Only server-confirmed conditional writes may mutate financial records.
+// A Firebase SDK transaction can initially receive null for an uncached existing
+// record, causing a false abort. The REST API's ETag / If-Match approach reads the
+// authoritative record and rejects genuinely concurrent changes atomically.
+function cloudWriteError(response, description) {
+  if (response.status === 401 || response.status === 403)
+    return new Error('PERMISSION_DENIED: Firebase rejected this save. Check your account role and published Realtime Database rules.');
+  if (response.status === 404)
+    return new Error('DATABASE_NOT_FOUND: Check the Firebase database URL in this app.');
+  return new Error('FIREBASE_WRITE_FAILED: ' + description + ' (HTTP ' + response.status + '). Check connection and Firebase rules.');
+}
 
-  // Realtime Database transactions may initially call their update function with
-  // null if the local cache is empty, even while this record exists on the server.
-  // Prime the local cache first. Otherwise a valid edit can be falsely reported
-  // as an edit conflict without anyone else modifying the record.
-  const sameRevision = raw => {
-    const current = decodeRecord(raw);
-    return expectedRev === null ? current == null : current != null && revNumber(raw) === expectedRev;
+async function conditionalCloudWrite(key, next, matchesLoaded) {
+  const user = AUTH && AUTH.currentUser;
+  if (!user) throw new Error('SESSION_EXPIRED: Sign in again before saving.');
+  const endpoint = (firebase.app().options.databaseURL || '').replace(/\/$/, '');
+  if (!/^https:\/\//.test(endpoint)) throw new Error('DATABASE_URL_MISSING: Firebase database URL is not configured.');
+  const token = await user.getIdToken();
+  const url = endpoint + '/wedding-ledger/' + encodeURIComponent(key) + '.json?auth=' + encodeURIComponent(token);
+  const request = async (method, options) => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 18000);
+    try {
+      return await fetch(url, { method, cache: 'no-store', signal: controller.signal, ...options });
+    } catch (error) {
+      if (error && error.name === 'AbortError') throw new Error('NETWORK_TIMEOUT: Firebase did not respond. Check connection, then reload the ledger before retrying.');
+      throw new Error('NETWORK_ERROR: Firebase could not be reached. Check your connection and website configuration.');
+    } finally { clearTimeout(timeout); }
   };
-  let snapshot = await ref.once('value');
-  if (!sameRevision(snapshot.val())) {
-    throw new Error('EDIT_CONFLICT: This record has changed since it was loaded. Refresh it before saving.');
-  }
 
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const outcome = await ref.transaction(raw => {
-      if (!sameRevision(raw)) return;
-      return payload;
-    }, undefined, false);
-    if (outcome.committed) return;
+  // A 412 response is a *real* atomic conflict, unlike a local transaction abort.
+  // Do not silently retry a 412 or use set() without the If-Match precondition.
+  const read = await request('GET', { headers: { 'X-Firebase-ETag': 'true' } });
+  if (!read.ok) throw cloudWriteError(read, 'read');
+  const etag = read.headers.get('etag');
+  if (!etag) throw new Error('ETAG_UNAVAILABLE: Firebase did not provide a record version. No changes were written.');
+  let existing;
+  try { existing = await read.json(); }
+  catch (_) { throw new Error('INVALID_DATABASE_RESPONSE: Could not read the current record.'); }
+  if (!matchesLoaded(existing))
+    throw new Error('EDIT_CONFLICT: This record was updated since you loaded it. Latest records will be reloaded.');
 
-    // An aborted transaction may be a first-load cache miss. Retry only if
-    // the authoritative record still has the revision that was read above;
-    // never overwrite a record that genuinely changed or was deleted.
-    snapshot = await ref.once('value');
-    if (!sameRevision(snapshot.val())) {
-      throw new Error('EDIT_CONFLICT: This record changed while you were editing. The latest data will be loaded.');
-    }
-  }
-  throw new Error('SAVE_NOT_COMPLETED: Firebase could not complete this edit. Please try again.');
+  const write = await request('PUT', {
+    headers: { 'Content-Type': 'application/json', 'If-Match': etag },
+    body: JSON.stringify(next === undefined ? null : next)
+  });
+  if (write.status === 412)
+    throw new Error('EDIT_CONFLICT: This record changed during saving. Latest records will be reloaded.');
+  if (!write.ok) throw cloudWriteError(write, 'write');
+}
+
+async function cloudSaveExpense(id, next, previous) {
+  const expectedRev = previous ? (Number(previous.rev) || 0) : null;
+  const payload = next ? { ...next, id, rev: (expectedRev === null ? 0 : expectedRev) + 1 } : null;
+  await conditionalCloudWrite('exp:' + id, payload, raw => {
+    const current = decodeRecord(raw);
+    if (expectedRev === null) return current == null; // safe first create
+    return current !== null && current !== undefined && revNumber(raw) === expectedRev;
+  });
 }
 
 async function cloudSaveMeta(next, previous) {
-  const ref = ledgerRoot().child('meta:budget');
   const matchesPrevious = raw => {
     const current = decodeRecord(raw) || {};
     return (Number(current.total) || 0) === (Number(previous.total) || 0)
       && (current.date || '') === (previous.date || '')
       && JSON.stringify(current.cat || {}) === JSON.stringify(previous.cat || {});
   };
-  // Prime the SDK cache before the optimistic transaction, as with vendor edits.
-  let snapshot = await ref.once('value');
-  if (!matchesPrevious(snapshot.val())) {
-    throw new Error('EDIT_CONFLICT: Budget details have changed. Reload them before saving.');
-  }
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const outcome = await ref.transaction(raw => {
-      if (!matchesPrevious(raw)) return;
-      return { total:Number(next.total)||0, cat:next.cat||{}, date:next.date||'' };
-    }, undefined, false);
-    if (outcome.committed) return;
-    snapshot = await ref.once('value');
-    if (!matchesPrevious(snapshot.val())) {
-      throw new Error('EDIT_CONFLICT: Budget details changed during this save. The latest values will be loaded.');
-    }
-  }
-  throw new Error('SAVE_NOT_COMPLETED: Firebase could not save the budget. Please try again.');
+  await conditionalCloudWrite('meta:budget', {
+    total: Number(next.total) || 0,
+    cat: next.cat || {},
+    date: next.date || ''
+  }, matchesPrevious);
 }
 
 async function commitMutation(fn) {
@@ -2678,7 +2690,7 @@ async function commitMutation(fn) {
     return true;
   } catch(e) {
     console.error('Save was not completed',e);
-    toast(String(e.message||'Save failed').slice(0,160));
+    toast(String(e.message||'Save failed').slice(0,190));
     S = before;
     return false;
   } finally {
