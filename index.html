@@ -2182,6 +2182,61 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
   #mA .payment-date-fields input[type="date"] {height:54px;min-height:54px;padding:0 14px !important;}
 }
 
+
+/* Dedicated date layout: avoids iOS Safari intrinsic date input overflow. */
+#mA .payment-date-stack {
+  display:flex !important;
+  flex-direction:column !important;
+  gap:18px !important;
+  width:100%;
+  min-width:0;
+  max-width:100%;
+  margin:18px 0 4px;
+}
+#mA .payment-date-stack > .payment-date-item {
+  display:block;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+}
+#mA .payment-date-stack > .payment-date-item[hidden] {display:none !important;}
+#mA .payment-date-stack label {display:block; margin:0 0 8px;}
+#mA .payment-date-stack input[type=date] {
+  display:block;
+  box-sizing:border-box !important;
+  -webkit-box-sizing:border-box !important;
+  -webkit-appearance:none;
+  appearance:none;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:54px !important;
+  min-height:54px !important;
+  margin:0 !important;
+  padding:0 15px !important;
+  font:600 16px/1.2 var(--font-sans) !important;
+  text-align:left !important;
+  direction:ltr;
+  background:var(--card);
+  border:1.5px solid var(--line-strong);
+  border-radius:14px;
+}
+#mA .payment-date-stack input[type=date]::-webkit-date-and-time-value {
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:left;
+}
+#mA .payment-date-stack input[type=date]::-webkit-datetime-edit {min-width:0;padding:0;}
+#mA .payment-date-stack input[type=date]::-webkit-calendar-picker-indicator {margin:0 0 0 auto;flex-shrink:0;}
+@media (min-width:980px) {
+  #mA .payment-date-stack { gap:15px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -2382,9 +2437,9 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <label for="fN">Paid to</label><input id="fN" list="dlV" placeholder="Vendor or person name" oninput="af()">
     <label for="fD">What for (optional)</label><input id="fD" placeholder="e.g. Venue advance">
     <label>Category</label><div class="cg" id="cg"></div>
-    <div class="g2 payment-date-fields">
-      <div><label for="fDt">Date</label><input type="date" id="fDt"></div>
-      <div id="dueW"><label for="fDue">Balance due date</label><input type="date" id="fDue"></div>
+    <div class="payment-date-stack" aria-label="Payment dates">
+      <div class="payment-date-item"><label for="fDt">Payment date</label><input type="date" id="fDt"></div>
+      <div class="payment-date-item" id="dueW"><label for="fDue">Balance due date</label><input type="date" id="fDue"></div>
     </div>
     <div class="g2">
       <div><label for="fF">Function</label><select id="fF"></select></div>
