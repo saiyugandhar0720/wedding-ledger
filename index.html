@@ -1833,6 +1833,74 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
   .lg-crest { width: 72px; height: 72px; margin-bottom: 67px; border-radius: 22px; }
 }
 
+
+/* Payment detail & list spacing improvements · 2026-11 */
+/* Keep installment date and method from collapsing into one another. */
+#mP .sh { max-width:600px; }
+#mP .installment-fields { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0 4px; }
+#mP .installment-fields > div { min-width:0; width:100%; }
+#mP .installment-fields label { display:block; margin-bottom:9px; }
+#mP .installment-fields input,
+#mP .installment-fields select {
+ display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box;
+ height:54px;padding:0 14px;font-size:16px;border-radius:15px;
+}
+#mP #rpI {font-size:14px;line-height:1.5;margin:12px 0 18px!important;overflow-wrap:anywhere;}
+#mP #rpA {font-size:clamp(24px,5.5vw,31px)!important;min-height:62px;font-weight:800;}
+#mP #rpBy {font-size:16px;min-height:54px;}
+#mP .shh {padding-bottom:17px;}
+#mP .bt {min-height:52px;font-size:15px;}
+#mP #rpX {margin-top:12px!important;}
+@media(max-width:640px){
+ #mP .installment-fields {grid-template-columns:1fr;gap:8px;margin-top:17px;}
+ #mP .installment-fields input,#mP .installment-fields select {height:54px;font-size:16px;}
+ #mP .sh {padding:23px 20px calc(28px + env(safe-area-inset-bottom,0px));}
+}
+/* History is now a deliberate readable section rather than a tiny inline row. */
+.payment-history {padding:19px 20px!important;}
+.history-heading {display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 14px;margin-bottom:12px;}
+.history-heading b {font-size:17px;line-height:1.3;letter-spacing:-.02em;}
+.history-heading span {font-size:12px;color:var(--mut);}
+.history-list {display:flex;flex-direction:column;gap:9px;}
+.history-item {display:flex;justify-content:space-between;align-items:center;gap:18px;width:100%;min-width:0;
+ text-align:left;padding:15px 14px;background:var(--bg-elev);border:1px solid var(--line);border-radius:15px;color:var(--ink);cursor:pointer;font-family:var(--font-sans);}
+.history-item:focus-visible {outline:3px solid var(--acc);outline-offset:2px;}
+.history-copy {display:flex;flex-direction:column;gap:3px;min-width:0;overflow-wrap:anywhere;}
+.history-copy strong {font-size:14px;font-weight:800;}
+.history-copy small {font-size:13px;line-height:1.4;color:var(--mut);}
+.history-amount {flex:none;white-space:nowrap;font-size:15px;font-weight:800;color:var(--acc);}
+.history-amount span {padding-left:4px;font-size:21px;vertical-align:-1px;}
+#mD .kv {grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:15px 16px;padding:18px;}
+#mD .kv span {font-size:14px;line-height:1.4;}
+#mD .kv b {font-size:15px;line-height:1.4;overflow-wrap:anywhere;}
+#mD .kv span:nth-of-type(2) + b {color:var(--bad);}
+/* Recent items: reserve a clear money column and never truncate all labels. */
+#rec .grp {padding:5px 17px;}
+#rec .payment-row {display:grid;grid-template-columns:45px minmax(0,1fr) auto;gap:12px;align-items:center;padding:16px 0;}
+#rec .payment-row .mn {min-width:0;}
+#rec .payment-row .mn > b.t {font-size:14px!important;line-height:1.35;white-space:normal;display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
+#rec .payment-row .m.t {font-size:12px;line-height:1.4;}
+#rec .payment-row-amount {min-width:104px;max-width:150px;display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+#rec .payment-row-amount > b {font-size:15px!important;line-height:1.25;white-space:nowrap;}
+#rec .payment-row-amount .pd,#rec .payment-row-amount .ad {margin:0;}
+.outstanding-amount {color:var(--bad)!important;font-weight:800!important;white-space:nowrap;}
+#rec .payment-row .bar {height:7px;}
+@media(max-width:520px){
+ #rec .grp {padding:2px 13px;}
+ #rec .payment-row {grid-template-columns:40px minmax(0,1fr) auto;gap:9px;padding:16px 0;}
+ #rec .payment-row .ei {height:40px;width:40px;min-width:40px;font-size:18px;border-radius:13px;}
+ #rec .payment-row-amount {min-width:85px;max-width:112px;}
+ #rec .payment-row-amount > b {font-size:13.5px!important;}
+ #rec .payment-row .mn > b.t {font-size:13px!important;}
+ #rec .payment-row .m.t {font-size:11.5px;}
+ #rec .payment-row-amount .pd,#rec .payment-row-amount .ad {font-size:10px;padding:3px 7px;}
+ #rec .outstanding-amount {font-size:11.5px!important;}
+ #mD .kv {padding:16px;gap:13px;}
+ #mD .kv b {font-size:14px;}
+ .history-item {padding:13px 12px;}
+ .history-amount {font-size:14px;}
+}
+
 </style>
 </head>
 <body>
@@ -2126,7 +2194,7 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
     <div class="shh"><b id="rpT">Record a payment</b><button type="button" class="ib" onclick="cl('mP')" aria-label="Close installment editor" data-i="x"></button></div>
     <div class="m" id="rpI" style="margin-top:6px"></div>
     <label for="rpA">Amount paid (₹)</label><input id="rpA" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off" maxlength="16" placeholder="0" oninput="formatRupeeInput(this)">
-    <div class="g2">
+    <div class="g2 installment-fields">
       <div><label for="rpD">Date</label><input type="date" id="rpD"></div>
       <div><label for="rpM">Mode</label><select id="rpM"></select></div>
     </div>
@@ -2566,17 +2634,17 @@ const st = x => {
 const rw = x => {
   const g = got(x);
   const pt = stt(x) === 'Part';
-  return `<div class="rw" role="button" tabindex="0" aria-label="View ${esc(x.givenTo)} payment details" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();det('${x.id}')}" onclick="det('${x.id}')">
+  return `<div class="rw payment-row" role="button" tabindex="0" aria-label="View ${esc(x.givenTo)} payment details" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();det('${x.id}')}" onclick="det('${x.id}')">
     <div class="ei">${CATS[x.cat] || '📦'}</div>
     <div class="mn">
       <b class="t" style="font-size:13.5px;display:block;margin-bottom:2px">${esc(x.desc)}</b>
       <div class="m t">${esc(x.givenTo)} · ${pt ? 'last paid ' + fd(lastPay(x)) : fd(x.iso)}</div>
       ${pt ? `<div class="bar" style="margin:6px 0 0"><b style="width:${Math.min(100, Math.round(g / x.amount * 100))}%"></b></div>` : ''}
     </div>
-    <div style="text-align:right">
+    <div class="payment-row-amount" style="text-align:right">
       <b style="font-size:14.5px;font-variant-numeric:tabular-nums">${inr(x.amount)}</b>
       ${st(x)}
-      ${pt ? `<div class="m">${inr(rem(x))} left</div>` : ''}
+      ${rem(x) > 0 ? `<div class="m outstanding-amount">${inr(rem(x))} left</div>` : ''}
     </div>
   </div>`;
 };
@@ -2773,7 +2841,7 @@ function sideP() {
   $('pSide').innerHTML = `
     <div class="sx">
       <div><small>Paid</small><b>${inr(s.tp)}</b></div>
-      <div><small>Pending</small><b>${inr(s.tc)}</b></div>
+      <div><small>Pending</small><b style="color:var(--bad)">${inr(s.tc)}</b></div>
       <div><small>Payments</small><b>${n}</b></div>
       <div><small>Average</small><b>${inr(s.avg)}</b></div>
     </div>
@@ -2973,7 +3041,7 @@ function det(id) {
   const wa = ph.length === 10 ? '91' + ph : ph;
   const P = pays0(x);
   const histHtml = P.length
-    ? `<div class="ir" style="margin-top:0"><div class="l">Payments made · tap to edit</div>${P.map((p, i) => `<button type="button" class="kl" style="cursor:pointer;width:100%;border:0;background:transparent;text-align:left;display:flex" onclick="rpEdit('${x.id}',${i})"><span>${fd(p.iso)} · ${esc(p.mode || '—')} · ${esc(p.by || x.paidBy || 'Family')}</span><b>${inr(p.a)} ›</b></button>`).join('')}</div>`
+    ? `<section class="ir payment-history" style="margin-top:0"><div class="history-heading"><b>Payments made</b><span>Tap an installment to edit</span></div><div class="history-list">${P.map((p, i) => `<button type="button" class="history-item" onclick="rpEdit('${x.id}',${i})"><span class="history-copy"><strong>${fd(p.iso)}</strong><small>${esc(p.mode || '—')} · ${esc(p.by || x.paidBy || 'Family')}</small></span><span class="history-amount">${inr(p.a)} <span aria-hidden="true">›</span></span></button>`).join('')}</div></section>`
     : '';
   $('dB').innerHTML = `
     <div class="bg2">${inr(x.amount)}</div>
@@ -2982,7 +3050,7 @@ function det(id) {
     <div class="m">${CATS[x.cat] || ''} ${esc(x.cat)} · ${esc(x.fn || 'General')}</div>
     <div class="kv">
       <span>Paid so far</span><b style="color:var(--ok)">${inr(got(x))}</b>
-      <span>Balance</span><b style="color:${rem(x) > 0 ? 'var(--acc)' : 'var(--ok)'}">${inr(rem(x))}</b>
+      <span>Balance</span><b style="color:${rem(x) > 0 ? 'var(--bad)' : 'var(--ok)'}">${inr(rem(x))}</b>
       <span>Paid to</span><b>${esc(x.givenTo)}</b>
       <span>Date</span><b>${fd(x.iso)}</b>
       ${x.due && !paid(x) ? `<span>Due</span><b>${fd(x.due)}</b>` : ''}
