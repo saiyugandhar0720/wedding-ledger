@@ -1901,6 +1901,89 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
  .history-amount {font-size:14px;}
 }
 
+
+/* Layout polish - November 25: category chart below dues, longer recent activity */
+.home-column-chart {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:18px 0 14px;min-width:0;}
+.home-cat-column {display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;border:1px solid transparent;border-radius:16px;background:transparent;color:var(--ink);font:inherit;padding:10px 3px;cursor:pointer;}
+.home-cat-column.selected {background:var(--card);border-color:var(--line-strong);box-shadow:0 5px 15px rgba(25,35,75,.05);}
+.home-column-value {height:28px;display:flex;align-items:flex-end;justify-content:center;color:var(--ink-soft);font-size:clamp(9px,1vw,12px);font-weight:800;letter-spacing:-.04em;white-space:nowrap;}
+.home-column-chartwell {height:148px;width:min(100%,44px);display:flex;align-items:flex-end;justify-content:center;border-radius:11px;background:rgba(48,62,119,.06);overflow:hidden;}
+.home-column-stack {width:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start;overflow:hidden;border-radius:10px 10px 4px 4px;transition:height .24s ease;}
+.home-column-paid {display:block;width:100%;background:#6263D4;min-height:0;}
+.home-column-pending {display:block;width:100%;background:#F1A38E;min-height:0;}
+.home-column-name {display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;max-width:100%;font-size:16px;text-align:center;}
+.home-column-name span {font-size:10px;line-height:1.3;font-weight:750;color:var(--ink-soft);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;min-height:25px;}
+.home-cat-column.selected .home-column-value,.home-cat-column.selected .home-column-name span {color:var(--acc);}
+.home-cat-legend {margin-top:9px;}
+.home-cat-legend .home-cat-hint {margin-left:auto;}
+.home-aside .recent-panel {min-width:0;}
+.home-aside #rec .grp {padding:5px 15px;}
+.home-aside #rec .rw {padding:15px 0;}
+@media (min-width:980px) {
+  .home-layout {grid-template-columns:minmax(0,.99fr) minmax(0,1.01fr);align-items:start;}
+  .home-main .category-panel {margin-top:0;}
+  .home-aside {min-width:0;}
+  .home-aside .recent-panel {position:sticky;top:101px;max-height:calc(100dvh - 120px);overflow-y:auto;scrollbar-width:thin;}
+}
+@media (max-width:979px) {
+  .home-layout {display:flex;flex-direction:column;gap:15px;}
+  .home-main,.home-aside {width:100%;}
+  .home-column-chartwell {height:130px;}
+}
+@media (max-width:390px) {
+  .home-column-chart {gap:3px;}
+  .home-column-chartwell {width:min(100%,38px);height:115px;}
+  .home-column-value {font-size:9px;}
+  .home-column-name span {font-size:9px;}
+}
+/* Mobile Safari date picker: prevent clipping and misplaced date text. */
+#mP .installment-fields {grid-template-columns:repeat(2,minmax(0,1fr));}
+#mP .installment-fields > div {min-width:0;overflow:hidden;}
+#mP #rpD {display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;height:56px;min-height:56px;line-height:normal;text-align:left;font-size:16px;font-family:var(--font-sans);padding:0 13px;direction:ltr;-webkit-appearance:none;appearance:none;background:var(--card);color:var(--ink);}
+#mP #rpD::-webkit-date-and-time-value {display:flex;align-items:center;justify-content:flex-start;text-align:left;min-height:54px;max-width:100%;padding:0;}
+#mP #rpD::-webkit-datetime-edit {display:inline-block;line-height:1.3;padding:0;max-width:100%;}
+#mP #rpD::-webkit-calendar-picker-indicator {opacity:.75;margin-left:auto;cursor:pointer;}
+#mP #rpM {height:56px;min-height:56px;}
+@media(max-width:640px) {
+  #mP .installment-fields {grid-template-columns:minmax(0,1fr);gap:12px;}
+  #mP #rpD,#mP #rpM {width:100%;max-width:100%;height:56px;font-size:16px;}
+}
+/* Monthly cash flow in Insights is now an interactive bar graph. */
+.monthly-bars .monthly-bar-plot {height:172px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:13px;border-bottom:1px solid var(--line);padding:0 7px 0;}
+.monthly-bar-slot {height:100%;min-width:0;border:0;background:transparent;display:flex;align-items:flex-end;justify-content:center;padding:0;cursor:pointer;}
+.monthly-bar-fill {display:block;width:min(100%,46px);border-radius:10px 10px 0 0;background:#7373D9;min-height:3px;transition:background .2s ease,height .3s ease;}
+.monthly-bar-fill.selected,.monthly-bar-slot:hover .monthly-bar-fill {background:#DD907F;}
+.monthly-bar-pop {position:relative;top:auto;left:auto!important;transform:none;align-self:center;margin:10px 0 4px;}
+@media(max-width:430px){.monthly-bars .monthly-bar-plot {gap:8px;height:150px;}}
+
+
+/* Compact wedding header: preserve centered names and controls. */
+.hd2 {
+  min-height:0 !important;
+  max-height:none !important;
+  padding:15px 64px 16px !important;
+  margin-bottom:18px !important;
+  border-radius:21px !important;
+}
+.hd2 .ey2 {font-size:9px;letter-spacing:.24em;margin-bottom:2px;}
+.hd2 .nm2 {font-size:clamp(23px,3vw,30px);line-height:1.05;}
+.hd2 .orn {margin:5px auto 4px;gap:8px;}
+.hd2 .orn u {width:35px;}
+.hd2 .orn svg {width:13px;height:13px;}
+.hd2 .hd-meta {gap:8px;font-size:11px;}
+.hd2 .cdp2 {font-size:11px;padding:3px 9px;}
+@media(max-width:979px) {
+  .hd2 {padding:19px 58px 18px !important;}
+  .hd2 .nm2 {font-size:clamp(22px,6.1vw,29px);}
+  .hd2 .live {top:9px;left:9px;font-size:10px;padding:3px 7px;}
+  .hd2 .hd-btns {top:9px;right:9px;gap:5px;}
+  .hd2 .ib2 {width:32px;height:32px;border-radius:10px;}
+}
+@media(max-width:390px) {
+  .hd2 {padding:20px 50px 18px !important;}
+  .hd2 .nm2 {font-size:clamp(21px,6vw,25px);}
+}
+
 </style>
 </head>
 <body>
@@ -1987,17 +2070,6 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
           <div id="due"></div>
           <div class="m due-summary" id="dueSum"></div>
         </div>
-      </div>
-
-      <div class="home-aside">
-        <div class="recent-panel">
-          <div class="sh2 recent-heading">
-            <b>Recent payments</b>
-            <a class="text-link" href="#" onclick="go('pay');return false">See all ↗</a>
-          </div>
-          <div id="rec"></div>
-        </div>
-
         <div class="category-panel">
           <div class="sh2 activity-heading">
             <b>Category overview</b>
@@ -2020,6 +2092,18 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="home-aside">
+        <div class="recent-panel">
+          <div class="sh2 recent-heading">
+            <b>Recent payments</b>
+            <a class="text-link" href="#" onclick="go('pay');return false">See all ↗</a>
+          </div>
+          <div id="rec"></div>
+        </div>
+
+
       </div>
     </div>
   </section>
@@ -2513,25 +2597,65 @@ async function performOpenCloudLedger() {
 
 async function cloudSaveExpense(id, next, previous) {
   const ref = ledgerRoot().child('exp:' + id);
-  const expectedRev = previous ? Number(previous.rev)||0 : null;
-  const payload = next ? {...next, id, rev:(expectedRev === null ? 0 : expectedRev) + 1} : null;
-  const outcome = await ref.transaction(raw => {
+  const expectedRev = previous ? Number(previous.rev) || 0 : null;
+  const payload = next ? { ...next, id, rev: (expectedRev === null ? 0 : expectedRev) + 1 } : null;
+
+  // Realtime Database transactions may initially call their update function with
+  // null if the local cache is empty, even while this record exists on the server.
+  // Prime the local cache first. Otherwise a valid edit can be falsely reported
+  // as an edit conflict without anyone else modifying the record.
+  const sameRevision = raw => {
     const current = decodeRecord(raw);
-    if (expectedRev === null && current != null) return;
-    if (expectedRev !== null && (current == null || revNumber(raw) !== expectedRev)) return;
-    return payload;
-  }, undefined, false);
-  if (!outcome.committed) throw new Error('EDIT_CONFLICT: This payment was updated by another person. Reload and try again.');
+    return expectedRev === null ? current == null : current != null && revNumber(raw) === expectedRev;
+  };
+  let snapshot = await ref.once('value');
+  if (!sameRevision(snapshot.val())) {
+    throw new Error('EDIT_CONFLICT: This record has changed since it was loaded. Refresh it before saving.');
+  }
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const outcome = await ref.transaction(raw => {
+      if (!sameRevision(raw)) return;
+      return payload;
+    }, undefined, false);
+    if (outcome.committed) return;
+
+    // An aborted transaction may be a first-load cache miss. Retry only if
+    // the authoritative record still has the revision that was read above;
+    // never overwrite a record that genuinely changed or was deleted.
+    snapshot = await ref.once('value');
+    if (!sameRevision(snapshot.val())) {
+      throw new Error('EDIT_CONFLICT: This record changed while you were editing. The latest data will be loaded.');
+    }
+  }
+  throw new Error('SAVE_NOT_COMPLETED: Firebase could not complete this edit. Please try again.');
 }
 
 async function cloudSaveMeta(next, previous) {
   const ref = ledgerRoot().child('meta:budget');
-  const outcome = await ref.transaction(raw => {
+  const matchesPrevious = raw => {
     const current = decodeRecord(raw) || {};
-    if ((Number(current.total)||0)!==(Number(previous.total)||0) || (current.date||'')!==(previous.date||'') || JSON.stringify(current.cat||{})!==JSON.stringify(previous.cat||{})) return;
-    return {total:Number(next.total)||0, cat:next.cat||{}, date:next.date||''};
-  }, undefined, false);
-  if (!outcome.committed) throw new Error('EDIT_CONFLICT: The wedding budget changed on another device. Reload and try again.');
+    return (Number(current.total) || 0) === (Number(previous.total) || 0)
+      && (current.date || '') === (previous.date || '')
+      && JSON.stringify(current.cat || {}) === JSON.stringify(previous.cat || {});
+  };
+  // Prime the SDK cache before the optimistic transaction, as with vendor edits.
+  let snapshot = await ref.once('value');
+  if (!matchesPrevious(snapshot.val())) {
+    throw new Error('EDIT_CONFLICT: Budget details have changed. Reload them before saving.');
+  }
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const outcome = await ref.transaction(raw => {
+      if (!matchesPrevious(raw)) return;
+      return { total:Number(next.total)||0, cat:next.cat||{}, date:next.date||'' };
+    }, undefined, false);
+    if (outcome.committed) return;
+    snapshot = await ref.once('value');
+    if (!matchesPrevious(snapshot.val())) {
+      throw new Error('EDIT_CONFLICT: Budget details changed during this save. The latest values will be loaded.');
+    }
+  }
+  throw new Error('SAVE_NOT_COMPLETED: Firebase could not save the budget. Please try again.');
 }
 
 async function commitMutation(fn) {
@@ -2753,7 +2877,7 @@ function selectHomeCat(index) {
   const detail = $('homeCatDetail');
   if (!r || !detail) return;
   homeCatSelected = r.name;
-  document.querySelectorAll('#glanceChart .home-cat-row').forEach((el, i) => {
+  document.querySelectorAll('#glanceChart .home-cat-column').forEach((el, i) => {
     const active = i === index;
     el.classList.toggle('selected', active);
     el.setAttribute('aria-pressed', String(active));
@@ -2773,21 +2897,18 @@ function homeActivity() {
     if (detail) detail.textContent = '';
     return;
   }
-  c.innerHTML = '<div class="home-cat-bars" role="group" aria-label="Spending by category">' +
+  c.innerHTML = '<div class="home-column-chart" role="group" aria-label="Category-wise paid and pending spending bar chart">' +
     rows.map((r, i) => {
       const total = r.paid + r.pending;
-      const pct = Math.max(4, 100 * total / max);
+      const pct = Math.max(7, 100 * total / max);
       const paidPct = total ? 100 * r.paid / total : 0;
-      return `<button type="button" class="home-cat-row" onclick="selectHomeCat(${i})" aria-pressed="false">
-        <span class="home-cat-icon">${CATS[r.name] || '📦'}</span>
-        <span class="home-cat-body">
-          <span class="home-cat-label"><b>${esc(r.name)}</b><strong>${inr(total)}</strong></span>
-          <span class="home-cat-track"><span class="home-cat-bar" style="width:${pct.toFixed(2)}%"><i class="home-cat-paid" style="width:${paidPct.toFixed(2)}%"></i><i class="home-cat-pending" style="width:${(100 - paidPct).toFixed(2)}%"></i></span></span>
-        </span>
+      return `<button type="button" class="home-cat-column" onclick="selectHomeCat(${i})" aria-pressed="false" aria-label="${esc(r.name)}: ${inr(r.paid)} paid, ${inr(r.pending)} pending">
+        <span class="home-column-value">${inr(total)}</span>
+        <span class="home-column-chartwell"><span class="home-column-stack" style="height:${pct.toFixed(2)}%"><i class="home-column-paid" style="height:${paidPct.toFixed(2)}%"></i><i class="home-column-pending" style="height:${(100-paidPct).toFixed(2)}%"></i></span></span>
+        <span class="home-column-name">${CATS[r.name] || '📦'} <span>${esc(r.name)}</span></span>
       </button>`;
-    }).join('') +
-    (extra ? `<button type="button" class="text-link" style="align-self:flex-start;margin-top:4px" onclick="go('ins')">+${extra} more categories in Insights →</button>` : '') +
-    '</div>';
+    }).join('') + '</div>' +
+    (extra ? `<button type="button" class="text-link" style="margin-top:10px" onclick="go('ins')">+${extra} more categories in Insights →</button>` : '');
   const sel = rows.findIndex(r => r.name === homeCatSelected);
   selectHomeCat(sel >= 0 ? sel : 0);
 }
@@ -2797,7 +2918,7 @@ function home() {
   renderPile();
   homeActivity();
   const wide = matchMedia('(min-width:980px)').matches;
-  const e = [...S.exp].sort(byD).slice(0, wide ? 6 : 5);
+  const e = [...S.exp].sort(byD).slice(0, wide ? 12 : 8);
   $('rec').innerHTML = e.length
     ? `<div class="grp">${e.map(rw).join('')}</div>`
     : '<div class="m" style="padding:20px;text-align:center">No payments yet. Tap + to add one.</div>';
@@ -2897,6 +3018,22 @@ function trendChart(id) {
   </div>`;
 }
 
+function trendBarChart(id) {
+  const vals = monthlySeries();
+  const max = Math.max(1, ...vals.map(x => x.value));
+  return `<div class="trend-wrap interactive-trend monthly-bars" id="${id}-wrap">
+    <div class="monthly-bar-plot" role="group" aria-label="Monthly payment bar chart">
+      ${vals.map((v,i) => `<button type="button" class="monthly-bar-slot" data-trend-index="${i}" onpointerenter="selectTrendPoint('${id}',${i})" onfocus="selectTrendPoint('${id}',${i})" onclick="selectTrendPoint('${id}',${i})" aria-label="${v.label}: ${inr(v.value)} paid">
+        <span class="monthly-bar-fill" data-trend-bar="${i}" style="height:${Math.max(v.value ? 8 : 2, Math.round(100*v.value/max))}%"></span>
+      </button>`).join('')}
+    </div>
+    <div class="trend-pop monthly-bar-pop" id="${id}-pop" hidden></div>
+    <div class="trend-month-row" role="group" aria-label="Select month">
+      ${vals.map((v,i) => `<button type="button" class="trend-month-btn" data-trend-index="${i}" onclick="selectTrendPoint('${id}',${i})" onpointerenter="selectTrendPoint('${id}',${i})" onfocus="selectTrendPoint('${id}',${i})">${v.label}</button>`).join('')}
+    </div>
+  </div>`;
+}
+
 function selectTrendPoint(id, index) {
   const root = $(id + '-wrap'), pop = $(id + '-pop');
   if (!root || !pop) return;
@@ -2908,6 +3045,7 @@ function selectTrendPoint(id, index) {
     if (el.tagName === 'BUTTON') el.setAttribute('aria-pressed', String(active));
   });
   root.querySelectorAll('[data-trend-dot]').forEach(el => el.classList.toggle('selected', +el.dataset.trendDot === index));
+  root.querySelectorAll('[data-trend-bar]').forEach(el => el.classList.toggle('selected', +el.dataset.trendBar === index));
   root.querySelectorAll('[data-trend-guide]').forEach(el => el.classList.toggle('selected', +el.dataset.trendGuide === index));
   pop.innerHTML = `<span>${v.label} ${v.k.slice(0, 4)}</span><strong>${inr(v.value)}</strong>`;
   pop.style.left = `clamp(64px, ${4.7 + index * 18.1}%, calc(100% - 64px))`;
@@ -2945,7 +3083,7 @@ function ins() {
     .sort((a,b) => ((m[b]||0)+(pm[b]||0))-((m[a]||0)+(pm[a]||0)));
   const series = monthlySeries();
   $('mon').hidden = false;
-  $('mon').innerHTML = `<div class="mon-heading"><div><div class="ref-eyebrow">CASH FLOW</div><h3>Payments over time</h3><p>Last six months · tap a point for details</p></div><b>${inr(series.reduce((a,x) => a + x.value, 0))}</b></div>${trendChart('trendInsights')}`;
+  $('mon').innerHTML = `<div class="mon-heading"><div><div class="ref-eyebrow">CASH FLOW</div><h3>Payments over time</h3><p>Last six months · select a bar for details</p></div><b>${inr(series.reduce((a,x) => a + x.value, 0))}</b></div>${trendBarChart('trendInsights')}`;
   selectTrendPoint('trendInsights', 5);
   $('insS').innerHTML = [['cat','Categories'],['fn','Functions'],['by','Paid by'],['ven','Vendors']]
     .map(([a,b]) => `<button type="button" class="${k===a?'on':''}" aria-pressed="${k===a}" onclick="insK='${a}';ins()">${b}</button>`).join('');
