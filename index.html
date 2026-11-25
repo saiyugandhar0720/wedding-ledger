@@ -2128,6 +2128,60 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 #mS .settings-sheet > label {margin-top:17px;}
 #mS .settings-sheet input, #mS .settings-sheet select {border-radius:14px;}
 
+
+/* Payment entry date controls — iPhone Safari safe layout for part-paid/pending. */
+#mA .payment-date-fields {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  width:100%;
+  min-width:0;
+}
+#mA .payment-date-fields > div { min-width:0; width:100%; max-width:100%; }
+#mA .payment-date-fields label { display:block; margin-bottom:8px; }
+#mA .payment-date-fields input[type="date"] {
+  display:block;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:52px;
+  min-height:52px;
+  box-sizing:border-box;
+  border-radius:14px;
+  padding:0 12px !important;
+  font:600 16px/1.25 var(--font-sans) !important;
+  color:var(--ink);
+  background:var(--card);
+  text-align:left;
+  direction:ltr;
+  -webkit-appearance:none;
+  appearance:none;
+}
+#mA .payment-date-fields input[type="date"]::-webkit-date-and-time-value {
+  min-width:0;
+  max-width:100%;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:left;
+  padding:0;
+}
+#mA .payment-date-fields input[type="date"]::-webkit-datetime-edit {
+  min-width:0;
+  max-width:100%;
+  padding:0;
+  line-height:1.25;
+}
+#mA .payment-date-fields input[type="date"]::-webkit-calendar-picker-indicator {
+  margin-left:auto;
+  opacity:.75;
+}
+@media (max-width:640px) {
+  #mA .payment-date-fields {grid-template-columns:minmax(0,1fr);gap:13px;margin-top:16px;}
+  #mA .payment-date-fields > div {overflow:visible;}
+  #mA .payment-date-fields input[type="date"] {height:54px;min-height:54px;padding:0 14px !important;}
+}
+
 </style>
 </head>
 <body>
@@ -2328,7 +2382,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <label for="fN">Paid to</label><input id="fN" list="dlV" placeholder="Vendor or person name" oninput="af()">
     <label for="fD">What for (optional)</label><input id="fD" placeholder="e.g. Venue advance">
     <label>Category</label><div class="cg" id="cg"></div>
-    <div class="g2">
+    <div class="g2 payment-date-fields">
       <div><label for="fDt">Date</label><input type="date" id="fDt"></div>
       <div id="dueW"><label for="fDue">Balance due date</label><input type="date" id="fDue"></div>
     </div>
