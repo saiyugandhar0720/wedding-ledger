@@ -2105,6 +2105,29 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
   #mS .settings-sheet .g2 { grid-template-columns:1fr; }
 }
 
+
+/* ===== RELEASE QUALITY: consistent surfaces and responsive micro-interactions ===== */
+:root { --ui-radius:20px; --ui-border:1px solid var(--line-strong); }
+.sh, .ir, .grp, .mon, .due-panel, .category-panel, .recent-panel,
+.acc-panel, .ins-kpi, .acc-kpi, .ins-breakdown-card, .ins-aside-card,
+.ins-budget-panel { border:var(--ui-border); box-shadow:0 9px 25px rgba(23,34,65,.055); }
+.sh input:not([type=checkbox]):not([type=radio]):not([type=range]),
+.sh select,.sh textarea,.sr input,.cf { border:1.5px solid var(--line-strong); }
+.sh input:focus,.sh select:focus,.sh textarea:focus { border-color:var(--acc); outline:2px solid color-mix(in srgb,var(--acc) 18%,transparent); outline-offset:1px; }
+.bt,.ib,.ref-utility-button,.dock-bar>button,.tn-pills button,
+.home-cat-column,.payment-row,.rw,.ct,.ch,.sg button { transition: background-color .16s ease,color .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease; }
+.bt:active,.ib:active,.ref-utility-button:active { transform:scale(.985); }
+.ov.on { animation:fade .13s ease-out; }
+.sh { animation:up .18s ease-out; }
+.pcard { transition:transform .20s ease,opacity .20s ease; }
+.hero .bar b { transition:width .20s ease; }
+@media(prefers-reduced-motion: reduce){ .bt,.ib,.ref-utility-button,.dock-bar>button,.tn-pills button,.home-cat-column,.payment-row,.rw,.ct,.ch,.sg button,.ov.on,.sh,.pcard,.hero .bar b {transition:none!important;animation:none!important;} }
+/* Category budgets are legacy stored values; no longer presented as preferences. */
+#catBudgetInputs,#categoryBudgetSummary {display:none!important;}
+/* Keep settings compact and avoid odd border insets on iOS */
+#mS .settings-sheet > label {margin-top:17px;}
+#mS .settings-sheet input, #mS .settings-sheet select {border-radius:14px;}
+
 </style>
 </head>
 <body>
@@ -2333,8 +2356,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <div class="shh"><b>Settings</b><button type="button" class="ib" onclick="cl('mS')" aria-label="Close settings" data-i="x"></button></div>
     <label for="sT">Total wedding budget (₹)</label><input id="sT" type="text" inputmode="numeric" pattern="[0-9,]*" maxlength="16" autocomplete="off" placeholder="e.g. 30,00,000" oninput="formatRupeeInput(this)">
     <label for="sD">Wedding date</label><input id="sD" type="date">
-    <div class="l" style="margin-top:20px">Category budgets <span class="m">(optional)</span></div>
-    <div class="category-budget-grid" id="catBudgetInputs"></div>
     <button type="button" class="bt a admin-only" style="width:100%;margin-top:16px" onclick="setB()">Save Settings</button>
     <button type="button" class="bt s" style="width:100%;margin-top:8px" onclick="signOutAction()">Sign out</button>
     <label style="margin-top:22px">Appearance</label>
@@ -2459,8 +2480,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
-
 <script>
 const FIREBASE_URL = "https://wedding-tracker-f7ddc-default-rtdb.firebaseio.com";
 const firebaseConfig = {
@@ -2796,6 +2815,7 @@ async function commitMutation(fn) {
   if (mutationBusy) { toast('A change is already being saved. Please try again.'); return false; }
   const before = structuredClone(S);
   mutationBusy = true;
+  ss('Saving…');
   try {
     fn();
     render();
@@ -2807,17 +2827,24 @@ async function commitMutation(fn) {
     if (budgetChanged && !isAdmin) throw new Error('Only the administrator can change wedding budgets.');
     for (const id of changed) await cloudSaveExpense(id, nextMap.get(id)||null, prevMap.get(id)||null);
     if (budgetChanged) await cloudSaveMeta(S, before);
-    if (changed.length || budgetChanged) await ledgerRoot().child('rev').set(String(Date.now())+'-'+Math.random().toString(36).slice(2,8));
+    if (changed.length || budgetChanged) {
+      try { await ledgerRoot().child('rev').set(String(Date.now())+'-'+Math.random().toString(36).slice(2,8)); }
+      catch (e) { console.warn('Change saved, but update notification failed', e); }
+    }
+    ss('Saved');
     return true;
   } catch(e) {
     console.error('Save was not completed',e);
     toast(String(e.message||'Save failed').slice(0,190));
     S = before;
+    render();
+    ss('Save failed');
     return false;
   } finally {
     mutationBusy = false;
-    // Always read the authoritative server state (including partial saves or concurrent edits).
-    try { await loadCloudLedger(); } catch(e) { console.warn(e); }
+    // Refresh asynchronously after releasing the write lock. Saving is already confirmed.
+    // On a failed multi-record save, this also reconciles any partial server changes.
+    void loadCloudLedger().catch(e => console.warn('Background sync failed', e));
   }
 }
 
@@ -2846,7 +2873,7 @@ function cnt(el, to) {
   if (from === to) { el.textContent = inr(to); return; }
   const t0 = performance.now();
   const step = now => {
-    const k = Math.min(1, (now - t0) / 500);
+    const k = Math.min(1, (now - t0) / 190);
     const e = 1 - Math.pow(1 - k, 3);
     el.textContent = inr(from + (to - from) * e);
     if (k < 1) el._r = requestAnimationFrame(step);
@@ -2874,8 +2901,9 @@ function render() {
   $('cd').textContent = d === null ? 'Wedding ledger' : d > 0 ? d + ' days to go' : d === 0 ? 'Today is the day!' : 'Happily married';
 
   const u = f => [...new Set(S.exp.map(f).filter(Boolean))].map(v => `<option value="${esc(v)}">`).join('');
-  $('dlV').innerHTML = u(x => x.givenTo);
-  $('dlP').innerHTML = u(x => x.paidBy);
+  const vendors = u(x => x.givenTo), payers = u(x => x.paidBy);
+  if ($('dlV')._cached !== vendors) { $('dlV').innerHTML = vendors; $('dlV')._cached = vendors; }
+  if ($('dlP')._cached !== payers) { $('dlP').innerHTML = payers; $('dlP')._cached = payers; }
 
   if (tab === 'home') { home(); renderDueAlerts(); }
   if (tab === 'pay') { pay(); sideP(); }
@@ -3221,7 +3249,7 @@ function ins() {
   selectTrendPoint('trendInsights', 5);
   $('insS').innerHTML = [['cat','Categories'],['fn','Functions'],['by','Paid by'],['ven','Vendors']]
     .map(([a,b]) => `<button type="button" class="${k===a?'on':''}" aria-pressed="${k===a}" onclick="insK='${a}';ins()">${b}</button>`).join('');
-  $('categoryBudgetSummary').innerHTML = k === 'cat' ? categoryBudgetOverview() : '';
+  $('categoryBudgetSummary').innerHTML = '';
   $('insL').innerHTML = ks.length ? ks.map(g => {
     const p = m[g] || 0, q = pm[g] || 0, total = p+q;
     const pp = total ? 100*p/total : 0;
@@ -3295,7 +3323,7 @@ function acc() {
             <div class="acct-info-row"><span>Pending to vendors</span><b>${inr(s.tc)}</b></div>
           </section>
           <section class="acct-section"><div class="acct-heading"><div><div class="ref-eyebrow">TOOLS</div><h4>Data &amp; reports</h4></div></div>
-            <button type="button" class="acct-action" onclick="openS()"><span class="acct-action-icon tint-lilac">${svg('sliders')}</span><span><b>Budget &amp; preferences</b><small>Change wedding budget and dates</small></span><span class="acct-chevron">›</span></button>
+            <button type="button" class="acct-action" onclick="openS()"><span class="acct-action-icon tint-lilac">${svg('sliders')}</span><span><b>Budget &amp; wedding date</b><small>Change wedding budget and dates</small></span><span class="acct-chevron">›</span></button>
             <button type="button" class="acct-action" onclick="xl()"><span class="acct-action-icon tint-blue">${svg('list')}</span><span><b>Export to Excel</b><small>Download your payment records</small></span><span class="acct-chevron">›</span></button>
             <button type="button" class="acct-action" onclick="pdfReport()"><span class="acct-action-icon tint-peach">${svg('chart')}</span><span><b>Financial PDF report</b><small>Save or print a summary</small></span><span class="acct-chevron">›</span></button>
             <button type="button" class="acct-action" onclick="bk()"><span class="acct-action-icon tint-mint">${svg('clip')}</span><span><b>Download backup</b><small>Keep a copy of your ledger</small></span><span class="acct-chevron">›</span></button>
@@ -3575,22 +3603,9 @@ async function save() {
   toast('Saved to Wedding Ledger');
 }
 
-function renderCategoryBudgetInputs() {
-  $('catBudgetInputs').innerHTML = CK.map((name, i) => `<div class="settings-category-item"><label for="cb${i}">${CATS[name]} ${esc(name)}</label><input type="number" id="cb${i}" min="0" step="1" inputmode="numeric" value="${Number(S.cat[name]) || ''}" placeholder="No limit"></div>`).join('');
-}
-function collectCategoryBudgets() {
-  const out = {};
-  CK.forEach((k, i) => {
-    const raw = $('cb' + i).value;
-    const v = Number(raw);
-    if (raw !== '' && Number.isSafeInteger(v) && v >= 0) out[k] = v;
-  });
-  return out;
-}
 function openS() {
   $('sT').value = S.total ? groupedINR(S.total) : '';
   $('sD').value = S.date || '';
-  renderCategoryBudgetInputs();
   ov('mS');
 }
 async function setB() {
@@ -3600,7 +3615,6 @@ async function setB() {
   const saved = await commitMutation(() => {
     S.total = v;
     S.date = $('sD').value || S.date || '';
-    S.cat = collectCategoryBudgets();
   });
   if (!saved) return;
   cl('mS');
@@ -3695,19 +3709,105 @@ async function rs(e) {
     toast('Backup restored');
   } catch (_) { toast('Invalid backup file.'); }
 }
+// Dependency-free, multipage PDF report: no CDN or external library required.
+// Uses PDF standard Helvetica fonts and ASCII-safe text to guarantee readable exports.
 function pdfReport() {
-  const pdf = window.jspdf && window.jspdf.jsPDF;
-  if (!pdf) return toast('PDF generator unavailable right now.');
-  const d = new pdf({ unit: 'pt', format: 'a4' });
-  let y = 54;
-  d.setFont('helvetica', 'bold'); d.setFontSize(18);
-  d.text('Swetha & Kalyan — Wedding Ledger', 44, y); y += 26;
-  d.setFont('helvetica', 'normal'); d.setFontSize(11);
-  [['Total Budget', S.total], ['Total Paid', spent()], ['Pending Balance', owed()], ['Cash Left', S.total - spent()]].forEach(([k, v]) => {
-    d.text(`${k}: INR ${Math.round(v || 0).toLocaleString('en-IN')}`, 44, y); y += 18;
-  });
-  d.save('Wedding_Ledger_Report_' + today() + '.pdf');
-  toast('PDF downloaded');
+  try {
+    const text = value => String(value ?? '')
+      .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/\u20b9/g, 'INR ').replace(/[\u2013\u2014]/g, '-')
+      .replace(/[^\x20-\x7e]/g, '?');
+    const safe = value => text(value).replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+    const money = value => 'INR ' + Math.round(Number(value) || 0).toLocaleString('en-IN');
+    const W = 595.28, H = 841.89;
+    const pages = [], cmds = [];
+    let lines = [], y = 0;
+    const cmd = (t, x, top, size = 10, bold = false) => {
+      const font = bold ? '/F2' : '/F1';
+      lines.push(`BT ${font} ${size} Tf 1 0 0 1 ${x} ${(H - top).toFixed(2)} Tm (${safe(t)}) Tj ET`);
+    };
+    const rule = (top) => lines.push(`0.84 0.85 0.90 RG 42 ${(H - top).toFixed(2)} m 553 ${(H - top).toFixed(2)} l S`);
+    const page = () => {
+      if (lines.length) pages.push(lines.join('\n'));
+      lines = ['0.12 0.17 0.28 rg', '0.6 w'];
+      y = 47;
+      cmd('SWETHA & KALYAN', 42, y, 19, true); y += 20;
+      cmd('WEDDING LEDGER  /  FINANCIAL REPORT', 42, y, 9, true);
+      cmd('Generated: ' + today(), 425, y, 9);
+      y += 17; rule(y); y += 22;
+    };
+    page();
+    const committed = S.exp.reduce((v, x) => v + (Number(x.amount) || 0), 0);
+    [['Total wedding budget', money(S.total)],
+     ['Total paid', money(spent())],
+     ['Outstanding vendor balances', money(owed())],
+     ['Committed to vendors', money(committed)],
+     ['Unallocated budget', money((Number(S.total) || 0) - committed)],
+     ['Cash remaining after payments', money((Number(S.total) || 0) - spent())]
+    ].forEach(([k, v]) => { cmd(k, 44, y, 10); cmd(v, 335, y, 11, true); y += 22; });
+    y += 8; rule(y); y += 24;
+    cmd('VENDOR PAYMENTS', 42, y, 13, true); y += 23;
+    const heading = () => {
+      cmd('VENDOR / CATEGORY', 43, y, 9, true);
+      cmd('COMMITTED', 298, y, 9, true);
+      cmd('PAID', 390, y, 9, true);
+      cmd('DUE', 476, y, 9, true);
+      y += 11; rule(y); y += 17;
+    };
+    heading();
+    const ordered = [...S.exp].sort((a, b) => (a.givenTo || '').localeCompare(b.givenTo || ''));
+    if (!ordered.length) { cmd('No vendor entries yet.', 44, y, 11); y += 23; }
+    for (const x of ordered) {
+      if (y > 751) { page(); heading(); }
+      cmd(text(x.givenTo || 'Unnamed').slice(0, 35), 44, y, 10, true);
+      cmd(money(x.amount), 298, y, 9);
+      cmd(money(got(x)), 390, y, 9);
+      cmd(money(rem(x)), 476, y, 9);
+      y += 14;
+      cmd(text((x.cat || 'Other') + (x.due ? '  /  Due ' + fd(x.due) : '')).slice(0, 75), 44, y, 8);
+      y += 22; rule(y - 6);
+    }
+    pages.push(lines.join('\n'));
+    const objects = [''];
+    const add = body => { objects.push(body); return objects.length - 1; };
+    const font1 = add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+    const font2 = add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+    const kids = [];
+    const pagesObj = add('');
+    pages.forEach((body, i) => {
+      // The PDF byte stream is ASCII only, so JS string length matches byte length.
+      const content = add(`<< /Length ${body.length} >>\nstream\n${body}\nendstream`);
+      const pg = add(`<< /Type /Page /Parent ${pagesObj} 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 ${font1} 0 R /F2 ${font2} 0 R >> >> /Contents ${content} 0 R >>`);
+      kids.push(pg);
+    });
+    objects[pagesObj] = `<< /Type /Pages /Kids [${kids.map(x => x + ' 0 R').join(' ')}] /Count ${kids.length} >>`;
+    const root = add(`<< /Type /Catalog /Pages ${pagesObj} 0 R >>`);
+    let pdf = '%PDF-1.4\n%WLED\n';
+    const offsets = [0];
+    for (let i = 1; i < objects.length; i++) {
+      offsets[i] = pdf.length;
+      pdf += `${i} 0 obj\n${objects[i]}\nendobj\n`;
+    }
+    const offset = pdf.length;
+    pdf += `xref\n0 ${objects.length}\n0000000000 65535 f \n`;
+    for (let i = 1; i < objects.length; i++) pdf += String(offsets[i]).padStart(10, '0') + ' 00000 n \n';
+    pdf += `trailer\n<< /Size ${objects.length} /Root ${root} 0 R >>\nstartxref\n${offset}\n%%EOF`;
+    const bytes = new TextEncoder().encode(pdf);
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Wedding_Ledger_Report_' + today() + '.pdf';
+    document.body.appendChild(a);
+    a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 15000);
+    toast('PDF report ready');
+    return bytes;
+  } catch (error) {
+    console.error('PDF export failed', error);
+    toast('PDF export failed. Please try again.');
+    return null;
+  }
 }
 function exportDueCalendar() {
   const upcoming = S.exp.filter(x => rem(x) > 0 && /^\d{4}-\d{2}-\d{2}$/.test(x.due || ''));
