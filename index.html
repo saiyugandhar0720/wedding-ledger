@@ -1791,6 +1791,48 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
 @media(max-width:700px){.acct-lower-grid{grid-template-columns:1fr}.acct-stats{grid-template-columns:repeat(2,minmax(0,1fr))}#v-ins .ins-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ins-visual-grid,.ins-detail-grid{gap:14px;margin-bottom:14px}.ins-breakdown-card,.ins-aside-card,#v-ins .mon,.ins-budget-panel{padding:18px;border-radius:20px}.ref-page-title{align-items:start}.ref-title-actions .ref-utility-button{padding:9px;}.ref-title-actions .ref-utility-button span{display:none} }
 @media(max-width:390px){.acct-stats{grid-template-columns:1fr 1fr}.acct-stat{padding:13px 12px}.acct-stat:nth-child(1){grid-column:1/-1}.acct-stat strong{font-size:19px}#v-ins .ins-kpi{padding:13px}#v-ins .ins-kpi strong{font-size:16px}.ins-budget-legend > b{font-size:12px}.ins-breakdown-card,.ins-aside-card{padding:16px} }
 
+
+/* Sign-in recovery and legible rupee inputs, November 2026 */
+.amr { padding:14px 16px; min-height:94px; align-items:center; gap:10px; }
+.amr-inner { flex:1 1 auto; min-width:0; display:flex; align-items:center; gap:6px; }
+.amr .amr-inner > span { font-size:clamp(30px,7vw,38px); line-height:1; flex:0 0 auto; }
+.amr #fA, .amr input#fA[type="text"] {
+  display:block; flex:1 1 auto; width:100%; min-width:0;
+  font-family:var(--font-sans); font-size:clamp(30px,7.7vw,42px) !important;
+  font-weight:800 !important; line-height:1.22; letter-spacing:-.055em;
+  color:var(--ink) !important; opacity:1; -webkit-text-fill-color:var(--ink);
+  min-height:52px; text-overflow:clip;
+}
+.amr #fA.amount-long {font-size:clamp(24px,6vw,32px) !important; letter-spacing:-.065em;}
+.amr #fA::placeholder {color:var(--mut); opacity:.65; -webkit-text-fill-color:var(--mut);}
+.amr .dn {flex:0 0 auto; padding:10px 12px; font-size:12px;}
+#partW input#fPd {font-size:20px; font-weight:750; min-height:48px;}
+#googleSignIn:disabled {opacity:.72; cursor:progress;}
+#lM.auth-processing {color:#293E70 !important; background:#EDF2FF !important; border-color:#DCE3FA !important;}
+@media (max-width:420px) {
+  .amr {padding:13px 11px; gap:6px;}
+  .amr .dn {padding:9px 10px;}
+  .amr #fA, .amr input#fA[type="text"] {font-size:clamp(28px,8.1vw,36px) !important;}
+  .amr #fA.amount-long {font-size:clamp(21px,6vw,27px) !important;}
+}
+
+
+/* Login monogram alignment: keep the complete crest within the navy header. */
+.lg-card::before { height: 205px; }
+.lg-badge { margin-bottom: 18px; }
+.lg-crest {
+  width: 74px;
+  height: 74px;
+  border-radius: 23px;
+  margin: 0 auto 68px;
+  box-shadow: 0 9px 22px rgba(13,22,47,.12);
+}
+.lg-crest svg { width: 53px; height: 37px; }
+@media (max-width: 420px) {
+  .lg-card::before { height: 196px; }
+  .lg-crest { width: 72px; height: 72px; margin-bottom: 67px; border-radius: 22px; }
+}
+
 </style>
 </head>
 <body>
@@ -2212,7 +2254,10 @@ function formatRupeeInput(el) {
   const prefix = digits.slice(0,before);
   const pos = prefix && prefix.length <= 15 ? Number(prefix).toLocaleString('en-IN').length : 0;
   try {el.setSelectionRange(pos,pos);} catch(_){ }
-  if (el.id === 'fA') validateRupeeInput(el);
+  if (el.id === 'fA') {
+    el.classList.toggle('amount-long', digits.length >= 9);
+    validateRupeeInput(el);
+  }
 }
 function validateRupeeInput(el, requirePositive=false) {
   const n = parseRupees(el.value);
@@ -3094,6 +3139,7 @@ function reset() {
   $('iS').textContent = '';
   if ($('amountError')) $('amountError').hidden = true;
   $('fA').removeAttribute('aria-invalid');
+  $('fA').classList.remove('amount-long');
   $('aT').textContent = 'New payment';
   cs(0);
   document.querySelectorAll('#sg button').forEach(b => b.disabled = false);
@@ -3109,6 +3155,7 @@ function edit(id) {
   editId = id;
   $('aT').textContent = 'Edit payment';
   $('fA').value = groupedINR(x.amount);
+  $('fA').classList.toggle('amount-long', String(Math.round(x.amount || 0)).length >= 9);
   $('fDt').value = x.iso || today();
   $('fN').value = x.givenTo;
   $('fP').value = x.phone || '';
@@ -3408,39 +3455,62 @@ async function switchGoogleAccount() {
   return doProv();
 }
 const googleErrors = {
+  'auth/popup-blocked':'Your browser blocked the Google sign-in window. Allow pop-ups or open the site in Safari or Chrome and retry.',
+  'auth/cancelled-popup-request':'The sign-in attempt was interrupted. Please try again.',
   'auth/popup-closed-by-user':'Google sign-in was cancelled. Please try again.',
   'auth/network-request-failed':'No internet connection. Check your network and try again.',
   'auth/unauthorized-domain':'This website has not been authorized in Firebase Authentication. Add it under Authorized domains.',
   'auth/operation-not-allowed':'Google sign-in is not enabled for this Firebase project.'
 };
 let signInBusy = false;
+function authStepWithDeadline(promise, ms, label) {
+  let timer;
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error(label + ' did not finish. Check your connection, return to this tab, then try again. If this is an installed iPhone web app, open the website directly in Safari.')), ms);
+    })
+  ]).finally(() => clearTimeout(timer));
+}
 async function doProv() {
   if (signInBusy) return;
-  if (!AUTH) { $('lM').textContent='Unable to load Google sign-in. Please refresh this page.'; return; }
-  if (location.protocol==='file:') { $('lM').textContent='Open the Wedding Ledger on its authorized HTTPS website to sign in. Downloaded HTML files cannot authenticate.'; return; }
+  if (!AUTH) { $('lM').textContent='Unable to load Google sign-in. Please refresh the page.'; return; }
+  if (location.protocol === 'file:') { $('lM').textContent='Open the Wedding Ledger on its authorized HTTPS website to sign in.'; return; }
+  if (!navigator.onLine) { $('lM').textContent='No internet connection. Reconnect and try again.'; return; }
   signInBusy = true;
   const button = $('googleSignIn');
   button.disabled = true;
   $('authProblem').hidden = true;
-  $('lM').textContent = 'Opening Google sign-in…';
+  $('lM').classList.add('auth-processing');
+  $('lM').textContent = 'Connecting to Google…';
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({prompt:'select_account'});
   try {
-    try { await AUTH.setPersistence(firebase.auth.Auth.Persistence.LOCAL); }
-    catch(_) { try { await AUTH.setPersistence(firebase.auth.Auth.Persistence.SESSION); } catch(_) {} }
-    try { await AUTH.signInWithPopup(provider); }
-    catch(e) {
-      if (e.code==='auth/popup-blocked' || e.code==='auth/operation-not-supported-in-this-environment') {
-        await AUTH.signInWithRedirect(provider);
+    // IMPORTANT: invoke the popup synchronously from the user's button tap.
+    // Awaiting setPersistence() here can consume the browser's popup activation.
+    $('lM').textContent = 'Choose your Google account in the sign-in window…';
+    try {
+      const popupAttempt = AUTH.signInWithPopup(provider);
+      await authStepWithDeadline(popupAttempt, 30000, 'Google sign-in');
+    } catch(e) {
+      if (e.code === 'auth/popup-blocked' || e.code === 'auth/operation-not-supported-in-this-environment') {
+        $('lM').textContent = 'Switching to Google sign-in…';
+        await authStepWithDeadline(AUTH.signInWithRedirect(provider), 10000, 'Google redirect');
         return;
       }
       throw e;
     }
-    $('lM').textContent = 'Signed in. Verifying family access…';
-    await openCloudLedger();
-  } catch(e) { showAuthProblem(googleErrors[e.code] || e.message || 'Google sign-in failed.'); }
-  finally { signInBusy=false; button.disabled=false; }
+    $('lM').textContent = 'Signed in. Checking family access…';
+    await authStepWithDeadline(openCloudLedger(), 20000, 'Opening wedding records');
+  } catch(e) {
+    showAuthProblem(googleErrors[e.code] || e.message || 'Google sign-in failed. Try again.');
+  } finally {
+    $('lM').classList.remove('auth-processing');
+    signInBusy = false;
+    button.disabled = false;
+  }
 }
+
 
 document.addEventListener('keydown', e => {
   const dialog = [...document.querySelectorAll('.ov.on')].at(-1);
