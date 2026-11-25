@@ -1923,7 +1923,7 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
   .home-layout {grid-template-columns:minmax(0,.99fr) minmax(0,1.01fr);align-items:start;}
   .home-main .category-panel {margin-top:0;}
   .home-aside {min-width:0;}
-  .home-aside .recent-panel {position:sticky;top:101px;max-height:calc(100dvh - 120px);overflow-y:auto;scrollbar-width:thin;}
+  .home-aside .recent-panel {position:static;top:auto;max-height:none;overflow:visible;scrollbar-width:none;}
 }
 @media (max-width:979px) {
   .home-layout {display:flex;flex-direction:column;gap:15px;}
@@ -1983,6 +1983,51 @@ input[type="number"] {-moz-appearance:textfield;appearance:textfield;}
   .hd2 {padding:20px 50px 18px !important;}
   .hd2 .nm2 {font-size:clamp(21px,6vw,25px);}
 }
+
+
+/* FINAL POLISH: hidden scrollbar tracks, normal scrolling and naturally sized recent activity */
+html, body, body *, .sh, .chs {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar, body *::-webkit-scrollbar,
+.sh::-webkit-scrollbar, .chs::-webkit-scrollbar {
+  display:none !important;
+  width:0 !important;
+  height:0 !important;
+}
+/* This card grows with its rows. Only the document scrolls on the Home page. */
+.home-aside .recent-panel {
+  position:static !important;
+  top:auto !important;
+  max-height:none !important;
+  height:auto !important;
+  overflow:visible !important;
+  scrollbar-width:none !important;
+}
+#rec, #rec .grp {max-height:none !important; overflow:visible !important;}
+.home-aside {align-self:start;}
+#rec .payment-row {min-height:76px;}
+#rec .payment-row-amount .outstanding-amount {color:var(--bad);font-weight:700;}
+/* Consistent layout measurements and readable wrapping across views. */
+.page-heading, .sh2, .ins-section-title, .acc-title {min-width:0;}
+.page-heading b {line-height:1.23;}
+#v-home, #v-pay, #v-ins, #v-acc, .home-layout, .home-main, .home-aside, .ic1, .ic2, .pc1, .pc2 {min-width:0;}
+#v-ins .ins-kpi-grid > *, #v-acc .acc-kpi-grid > * {min-width:0;}
+#v-ins .ins-kpi b, #v-acc .acc-kpi b {overflow-wrap:anywhere;}
+#rec .grp {box-shadow:none;}
+#rec .payment-row .m.t {overflow-wrap:anywhere;}
+#rec .payment-row-amount {min-width:0;}
+/* Remove native arrows without changing date picker behavior. */
+input[type=number] {appearance:textfield;-moz-appearance:textfield;}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {-webkit-appearance:none;margin:0;}
+@media(max-width:420px) {
+  #rec .payment-row {grid-template-columns:38px minmax(0,1fr) minmax(90px,auto);gap:8px;}
+  #rec .payment-row-amount {max-width:112px;}
+  #rec .payment-row-amount>b {white-space:normal;overflow-wrap:anywhere;}
+}
+/* Preserve visible focus indicators while hiding scrollbar tracks. */
+#rec .payment-row:focus-visible {outline:3px solid var(--rose-accent);outline-offset:3px;border-radius:12px;}
 
 </style>
 </head>
@@ -2930,7 +2975,8 @@ function home() {
   renderPile();
   homeActivity();
   const wide = matchMedia('(min-width:980px)').matches;
-  const e = [...S.exp].sort(byD).slice(0, wide ? 12 : 8);
+  // Recent activity follows the latest recorded installment, not the vendor booking date.
+  const e = [...S.exp].sort((a, b) => (lastPay(b) || '').localeCompare(lastPay(a) || '') || (b.ts || 0) - (a.ts || 0)).slice(0, wide ? 12 : 8);
   $('rec').innerHTML = e.length
     ? `<div class="grp">${e.map(rw).join('')}</div>`
     : '<div class="m" style="padding:20px;text-align:center">No payments yet. Tap + to add one.</div>';
@@ -3296,11 +3342,15 @@ async function rpDel() {
   });
   if (!saved) return;
   cl('mP'); cl('mD');
+  const undoId = x.id;
   undoAct = () => commitMutation(() => {
-    x.pays = prevPays;
-    x.due = prevDue;
+    const current = S.exp.find(e => e.id === undoId);
+    if (!current) throw new Error('Cannot restore installment: the vendor record no longer exists.');
+    current.pays = prevPays.map(p => ({ ...p }));
+    current.due = prevDue;
     const g = prevPays.reduce((s, p) => s + (+p.a || 0), 0);
-    x.status = g >= x.amount ? 'Paid' : g > 0 ? 'Advance Paid' : 'Pending';
+    current.status = g >= current.amount ? 'Paid' : g > 0 ? 'Advance Paid' : 'Pending';
+    current.ts = Date.now();
   });
   toastUndo('Installment removed');
 }
@@ -3318,7 +3368,7 @@ async function del() {
   const saved = await commitMutation(() => { S.exp.splice(idx, 1); });
   if (!saved) return;
   cl('mD');
-  undoAct = () => commitMutation(() => { S.exp.splice(idx, 0, removed); });
+  undoAct = () => commitMutation(() => { if (S.exp.some(e => e.id === removed.id)) throw new Error('This vendor already exists.'); S.exp.splice(Math.min(idx,S.exp.length), 0, removed); });
   toastUndo('Expense deleted');
 }
 function rcp(id) {
